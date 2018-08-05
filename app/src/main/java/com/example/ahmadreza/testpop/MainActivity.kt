@@ -7,9 +7,13 @@ class MainActivity : AppCompatActivity() {
 
     val Main_URL = "http://pop-music.ir/"
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val server = Server.st
+
     }
 
     fun getData(){
