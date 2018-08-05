@@ -1,7 +1,10 @@
-package com.example.ahmadreza.testpop
+package com.example.ahmadreza.testpop.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ahmadreza.testpop.Data.DownloadWebContent
+import com.example.ahmadreza.testpop.Data.Server
+import com.example.ahmadreza.testpop.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getData(){
-        var content = DownloadWebContent().execute(Main_URL).get()
-
+        var content = DownloadWebContent()
+        content.execute(Main_URL).get()
     }
 }

@@ -1,6 +1,5 @@
-package com.example.ahmadreza.testpop
+package com.example.ahmadreza.testpop.Data
 
-import android.media.Image
 import android.os.AsyncTask
 import java.util.regex.Pattern
 
