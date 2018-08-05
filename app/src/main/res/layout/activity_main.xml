@@ -22,15 +22,19 @@
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/viewpagertab"
+        android:id="@+id/tab_View_pager"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/colorAccent"
         android:clipToPadding="true"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:stl_defaultTabTextAllCaps="false"
         app:stl_defaultTabTextColor="#fcbebebe"
         app:stl_defaultTabTextHorizontalPadding="19dp"
+        app:stl_defaultTabTextMinWidth="0dp"
         app:stl_defaultTabTextSize="16sp"
         app:stl_dividerColor="@android:color/darker_gray"
         app:stl_dividerThickness="0dp"
@@ -39,19 +43,20 @@
         app:stl_indicatorGravity="center"
         app:stl_indicatorInterpolation="smart"
         app:stl_indicatorThickness="40dp"
-        app:stl_underlineColor="@android:color/transparent"
-        app:stl_defaultTabTextAllCaps="false"
-        app:stl_indicatorWithoutPadding="false"
         app:stl_indicatorWidth="auto"
-        app:stl_defaultTabTextMinWidth="0dp"
-        />
+        app:stl_indicatorWithoutPadding="false"
+        app:stl_underlineColor="@android:color/transparent" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/viewpagertab"
-        />
+        android:layout_height="0dp"
+        android:layout_below="@id/tab_View_pager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tab_View_pager"
+        app:layout_constraintVertical_bias="0.341" />
 
 
 </android.support.constraint.ConstraintLayout>
