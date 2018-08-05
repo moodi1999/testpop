@@ -5,4 +5,4 @@ package com.example.ahmadreza.testpop
  */
 class SongData(val link :String,val title :String,val singer :String,val Img_URL :String,
                val category_tag_g :String,val category_tag_t :String,val Date :String,
-               val title_en :String,val singer_en :String,val seen :String)
+               val views :String)
