@@ -17,13 +17,13 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
         println("doInBackground")
 
         try {
+            println("got here")
             val doc = Jsoup.connect(urls[0]).get()
             val html = doc.outerHtml()
-            println(html)
+            //println(html)
             println("done it")
             var dataSt = DataStorage.instance
             dataSt.recentWebContent = html
-            FindData().execute()
             return html
         }
         catch (e: Exception){
@@ -33,7 +33,6 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
     }
 
     override fun onPostExecute(result: String?) {
-
         super.onPostExecute(result)
 
     }

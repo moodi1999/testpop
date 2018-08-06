@@ -22,6 +22,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>): RecyclerView.Adapter<Re
     }
 
     override fun getItemCount(): Int {
+
        return arrayList.count()
     }
 

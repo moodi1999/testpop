@@ -13,6 +13,7 @@ import com.example.ahmadreza.testpop.Data.SongData
 
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_recent.*
+import kotlinx.android.synthetic.main.fragment_recent.view.*
 
 
 /**
@@ -35,26 +36,23 @@ class Recent : Fragment() {
         }
     }
 
-    lateinit var adaptor: RecentRecyAdp
-    var arr: ArrayList<SongData> = ArrayList()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
+        var arr: ArrayList<SongData>
+        arr = DataStorage.instance.arr_recentData
+        var adaptor = RecentRecyAdp(arr)
         println("${arr.count()} >>>>>>>>>>>>>>>>.")
+        view.recent_recyclerView.adapter = adaptor
+        val layoutm = GridLayoutManager(context, 2)
+        view.recent_recyclerView.layoutManager = layoutm
+        view.recent_recyclerView.setHasFixedSize(true)
 
         return view
-    }
-
-    fun updateUi(){
-        arr = DataStorage.instance.arr_recentData
-        adaptor = RecentRecyAdp(arr)
-        recent_recyclerView.adapter = adaptor
-        val layoutm = GridLayoutManager(context, 2)
-        recent_recyclerView.layoutManager = layoutm
-        recent_recyclerView.setHasFixedSize(true)
     }
 
 
@@ -75,6 +73,7 @@ class Recent : Fragment() {
          */
         // TODO: Rename and change types and number of parameters
         fun newInstance(param1: String, param2: String): Recent {
+            print("newinstance")
             val fragment = Recent()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
