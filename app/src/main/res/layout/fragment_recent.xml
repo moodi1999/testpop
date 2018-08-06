@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.ahmadreza.testpop.Fragments.Recent">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recent_recyclerView"
         android:layout_width="match_parent"

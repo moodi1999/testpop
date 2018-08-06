@@ -1,5 +1,8 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.os.AsyncTask
 import android.support.v7.widget.RecyclerView
 import android.telecom.Call
 import android.view.LayoutInflater
@@ -9,6 +12,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Data.SongData
 import com.example.ahmadreza.testpop.R
+import java.net.HttpURLConnection
+import java.net.URL
 
 /**
  * Created by ahmadreza on 8/6/18.
@@ -40,7 +45,33 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>): RecyclerView.Adapter<Re
         fun updateUi(songdata: SongData){
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
+            if (artistImg.resources)
+            //DownloadImg(artistImg).execute(songdata.Img_URL)
         }
 
+    }
+
+    inner class DownloadImg(val artistImg: ImageView?): AsyncTask<String, Void, Bitmap>() {
+
+        override fun doInBackground(vararg urls: String?): Bitmap {
+            try {
+                val url = URL(urls[0])
+                var connect = url.openConnection() as HttpURLConnection
+                connect.connect()
+                var instream = connect.inputStream
+                var bitmap = BitmapFactory.decodeStream(instream)
+
+                return bitmap
+            }
+            catch (e: Exception){
+                e.printStackTrace()
+                return null!!
+            }
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            super.onPostExecute(result)
+            artistImg?.setImageBitmap(result)
+        }
     }
 }

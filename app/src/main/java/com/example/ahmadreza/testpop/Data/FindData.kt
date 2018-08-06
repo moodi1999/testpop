@@ -1,22 +1,30 @@
 package com.example.ahmadreza.testpop.Data
 
+import android.content.Context
 import android.os.AsyncTask
+import android.support.v7.widget.GridLayoutManager
+import android.view.View
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Fragments.Recent
+import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
 
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
+class FindData(val view: View) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
     val Ds = DataStorage.instance
     override fun doInBackground(vararg uni: Unit): ArrayList<SongData>? {
 
         try {
+            while (Ds.recentWebContent == ""){
+                //wait
+            }
             var songdata_arr :ArrayList<SongData> = ArrayList()
 
-            val n = ((Ds.recentWebContent!!.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
+            val n = ((Ds.recentWebContent.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
-            val m_title = Pattern.compile("</strong> بنام <strong>(.*?)</strong> با بالاترین کیفیت</p>").matcher(n)
+            val m_title = Pattern.compile(Ds.pt_title_songs).matcher(n)
             val m_singer = Pattern.compile(Ds.pt_singer_songs).matcher(n)
             val m_ImgUrl = Pattern.compile(Ds.pt_Img_Url_songs).matcher(n)
             val m_cat = Pattern.compile(Ds.pt_allcat_songs).matcher(n)
@@ -48,7 +56,7 @@ class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
 
 
 
-                val songdata = SongData(link, title, singer, " ", catG, catT, date, views)
+                val songdata = SongData(link, title, singer, ImgUrl, catG, catT, date, views)
                 songdata_arr.add(songdata)
             }
 
@@ -63,6 +71,12 @@ class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
     override fun onPostExecute(result: ArrayList<SongData>?) {
         super.onPostExecute(result)
         Ds.arr_recentData = result!!
+        println("Data set")
+
+        var arr: ArrayList<SongData>
+        arr = DataStorage.instance.arr_recentData
+        var adaptor = RecentRecyAdp(arr)
+        view.recent_recyclerView.adapter = adaptor
     }
 
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Data.DataStorage
+import com.example.ahmadreza.testpop.Data.FindData
 import com.example.ahmadreza.testpop.Data.SongData
 
 import com.example.ahmadreza.testpop.R
@@ -43,11 +44,9 @@ class Recent : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
-        var arr: ArrayList<SongData>
-        arr = DataStorage.instance.arr_recentData
-        var adaptor = RecentRecyAdp(arr)
-        println("${arr.count()} >>>>>>>>>>>>>>>>.")
-        view.recent_recyclerView.adapter = adaptor
+        FindData(view).execute()
+        println("pass 2")
+
         val layoutm = GridLayoutManager(context, 2)
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
