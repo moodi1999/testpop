@@ -8,12 +8,12 @@ import java.util.regex.Pattern
  * Created by ahmadreza on 8/5/18.
  */
 class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
-
+    val Ds = DataStorage.instance
     override fun doInBackground(vararg uni: Unit): ArrayList<SongData>? {
 
         try {
             var songdata_arr :ArrayList<SongData> = ArrayList()
-            val Ds = DataStorage.instance
+
             val n = ((Ds.recentWebContent!!.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
             val m_title = Pattern.compile("</strong> بنام <strong>(.*?)</strong> با بالاترین کیفیت</p>").matcher(n)
@@ -27,15 +27,12 @@ class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
             while (m_title.find() &&  m_singer.find() && m_ImgUrl.find()
                     && m_link.find() && m_cat.find() && m_date.find()
                     && m_views.find()){
-                println("gotherebefadd")
+
                 val title = m_title.group(1)
-                println("${title} titleis")
                 val singer = m_singer.group(1)
-                println("${singer} singer")
                 val link = m_link.group(1)
                 val ImgUrl = m_ImgUrl.group(1)
                 val all_cat = m_cat.group(1)
-                println("${all_cat} cat")
                 val catG: String
                 val catT: String
                 if (all_cat.length < 15){
@@ -53,9 +50,7 @@ class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
 
                 val songdata = SongData(link, title, singer, " ", catG, catT, date, views)
                 songdata_arr.add(songdata)
-                println("gotherefind ${songdata_arr.count()}")
             }
-            Ds.arr_recentData = songdata_arr
 
             return songdata_arr
         }
@@ -67,6 +62,7 @@ class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
 
     override fun onPostExecute(result: ArrayList<SongData>?) {
         super.onPostExecute(result)
+        Ds.arr_recentData = result!!
     }
 
 }

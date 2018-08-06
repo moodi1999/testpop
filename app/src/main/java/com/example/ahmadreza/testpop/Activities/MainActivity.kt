@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getData(){
         println("pass 0")
-        DownloadWebContent().execute(Main_URL).get()
+        DownloadWebContent().execute(Main_URL)
         println("pass 1")
         FindData().execute().get()
         println("pass 2")
