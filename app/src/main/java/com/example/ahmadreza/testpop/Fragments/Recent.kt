@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ahmadreza.testpop.Data.SongData
 
 import com.example.ahmadreza.testpop.R
 
@@ -17,6 +18,7 @@ import com.example.ahmadreza.testpop.R
  */
 class Recent : Fragment() {
 
+
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
@@ -27,6 +29,8 @@ class Recent : Fragment() {
             mParam1 = arguments!!.getString(ARG_PARAM1)
             mParam2 = arguments!!.getString(ARG_PARAM2)
         }
+
+        println("recenttttttttt")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -13,11 +13,22 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
     }
 
     override fun doInBackground(vararg urls: String?): String {
-        println("get herer ???????")
-        val doc = Jsoup.connect(urls[0]).get()
-        val html = doc.outerHtml()
-        println(html)
-        return html
+        println("doInBackground")
+
+        try {
+            val doc = Jsoup.connect(urls[0]).get()
+            val html = doc.outerHtml()
+            println(html)
+            println("done it")
+            var dataSt = DataStorage.instance
+            dataSt.recentWebContent = html
+
+            return html
+        }
+        catch (e: Exception){
+            println(e.printStackTrace())
+            return "|:"
+        }
     }
 
     override fun onPostExecute(result: String?) {

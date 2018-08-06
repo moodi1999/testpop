@@ -3,7 +3,9 @@ package com.example.ahmadreza.testpop.Data
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class Server {
+class DataStorage {
+
+    var recentWebContent: String? = null
 
     var bn_songs = "موضوعات و دسته بندی سایت"
     var an_songs = "<a href=\"#week\">هفته</a>"
@@ -18,18 +20,16 @@ class Server {
     var pt_date_songs = "<span class=\"date\">" + "(.*?)" + " </span>"
     var pt_views_songs = "<span class=\"view\">" + "(.*?)" + "</span>"
 
-
-
-
+    var arr_recentData: ArrayList<SongData>? = null
 
     private constructor(){
         //connect to the server and get the data and set the all
-        println("Server created")
+        println("DataStorage created")
 
     }
 
     companion object {
-        val st : Server by lazy { Server() }
+        val instance : DataStorage by lazy { DataStorage() }
     }
 
 }

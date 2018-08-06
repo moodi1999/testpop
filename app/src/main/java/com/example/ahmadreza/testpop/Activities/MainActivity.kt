@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.Data.DownloadWebContent
-import com.example.ahmadreza.testpop.Data.Server
+import com.example.ahmadreza.testpop.Data.DataStorage
 import com.example.ahmadreza.testpop.Fragments.Artists
 import com.example.ahmadreza.testpop.Fragments.Categories
 import com.example.ahmadreza.testpop.Fragments.Popular
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setTitle("Pop Music")
 
 
-        var viewPad = ViewPageAdaptor(supportFragmentManager)
+        val viewPad = ViewPageAdaptor(supportFragmentManager)
 
         viewPad.addFragment(Recent(), "Recent")
         viewPad.addFragment(Categories(), "Ctegories")
@@ -36,12 +36,18 @@ class MainActivity : AppCompatActivity() {
         viewpager.adapter = viewPad
         tab_View_pager.setViewPager(viewpager)
 
-        val server = Server.st
+        getData()
 
     }
 
     fun getData(){
-        var content = DownloadWebContent()
-        content.execute(Main_URL).get()
+        DownloadWebContent().execute(Main_URL)
+        var dataSt = DataStorage.instance
+
+        while (dataSt.recentWebContent == null){
+
+        }
+        print(dataSt.recentWebContent)
+
     }
 }
