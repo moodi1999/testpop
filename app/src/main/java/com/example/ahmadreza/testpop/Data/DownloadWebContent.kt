@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Data
 
 import android.os.AsyncTask
+import com.example.ahmadreza.testpop.Fragments.Recent
 import org.jsoup.Jsoup
 
 /**
@@ -22,7 +23,7 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
             println("done it")
             var dataSt = DataStorage.instance
             dataSt.recentWebContent = html
-
+            FindData().execute()
             return html
         }
         catch (e: Exception){
@@ -32,6 +33,7 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
     }
 
     override fun onPostExecute(result: String?) {
+
         super.onPostExecute(result)
 
     }

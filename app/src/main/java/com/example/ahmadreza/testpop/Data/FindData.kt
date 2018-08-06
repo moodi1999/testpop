@@ -6,15 +6,15 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class FindData : AsyncTask<String, Unit, ArrayList<SongData>>() {
+class FindData : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
 
-    override fun doInBackground(vararg str: String): ArrayList<SongData>? {
+    override fun doInBackground(vararg uni: Unit): ArrayList<SongData>? {
 
         try {
             val songdata_arr = ArrayList<SongData>()
             val Ds = DataStorage.instance
 
-            val n = ((str[0].split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
+            val n = ((Ds.recentWebContent!!.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
 
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
             val m_title = Pattern.compile(Ds.pt_title_songs).matcher(n)

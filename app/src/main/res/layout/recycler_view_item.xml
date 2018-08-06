@@ -2,34 +2,106 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/dividerColor"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="@color/Background"
+    tools:layout_editor_absoluteY="81dp">
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        app:cardBackgroundColor="@color/dividerColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="4dp">
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/Tabbackground"
+            app:cardCornerRadius="7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.percent.PercentRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <ImageView
-                app:layout_widthPercent="100%"
-                app:layout_aspectRatio="100%"
-                />
+                <ImageView
+                    android:id="@+id/artist_imageView"
+                    android:layout_width="180dp"
+                    android:layout_height="190dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/omidnb"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        </android.support.percent.PercentRelativeLayout>
+                <TextView
+                    android:id="@+id/artist_txtv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="end"
+                    android:text="امید بیگلری"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/cardview_light_background"
+                    android:textDirection="rtl"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/song_txtv"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:layout_marginRight="24dp" />
 
+                <TextView
+                    android:id="@+id/song_txtv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="16dp"
+                    android:singleLine="true"
+                    android:text="دلبر"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/cardview_light_background"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/artist_imageView"
+                    android:gravity="end"
+                    android:layout_marginRight="8dp" />
 
-    </android.support.v7.widget.CardView>
+                <ImageButton
+                    android:id="@+id/fav_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
+                    app:layout_constraintBottom_toTopOf="@+id/det_img"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/artist_imageView"
+                    app:srcCompat="@drawable/ic_not_fave"
+                    android:layout_marginLeft="3dp" />
+
+                <ImageButton
+                    android:id="@+id/det_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginStart="3dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/ic_details"
+                    android:layout_marginLeft="3dp" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

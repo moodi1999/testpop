@@ -21,6 +21,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        uiInit()
+        getData()
+
+    }
+
+    fun getData(){
+        DownloadWebContent().execute(Main_URL)
+
+    }
+
+    fun uiInit(){
         toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
@@ -30,24 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         viewPad.addFragment(Recent(), "Recent")
         viewPad.addFragment(Categories(), "Ctegories")
-        viewPad.addFragment(Popular(), "Artists")
-        viewPad.addFragment(Artists(), "Popular")
+        viewPad.addFragment(Artists(), "Artists")
+        viewPad.addFragment(Popular(), "Popular")
 
         viewpager.adapter = viewPad
         tab_View_pager.setViewPager(viewpager)
-
-        getData()
-
-    }
-
-    fun getData(){
-        DownloadWebContent().execute(Main_URL)
-        var dataSt = DataStorage.instance
-
-        while (dataSt.recentWebContent == null){
-
-        }
-        print(dataSt.recentWebContent)
-
     }
 }

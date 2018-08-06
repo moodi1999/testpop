@@ -20,7 +20,7 @@ class DataStorage {
     var pt_date_songs = "<span class=\"date\">" + "(.*?)" + " </span>"
     var pt_views_songs = "<span class=\"view\">" + "(.*?)" + "</span>"
 
-    var arr_recentData: ArrayList<SongData>? = null
+    var arr_recentData: ArrayList<SongData> = ArrayList()
 
     private constructor(){
         //connect to the server and get the data and set the all

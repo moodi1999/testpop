@@ -3,12 +3,16 @@ package com.example.ahmadreza.testpop.Fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
+import com.example.ahmadreza.testpop.Data.DataStorage
 import com.example.ahmadreza.testpop.Data.SongData
 
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.fragment_recent.*
 
 
 /**
@@ -29,18 +33,28 @@ class Recent : Fragment() {
             mParam1 = arguments!!.getString(ARG_PARAM1)
             mParam2 = arguments!!.getString(ARG_PARAM2)
         }
-
-        println("recenttttttttt")
     }
+
+    lateinit var adaptor: RecentRecyAdp
+    var arr: ArrayList<SongData> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
-
+        println("${arr.count()} >>>>>>>>>>>>>>>>.")
 
         return view
+    }
+
+    fun updateUi(){
+        arr = DataStorage.instance.arr_recentData
+        adaptor = RecentRecyAdp(arr)
+        recent_recyclerView.adapter = adaptor
+        val layoutm = GridLayoutManager(context, 2)
+        recent_recyclerView.layoutManager = layoutm
+        recent_recyclerView.setHasFixedSize(true)
     }
 
 
