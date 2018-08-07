@@ -22,6 +22,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>): RecyclerView.Adapter<Re
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var song:SongData = arrayList.get(position)
+
         holder?.updateUi(song)
 
     }
@@ -43,10 +44,15 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>): RecyclerView.Adapter<Re
         val songTxt = itemView?.findViewById<TextView>(R.id.song_txtv)
 
         fun updateUi(songdata: SongData){
+            /*if(atristTxt?.text.toString().equals(songdata.singer)){
+                println("yes")
+            }else{
+                DownloadImg(artistImg).execute(songdata.Img_URL)
+                println("No")
+            }*/
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
-            if (artistImg.resources)
-            //DownloadImg(artistImg).execute(songdata.Img_URL)
+
         }
 
     }

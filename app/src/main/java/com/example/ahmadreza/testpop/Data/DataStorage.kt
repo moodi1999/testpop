@@ -11,8 +11,10 @@ class DataStorage {
     var an_songs = "<a href=\"#week\">هفته</a>"
 
     var pt_link_songs = "<h2><a href=\"(.*?)\" rel=\"bookmark\" title=\""
-    var pt_title_songs = "</strong> بنام <strong>(.*?)</strong> با بالاترین کیفیت</p>"
-    var pt_singer_songs = "rel=\"noopener noreferrer\">دانلود آهنگ جدید</a> <strong>" + "(.*?)" + "</strong>"
+    var pt_titleAndSinger_songs = "Download(.*?)p>"
+    var pt_titleAndSinger_songs2 = "href=\"http://pop-music.ir/tag/download-new(.*?)p>"
+    var pt_title_songs = "&#8211;(.*?)</"
+    var pt_singer_songs = ">(.*?)</a>"
     var pt_Img_Url_songs = "\" src=\"" + "(.*?)" + "\" alt=\""
     var pt_allcat_songs = "rel=\"category tag\">" + "(.*?)" + "</a></span>"
     var sp_catg_songs = "</a>, <a href=\""
@@ -24,7 +26,7 @@ class DataStorage {
     var arr_recentData: ArrayList<SongData> = ArrayList()
 
     private constructor(){
-        //connect to the server and get the data and set the all
+        //connect to the server and get the data and set them all
         println("DataStorage created")
 
     }
