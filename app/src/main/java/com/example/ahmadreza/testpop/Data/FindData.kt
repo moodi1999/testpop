@@ -13,7 +13,7 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class FindData(val view: View) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
+class FindData(val view: View, val context: Context?) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
     val Ds = DataStorage.instance
     override fun doInBackground(vararg uni: Unit): ArrayList<SongData>? {
 
@@ -33,15 +33,14 @@ class FindData(val view: View) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
 
             while (m_titleAndSinger_songs.find()){
 
-                var remix = false
-                var catG: String = ""
-                var catT: String = ""
-                var title: String = ""
-                var singer: String = ""
-                var link: String = ""
-                var ImgUrl: String = ""
-                var date: String = ""
-                var views: String = ""
+                var catG: String
+                var catT: String
+                var title: String
+                var singer: String
+                var link: String
+                var ImgUrl: String
+                var date: String
+                var views: String
 
                 try {
                     m_cat.find()
@@ -54,10 +53,6 @@ class FindData(val view: View) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
                     else{
                         catG = all_cat.split(Ds.sp_catg_songs)[0]
                         catT = all_cat.split(Ds.sp_catg_songs)[1].split(Ds.sp_catt_songs1)[1].split(Ds.sp_catt_songs2)[0]
-                    }
-
-                    if (all_cat.equals("رمیکس", true)){
-                        remix = true
                     }
                 }
                 catch (e: Exception){
@@ -77,9 +72,11 @@ class FindData(val view: View) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
                 try {
                     m_ImgUrl.find()
                     ImgUrl = m_ImgUrl.group(1)
+                    println(ImgUrl)
                 }
                 catch (e: Exception){
-
+                    ImgUrl = m_ImgUrl.group(1)
+                    println(ImgUrl)
                 }
 
                 try {
@@ -138,9 +135,7 @@ class FindData(val view: View) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
         Ds.arr_recentData = result!!
         println("Data set")
 
-        var arr: ArrayList<SongData>
-        arr = DataStorage.instance.arr_recentData
-        var adaptor = RecentRecyAdp(arr)
+        var adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context)
         view.recent_recyclerView.adapter = adaptor
     }
 

@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val Main_URL = "http://pop-music.ir/"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     fun getData(){
         println("pass 0")
-        DownloadWebContent().execute(Main_URL)
+        DownloadWebContent().execute(DataStorage.instance.Main_URL)
         println("pass 1")
     }
 

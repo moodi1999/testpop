@@ -5,6 +5,8 @@ package com.example.ahmadreza.testpop.Data
  */
 class DataStorage {
 
+    val Main_URL = "http://pop-music.ir/"
+
     var recentWebContent: String = ""
 
     var bn_songs = "موضوعات و دسته بندی سایت"

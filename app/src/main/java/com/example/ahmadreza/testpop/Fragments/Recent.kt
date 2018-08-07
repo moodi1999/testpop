@@ -44,11 +44,11 @@ class Recent : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
-        FindData(view).execute()
+        FindData(view, context).execute()
         println("pass 2")
 
         val layoutm = GridLayoutManager(context, 2)
-        view.recent_recyclerView.layoutManager = layoutm
+        view.recent_recyclerView.layoutManager = layoutm as GridLayoutManager
         view.recent_recyclerView.setHasFixedSize(true)
 
         return view
