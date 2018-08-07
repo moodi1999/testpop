@@ -7,13 +7,9 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
-import com.example.ahmadreza.testpop.Data.DataStorage
-import com.example.ahmadreza.testpop.Data.FindData
-import com.example.ahmadreza.testpop.Data.SongData
+import com.example.ahmadreza.testpop.DataFinders.RecentDF
 
 import com.example.ahmadreza.testpop.R
-import kotlinx.android.synthetic.main.fragment_recent.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 
 
@@ -44,7 +40,7 @@ class Recent : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
-        FindData(view, context).execute()
+        RecentDF(view, context).execute()
         Ui(view)
 
 

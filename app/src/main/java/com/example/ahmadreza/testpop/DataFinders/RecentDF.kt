@@ -1,23 +1,21 @@
-package com.example.ahmadreza.testpop.Data
+package com.example.ahmadreza.testpop.DataFinders
 
 import android.content.Context
 import android.os.AsyncTask
-import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
-import com.example.ahmadreza.testpop.Fragments.Recent
+import com.example.ahmadreza.testpop.Data.DataStorage
+import com.example.ahmadreza.testpop.Data.SongData
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_recent.view.*
-import kotlinx.android.synthetic.main.recycler_view_item.view.*
 import java.util.regex.Pattern
 
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class FindData(val view: View, val context: Context?) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
+class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
     val Ds = DataStorage.instance
     override fun doInBackground(vararg uni: Unit): ArrayList<SongData>? {
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.Data.DownloadWebContent
 import com.example.ahmadreza.testpop.Data.DataStorage
-import com.example.ahmadreza.testpop.Data.FindData
 import com.example.ahmadreza.testpop.Fragments.Artists
 import com.example.ahmadreza.testpop.Fragments.Categories
 import com.example.ahmadreza.testpop.Fragments.Popular
