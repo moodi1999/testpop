@@ -46,21 +46,6 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
            e.printStackTrace()
            return ":|"
        }
-
-       /* try {
-            println("got here")
-            val doc = Jsoup.connect(urls[0]).get()
-            val html = doc.outerHtml()
-            println(html)
-            println("done it")
-            var dataSt = DataStorage.instance
-            dataSt.recentWebContent = html
-            return html
-        }
-        catch (e: Exception){
-            println(e.printStackTrace())
-            return "|:"
-        }*/
     }
 
     override fun onPostExecute(result: String?) {

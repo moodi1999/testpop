@@ -5,9 +5,13 @@ import android.os.AsyncTask
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Fragments.Recent
+import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_recent.view.*
+import kotlinx.android.synthetic.main.recycler_view_item.view.*
 import java.util.regex.Pattern
 
 /**
@@ -72,11 +76,9 @@ class FindData(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Ar
                 try {
                     m_ImgUrl.find()
                     ImgUrl = m_ImgUrl.group(1)
-                    println(ImgUrl)
                 }
                 catch (e: Exception){
-                    ImgUrl = m_ImgUrl.group(1)
-                    println(ImgUrl)
+                    ImgUrl = "Not Found"
                 }
 
                 try {
@@ -119,9 +121,9 @@ class FindData(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Ar
 
 
                 val songdata = SongData(link, title, singer, ImgUrl, catG, catT, date, views)
-                songdata_arr.add(songdata)
+                Ds.arr_recentData.add(songdata)
             }
-            println(songdata_arr.count())
+            println("number of song =  ${songdata_arr.count()}")
             return songdata_arr
         }
         catch (e : Exception){
@@ -137,6 +139,13 @@ class FindData(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Ar
 
         var adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context)
         view.recent_recyclerView.adapter = adaptor
+
+        var contextr: Context = view.recent_recyclerView.context
+        var contoroler: LayoutAnimationController? = null
+        contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
+        view.recent_recyclerView.setLayoutAnimation(contoroler)
+        view.recent_recyclerView.getAdapter().notifyDataSetChanged()
+        view.recent_recyclerView.scheduleLayoutAnimation()
     }
 
 }

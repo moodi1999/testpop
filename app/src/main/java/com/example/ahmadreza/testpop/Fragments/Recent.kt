@@ -45,15 +45,17 @@ class Recent : Fragment() {
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
         FindData(view, context).execute()
-        println("pass 2")
+        Ui(view)
 
-        val layoutm = GridLayoutManager(context, 2)
-        view.recent_recyclerView.layoutManager = layoutm as GridLayoutManager
-        view.recent_recyclerView.setHasFixedSize(true)
 
         return view
     }
 
+    fun Ui(view: View): Unit {
+        val layoutm = GridLayoutManager(context, 2)
+        view.recent_recyclerView.layoutManager = layoutm as GridLayoutManager
+        view.recent_recyclerView.setHasFixedSize(true)
+    }
 
     companion object {
         // TODO: Rename parameter arguments, choose names that match
