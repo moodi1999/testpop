@@ -9,6 +9,7 @@ class DataStorage {
 
     var recentWebContent: String = ""
 
+    // recent Song pattern and split String
     var bn_songs = "موضوعات و دسته بندی سایت"
     var an_songs = "<a href=\"#week\">هفته</a>"
 
@@ -25,12 +26,20 @@ class DataStorage {
     var pt_date_songs = "<span class=\"date\">" + "(.*?)" + " </span>"
     var pt_views_songs = "<span class=\"view\">" + "(.*?)" + "</span>"
 
+    // Recent songs
     var arr_recentData: ArrayList<SongData> = ArrayList()
+
+
+    //Categories Pattern and split
+    var bn_catego = "موضوعات و دسته بندی سایت"
+    var an_catego = "<article class=\"post\">"
+
+    var pt_categourls = "href=\"(.*?)\""
+    var arr_catego_name = arrayListOf<String>("Archives Month", "Album", "Music News", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")
 
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
-
     }
 
     companion object {
