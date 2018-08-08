@@ -2,12 +2,14 @@ package com.example.ahmadreza.testpop.Fragments
 
 
 import android.os.Bundle
+import android.service.autofill.Dataset
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ahmadreza.testpop.DataFinders.RecentDF
+import com.example.ahmadreza.testpop.DataGeters.DataStorage
 
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_recent.view.*
@@ -31,6 +33,12 @@ class Recent : Fragment() {
             mParam1 = arguments!!.getString(ARG_PARAM1)
             mParam2 = arguments!!.getString(ARG_PARAM2)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        DataStorage.instance.arr_recentData.clear()
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

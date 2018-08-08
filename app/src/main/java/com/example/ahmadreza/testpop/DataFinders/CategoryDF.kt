@@ -1,14 +1,22 @@
 package com.example.ahmadreza.testpop.DataFinders
 
+import android.content.Context
 import android.os.AsyncTask
+import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+import android.widget.TextView
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
 import com.example.ahmadreza.testpop.DataGeters.CatgoData
 import com.example.ahmadreza.testpop.DataGeters.DataStorage
+import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.fragment_categories.view.*
 import java.util.regex.Pattern
 
 /**
  * Created by ahmadreza on 8/8/18.
  */
-class CategoryDF : AsyncTask<Unit, Unit, Unit>() {
+class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, Unit>() {
 
     override fun doInBackground(vararg params: Unit?) {
         val Ds = DataStorage.instance
@@ -49,6 +57,16 @@ class CategoryDF : AsyncTask<Unit, Unit, Unit>() {
     }
 
     override fun onPostExecute(result: Unit?) {
+        println("Category :Data set")
 
+        var adaptor = CategoRecyADP(DataStorage.instance.arr_categories, context)
+        view.category_recyclerView.adapter = adaptor
+
+        var contextr: Context = view.category_recyclerView.context
+        var contoroler: LayoutAnimationController? = null
+        contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
+        view.category_recyclerView.setLayoutAnimation(contoroler)
+        view.category_recyclerView.getAdapter().notifyDataSetChanged()
+        view.category_recyclerView.scheduleLayoutAnimation()
     }
 }

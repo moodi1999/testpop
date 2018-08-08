@@ -129,7 +129,7 @@ class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Un
 
     override fun onPostExecute(result: Unit) {
         super.onPostExecute(result)
-        println("Data set")
+        println("Recent :Data set")
 
         var adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context)
         view.recent_recyclerView.adapter = adaptor

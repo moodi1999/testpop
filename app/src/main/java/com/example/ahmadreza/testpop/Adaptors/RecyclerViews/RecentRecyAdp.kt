@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.ahmadreza.testpop.DataGeters.DataStorage
 import com.example.ahmadreza.testpop.DataGeters.SongData
 import com.example.ahmadreza.testpop.R
+import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 
 /**
@@ -45,8 +47,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
             atristTxt?.setText(songdata.singer)
             //DownloadImg(artistImg, context).execute()
             //Glide.with(context!!).load(songdata.Img_URL).into(artistImg!!)
-            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200)
-                    .placeholder(R.drawable.ic_loading_img).into(artistImg)
+            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).into(artistImg)
         }
 
     }

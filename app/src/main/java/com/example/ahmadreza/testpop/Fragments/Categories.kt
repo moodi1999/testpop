@@ -3,13 +3,15 @@ package com.example.ahmadreza.testpop.Fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ahmadreza.testpop.DataFinders.CategoryDF
+import com.example.ahmadreza.testpop.DataGeters.DataStorage
 
 import com.example.ahmadreza.testpop.R
-
+import kotlinx.android.synthetic.main.fragment_categories.view.*
 
 
 class Categories : Fragment() {
@@ -25,14 +27,26 @@ class Categories : Fragment() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        DataStorage.instance.arr_categories.clear()
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
 
-        CategoryDF().execute()
+        Ui(view)
+        CategoryDF(view, context!!).execute()
 
         return view
+    }
+
+    fun Ui(view: View) {
+        val layoutm = LinearLayoutManager(context)
+        view.category_recyclerView.layoutManager = layoutm as LinearLayoutManager
+        view.category_recyclerView.setHasFixedSize(true)
     }
 
     companion object {
