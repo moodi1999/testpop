@@ -3,8 +3,8 @@ package com.example.ahmadreza.testpop.Activities
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
-import com.example.ahmadreza.testpop.Data.DownloadWebContent
-import com.example.ahmadreza.testpop.Data.DataStorage
+import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.DataGeters.DataStorage
 import com.example.ahmadreza.testpop.Fragments.Artists
 import com.example.ahmadreza.testpop.Fragments.Categories
 import com.example.ahmadreza.testpop.Fragments.Popular

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
-import com.example.ahmadreza.testpop.Data.DataStorage
-import com.example.ahmadreza.testpop.Data.SongData
+import com.example.ahmadreza.testpop.DataGeters.DataStorage
+import com.example.ahmadreza.testpop.DataGeters.SongData
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
@@ -15,15 +15,14 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, ArrayList<SongData>>() {
+class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Unit>() {
     val Ds = DataStorage.instance
-    override fun doInBackground(vararg uni: Unit): ArrayList<SongData>? {
+    override fun doInBackground(vararg uni: Unit) {
 
         try {
             while (Ds.recentWebContent == ""){
                 //wait
             }
-            var songdata_arr :ArrayList<SongData> = ArrayList()
 
             val n = ((Ds.recentWebContent.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
@@ -121,18 +120,15 @@ class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Ar
                 val songdata = SongData(link, title, singer, ImgUrl, catG, catT, date, views)
                 Ds.arr_recentData.add(songdata)
             }
-            println("number of song =  ${songdata_arr.count()}")
-            return songdata_arr
+            println("number of song =  ${Ds.arr_recentData.count()}")
         }
         catch (e : Exception){
             e.printStackTrace()
         }
-        return null
     }
 
-    override fun onPostExecute(result: ArrayList<SongData>?) {
+    override fun onPostExecute(result: Unit) {
         super.onPostExecute(result)
-        Ds.arr_recentData = result!!
         println("Data set")
 
         var adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context)

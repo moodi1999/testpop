@@ -25,7 +25,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tab_View_pager"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:background="@color/Tabbackground"
         android:clipToPadding="true"
         android:paddingLeft="6dp"
@@ -43,7 +43,7 @@
         app:stl_indicatorCornerRadius="10dp"
         app:stl_indicatorGravity="center"
         app:stl_indicatorInterpolation="smart"
-        app:stl_indicatorThickness="35dp"
+        app:stl_indicatorThickness="45dp"
         app:stl_indicatorWidth="auto"
         app:stl_indicatorWithoutPadding="false"
         app:stl_underlineColor="@android:color/transparent" />

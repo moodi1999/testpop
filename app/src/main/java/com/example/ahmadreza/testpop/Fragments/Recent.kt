@@ -33,17 +33,13 @@ class Recent : Fragment() {
         }
     }
 
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
-
-        RecentDF(view, context).execute()
+        println("Recent.onCreateView")
         Ui(view)
-
-
+        RecentDF(view!!, context).execute()
         return view
     }
 

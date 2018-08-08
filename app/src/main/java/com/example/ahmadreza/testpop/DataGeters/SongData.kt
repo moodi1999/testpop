@@ -1,4 +1,4 @@
-package com.example.ahmadreza.testpop.Data
+package com.example.ahmadreza.testpop.DataGeters
 
 /**
  * Created by ahmadreza on 8/5/18.

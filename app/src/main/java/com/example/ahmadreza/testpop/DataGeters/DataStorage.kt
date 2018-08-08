@@ -1,4 +1,4 @@
-package com.example.ahmadreza.testpop.Data
+package com.example.ahmadreza.testpop.DataGeters
 
 /**
  * Created by ahmadreza on 8/5/18.
@@ -31,11 +31,16 @@ class DataStorage {
 
 
     //Categories Pattern and split
-    var bn_catego = "موضوعات و دسته بندی سایت"
-    var an_catego = "<article class=\"post\">"
+    var bn_catego = "دسته بندی ها"
+    var an_catego = "بزودی ها"
+    var pt_categourlandname = "href=\"(.*?)/a>"
+    var pt_categoname = "\" >(.*?)<"
+    var sp_categourl = "\""
 
-    var pt_categourls = "href=\"(.*?)\""
-    var arr_catego_name = arrayListOf<String>("Archives Month", "Album", "Music News", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")
+    var arr_categories: ArrayList<CatgoData> = ArrayList()
+
+
+    /*var arr_catego_name = arrayListOf<String>("Archives Month", "Album", "Music News", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")*/
 
     private constructor(){
         //connect to the server and get the data and set them all
