@@ -53,7 +53,7 @@ class Recent : Fragment() {
 
     fun Ui(view: View): Unit {
         val layoutm = GridLayoutManager(context, 2)
-        view.recent_recyclerView.layoutManager = layoutm as GridLayoutManager
+        view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
     }
 
