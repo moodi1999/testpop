@@ -60,11 +60,6 @@ class MainActivity : AppCompatActivity() {
 
         viewpager.adapter = viewPad
         tab_View_pager.setViewPager(viewpager)
-        button.setOnClickListener {
-           toolbar.animate().translationYBy(-1000f).setDuration(2000)
-            toolbar.visibility = View.GONE
-
-        }
     }
 
 

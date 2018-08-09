@@ -13,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.RecentDF
 import com.example.ahmadreza.testpop.DataGeters.DataStorage
@@ -73,7 +74,7 @@ class Recent : Fragment() {
                     activity!!.toolbar.visibility = View.VISIBLE
                 }
                 if (scrollY > oldScrollY) { // Down
-                    activity!!.toolbar.visibility = View.GONE
+                    activity!!.toolbar.animate().translationYBy(-1000f).setInterpolator(LinearInterpolator()).setDuration(2000)
                 }
 
                 if (scrollY == 0) {
