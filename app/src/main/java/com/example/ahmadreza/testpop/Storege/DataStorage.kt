@@ -1,4 +1,7 @@
-package com.example.ahmadreza.testpop.DataGeters
+package com.example.ahmadreza.testpop.Storege
+
+import com.example.ahmadreza.testpop.DataGeters.CatgoData
+import com.example.ahmadreza.testpop.DataGeters.SongData
 
 /**
  * Created by ahmadreza on 8/5/18.
@@ -29,6 +32,9 @@ class DataStorage {
     // Recent songs
     var arr_recentData: ArrayList<SongData> = ArrayList()
 
+    // favorite Songs
+    var arr_favo: MutableSet<SongData>? = null
+
 
     //Categories Pattern and split
     var bn_catego = "دسته بندی ها"
@@ -41,6 +47,8 @@ class DataStorage {
 
 
     /*var arr_catego_name = arrayListOf<String>("Archives Month", "Album", "Music News", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")*/
+
+    var isfave = false
 
     private constructor(){
         //connect to the server and get the data and set them all

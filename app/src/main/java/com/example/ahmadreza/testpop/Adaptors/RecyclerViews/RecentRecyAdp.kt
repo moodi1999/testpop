@@ -1,16 +1,16 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
 import android.content.Context
-import android.os.AsyncTask
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.ahmadreza.testpop.DataGeters.DataStorage
 import com.example.ahmadreza.testpop.DataGeters.SongData
 import com.example.ahmadreza.testpop.R
+import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.squareup.picasso.MemoryPolicy
 import com.squareup.picasso.Picasso
 
@@ -23,6 +23,23 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
         var song:SongData = arrayList.get(position)
 
         holder.updateUi(song)
+
+        holder.faveBtn?.setOnClickListener {
+            //DataStorage.instance.arr_favo!!.add(song)
+
+            if (song.fave){
+                holder.faveBtn.setImageResource(R.drawable.ic_not_fave)
+                song.fave = false
+            }
+            else{
+                holder.faveBtn.setImageResource(R.drawable.ic_fave_checked)
+                song.fave = true
+            }
+        }
+        holder.detBtn?.setOnClickListener {
+
+        }
+
 
     }
 
@@ -40,12 +57,14 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
         val atristTxt = itemView?.findViewById<TextView>(R.id.artist_txtv)
         val artistImg = itemView?.findViewById<ImageView>(R.id.artist_imageView)
+        val faveBtn = itemView?.findViewById<ImageButton>(R.id.fav_img)
+        val detBtn = itemView?.findViewById<ImageButton>(R.id.det_img)
         val songTxt = itemView?.findViewById<TextView>(R.id.song_txtv)
 
         fun updateUi(songdata: SongData){
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
-            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_action_name).into(artistImg)
+            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
         }
 
     }

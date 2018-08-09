@@ -5,10 +5,9 @@ import android.os.AsyncTask
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
-import android.widget.TextView
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
 import com.example.ahmadreza.testpop.DataGeters.CatgoData
-import com.example.ahmadreza.testpop.DataGeters.DataStorage
+import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import java.util.regex.Pattern
@@ -46,7 +45,7 @@ class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, U
                 }catch (e: Exception){
                     link = "Not Found!"
                 }
-                println("name = $name  link = $link")
+
                 var categodata = CatgoData(name, link)
                 Ds.arr_categories.add(categodata)
 
@@ -63,7 +62,7 @@ class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, U
         view.category_recyclerView.adapter = adaptor
 
         var contextr: Context = view.category_recyclerView.context
-        var contoroler: LayoutAnimationController? = null
+        var contoroler: LayoutAnimationController?
         contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
         view.category_recyclerView.setLayoutAnimation(contoroler)
         view.category_recyclerView.getAdapter().notifyDataSetChanged()

@@ -1,11 +1,7 @@
 package com.example.ahmadreza.testpop.Fragments
 
 
-import android.annotation.TargetApi
-import android.opengl.Visibility
-import android.os.Build
 import android.os.Bundle
-import android.service.autofill.Dataset
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.NestedScrollView
@@ -13,14 +9,11 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
-import com.example.ahmadreza.testpop.Activities.MainActivity
+import android.widget.Toast
 import com.example.ahmadreza.testpop.DataFinders.RecentDF
-import com.example.ahmadreza.testpop.DataGeters.DataStorage
+import com.example.ahmadreza.testpop.Storege.DataStorage
 
 import com.example.ahmadreza.testpop.R
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 
@@ -85,6 +78,7 @@ class Recent : Fragment() {
                 }
                 else if (scrollY < oldScrollY) { // Down
                     if (!scrollup){
+
                         activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(200)
 
                     }
@@ -94,11 +88,11 @@ class Recent : Fragment() {
                 else if (scrollY == 0) {
                     activity!!.toolbar.x = 0f
                     activity!!.toolbar.y = 0f
-
+                    println("Top scroll")
                 }
 
                 else if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                    println("Bottom Scroll")
+                    println("want to load more")
                 }
             })
         }

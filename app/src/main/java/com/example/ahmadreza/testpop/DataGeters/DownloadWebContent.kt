@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.DataGeters
 
 import android.os.AsyncTask
+import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection

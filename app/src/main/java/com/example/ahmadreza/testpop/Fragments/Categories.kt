@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ahmadreza.testpop.DataFinders.CategoryDF
-import com.example.ahmadreza.testpop.DataGeters.DataStorage
+import com.example.ahmadreza.testpop.Storege.DataStorage
 
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_categories.view.*
@@ -45,7 +45,7 @@ class Categories : Fragment() {
 
     fun Ui(view: View) {
         val layoutm = LinearLayoutManager(context)
-        view.category_recyclerView.layoutManager = layoutm as LinearLayoutManager
+        view.category_recyclerView.layoutManager = layoutm
         view.category_recyclerView.setHasFixedSize(true)
     }
 

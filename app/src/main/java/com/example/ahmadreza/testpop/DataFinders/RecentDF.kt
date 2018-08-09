@@ -6,10 +6,9 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
-import com.example.ahmadreza.testpop.DataGeters.DataStorage
+import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.DataGeters.SongData
 import com.example.ahmadreza.testpop.R
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
 
@@ -136,7 +135,7 @@ class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Un
         view.recent_recyclerView.adapter = adaptor
 
         var contextr: Context = view.recent_recyclerView.context
-        var contoroler: LayoutAnimationController? = null
+        var contoroler: LayoutAnimationController?
         contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
         view.recent_recyclerView.setLayoutAnimation(contoroler)
         view.recent_recyclerView.getAdapter().notifyDataSetChanged()
