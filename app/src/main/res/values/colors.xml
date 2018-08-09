@@ -6,6 +6,6 @@
     <color name="defaultTabTextColor">#ffffff</color>
     <color name="dividerColor">#52616b</color>
     <color name="indicatorColor">#644d606e</color>
-    <color name="Tabbackground">#572d4059</color>
+    <color name="Tabbackground">#d82d4059</color>
     <color name="Background">#572d4059</color>
 </resources>

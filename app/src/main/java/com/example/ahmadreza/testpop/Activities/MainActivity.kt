@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_recent.*
 import android.opengl.ETC1.getHeight
 import android.R.attr.translationY
 import android.support.v4.view.ViewCompat.setElevation
+import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.main_slide_lay.*
 
 
@@ -60,27 +61,13 @@ class MainActivity : AppCompatActivity() {
 
         viewpager.adapter = viewPad
         tab_View_pager.setViewPager(viewpager)
-    }
 
-
-      /* private fun toolbarAnimateShow(verticalOffset: Int) {
-        tToolbar.animate()
-                .translationY(0)
-                .setInterpolator(LinearInterpolator())
-                .setDuration(180)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationStart(animation: Animator) {
-                        toolbarSetElevation((if (verticalOffset == 0) 0 else TOOLBAR_ELEVATION).toFloat())
-                    }
-                })
-    }*/
-
-    private fun toolbarAnimateHide() {
-        toolbar.animate()
-                .translationY(-toolbar.getHeight() as Float)
-                .setInterpolator(LinearInterpolator())
-                .setDuration(180)
+        tab_View_pager.bringToFront()
+        toolbar.bringToFront()
 
     }
+
+
+
 }
 

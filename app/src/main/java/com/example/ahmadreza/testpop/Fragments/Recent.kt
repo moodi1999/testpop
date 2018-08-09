@@ -21,6 +21,7 @@ import com.example.ahmadreza.testpop.DataGeters.DataStorage
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 
 
@@ -58,6 +59,7 @@ class Recent : Fragment() {
         Ui(view)
         RecentDF(view!!, context).execute()
 
+
         ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
         return view
     }
@@ -73,6 +75,8 @@ class Recent : Fragment() {
             view.scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY > oldScrollY) { // Up
                     if (scrollup){
+                        activity!!.toolbar.x = 0f
+                        activity!!.toolbar.y = 0f
                         activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
 
 
@@ -81,17 +85,16 @@ class Recent : Fragment() {
                 }
                 else if (scrollY < oldScrollY) { // Down
                     if (!scrollup){
-                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(400)
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(200)
 
                     }
 
                 }
 
                 else if (scrollY == 0) {
-                    if (!scrollup){
-                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(400)
+                    activity!!.toolbar.x = 0f
+                    activity!!.toolbar.y = 0f
 
-                    }
                 }
 
                 else if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
