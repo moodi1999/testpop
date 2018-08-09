@@ -67,21 +67,34 @@ class Recent : Fragment() {
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
 
+        var scrollup = true
         if (view.scrollView != null) {
 
             view.scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-                if (scrollY < oldScrollY) { // Up
-                    activity!!.toolbar.visibility = View.VISIBLE
+                if (scrollY > oldScrollY) { // Up
+                    if (scrollup){
+                        activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
+
+
+                    }
+
                 }
-                if (scrollY > oldScrollY) { // Down
-                    activity!!.toolbar.animate().translationYBy(-1000f).setInterpolator(LinearInterpolator()).setDuration(2000)
+                else if (scrollY < oldScrollY) { // Down
+                    if (!scrollup){
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(400)
+
+                    }
+
                 }
 
-                if (scrollY == 0) {
-                    println("Top Scroll  ")
+                else if (scrollY == 0) {
+                    if (!scrollup){
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(400)
+
+                    }
                 }
 
-                if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                else if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                     println("Bottom Scroll")
                 }
             })
