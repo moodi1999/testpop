@@ -25,7 +25,8 @@
             android:id="@+id/isgone"
             layout="@layout/up_slide_lay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
 </android.support.constraint.ConstraintLayout>

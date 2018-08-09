@@ -65,6 +65,26 @@ class Recent : Fragment() {
         val layoutm = GridLayoutManager(context, 2)
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
+
+        if (view.scrollView != null) {
+
+            view.scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY < oldScrollY) { // Up
+                    activity!!.toolbar.visibility = View.VISIBLE
+                }
+                if (scrollY > oldScrollY) { // Down
+                    activity!!.toolbar.visibility = View.GONE
+                }
+
+                if (scrollY == 0) {
+                    println("Top Scroll  ")
+                }
+
+                if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                    println("Bottom Scroll")
+                }
+            })
+        }
     }
 
     companion object {
