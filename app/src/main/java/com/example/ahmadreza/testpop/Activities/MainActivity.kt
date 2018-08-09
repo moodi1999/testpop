@@ -2,6 +2,7 @@ package com.example.ahmadreza.testpop.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.DataGeters.DataStorage
@@ -11,11 +12,20 @@ import com.example.ahmadreza.testpop.Fragments.Popular
 import com.example.ahmadreza.testpop.Fragments.Recent
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.activity_main.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.view.animation.LinearInterpolator
+import android.opengl.ETC1.getHeight
+import android.R.attr.translationY
+import android.support.v4.view.ViewCompat.setElevation
+import android.os.Build
+import android.annotation.TargetApi
+import android.opengl.Visibility
+import android.view.View
+import kotlinx.android.synthetic.main.fragment_recent.*
+
 
 class MainActivity : AppCompatActivity() {
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
 
-
         val viewPad = ViewPageAdaptor(supportFragmentManager)
 
         viewPad.addFragment(Recent(), "Recent")
@@ -47,5 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         viewpager.adapter = viewPad
         tab_View_pager.setViewPager(viewpager)
+        
     }
 }
+

@@ -45,27 +45,8 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
         fun updateUi(songdata: SongData){
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
-            //DownloadImg(artistImg, context).execute()
-            //Glide.with(context!!).load(songdata.Img_URL).into(artistImg!!)
-            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).into(artistImg)
+            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_action_name).into(artistImg)
         }
 
-    }
-
-    inner class DownloadImg(val artistImg: ImageView?, val context: Context?): AsyncTask<String, Void, Unit>() {
-
-        override fun doInBackground(vararg urls: String?): Unit {
-/*
-            if (urls[0] != null && !urls[0].equals("Not Found!")){
-                Picasso.with(context).load(urls[0]).placeholder(R.drawable.ic_loading_img).into(artistImg)
-            }
-            else{*/
-                //Picasso.with(context).load(R.drawable.ic_loading_img).into(artistImg)
-            //}
-        }
-
-        override fun onPostExecute(result: Unit?) {
-            super.onPostExecute(result)
-        }
     }
 }

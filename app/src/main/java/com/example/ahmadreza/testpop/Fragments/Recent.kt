@@ -1,17 +1,25 @@
 package com.example.ahmadreza.testpop.Fragments
 
 
+import android.annotation.TargetApi
+import android.opengl.Visibility
+import android.os.Build
 import android.os.Bundle
 import android.service.autofill.Dataset
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.RecentDF
 import com.example.ahmadreza.testpop.DataGeters.DataStorage
 
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 
 
@@ -45,9 +53,11 @@ class Recent : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
-        println("Recent.onCreateView")
+
         Ui(view)
         RecentDF(view!!, context).execute()
+
+        ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
         return view
     }
 
