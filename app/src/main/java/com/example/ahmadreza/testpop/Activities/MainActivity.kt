@@ -2,6 +2,8 @@ package com.example.ahmadreza.testpop.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -52,6 +54,23 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
+        menuInflater.inflate(R.menu.item_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        var id = item?.itemId
+
+        when(id){
+            R.id.setting -> {
+                println("hi")
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 }
 
