@@ -10,6 +10,7 @@ import android.widget.*
 import com.example.ahmadreza.testpop.DataFinders.SongPageDF
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.SongData
+import com.example.ahmadreza.testpop.Fragments.Song
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.squareup.picasso.MemoryPolicy
@@ -31,18 +32,26 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?): 
         holder.updateUi(song)
 
         holder.faveBtn?.setOnClickListener {
+            var isin = false
+            for (i in DataStorage.instance.set_favo){
+                if (song.title == i.title){
+                    isin = true
+                    break
+                }
+            }
+            if (!isin) {
+                if (!song.fave) {
+                    DataStorage.instance.set_favo.add(song)
+                    holder.faveBtn.setImageResource(R.drawable.ic_fave_checked)
+                    song.fave = true
+                }
+            }
 
-            if (song.fave){
+            if (song.fave) {
                 DataStorage.instance.set_favo.remove(song)
                 holder.faveBtn.setImageResource(R.drawable.ic_not_fave)
                 song.fave = false
             }
-            else{
-                DataStorage.instance.set_favo.add(song)
-                holder.faveBtn.setImageResource(R.drawable.ic_fave_checked)
-                song.fave = true
-            }
-
             var sonddata = DataStorage.instance.set_favo.elementAt(0)
             println(sonddata.title)
             println(DataStorage.instance.set_favo!!.size)
@@ -52,8 +61,18 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?): 
         }
 
         holder.card?.setOnClickListener {
-            println(DataStorage.instance.arr_recentData.size)
-            GetSongPageCon().execute(position)
+
+            Song.newInstance("http://dl.pop-music.ir/music/1396/Aban/Hamid%20Hiraad%20-%20Shookhie%20Mage%20(128).mp3","b")
+            Song()
+            if (song.mp3.size == 0 || song.pageCon.equals("")){
+                GetSongPageCon().execute(position)
+            }
+            else{
+                println(song.mp3.get(1))
+                println(song.mp3.get(3))
+
+            }
+
 
         }
 

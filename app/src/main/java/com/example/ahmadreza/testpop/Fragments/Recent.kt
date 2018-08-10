@@ -39,11 +39,11 @@ class Recent : Fragment() {
         }
     }
 
- /*   override fun onPause() {
+    override fun onPause() {
         super.onPause()
         DataStorage.instance.arr_recentData.clear()
 
-    }*/
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
