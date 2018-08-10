@@ -62,20 +62,8 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
         }
 
         holder.card?.setOnClickListener {
-            var a = (activity as MainActivity)
-            a.play("http://dl.pop-music.ir/music/1397/Mordad/Mehdi%20Azar%20&%20Meysam%20Ebrahimi%20-%20Bi%20Ghraram%20(128).mp3", true)
-            //(activity as MainActivity).song = song.mp3.get(3)
-           /* a.csetPlayPause(!DataStorage.instance.isplay)
-            DataStorage.instance.isplay = !DataStorage.instance.isplay*/
 
-            if (song.mp3.size == 0 || song.pageCon.equals("")){
-                GetSongPageCon().execute(position)
-            }
-            else{
-
-            }
-
-
+            GetSongPageCon(activity).execute(position)
         }
 
 
