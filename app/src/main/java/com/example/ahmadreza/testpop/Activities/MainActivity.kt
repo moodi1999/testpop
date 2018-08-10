@@ -2,15 +2,15 @@ package com.example.ahmadreza.testpop.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.view.Menu
 import android.view.MenuItem
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
-import com.example.ahmadreza.testpop.Fragments.Artists
-import com.example.ahmadreza.testpop.Fragments.Categories
-import com.example.ahmadreza.testpop.Fragments.Popular
-import com.example.ahmadreza.testpop.Fragments.Recent
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.cor_activity_main.*
 
@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
         toolbar.translationX
+
         val viewPad = ViewPageAdaptor(supportFragmentManager)
 
         viewPad.addFragment(Recent(), "Recent")
@@ -50,9 +51,17 @@ class MainActivity : AppCompatActivity() {
         tab_View_pager.bringToFront()
         toolbar.bringToFront()
 
+        supportFragmentManager.inTransaction {
+            add(R.id.fragment_container, Song())
+        }
 
     }
 
+    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+        val fragmentTransaction = beginTransaction()
+        fragmentTransaction.func()
+        fragmentTransaction.commit()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
