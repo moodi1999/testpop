@@ -33,7 +33,7 @@ class DataStorage {
     var arr_recentData: ArrayList<SongData> = ArrayList()
 
     // favorite Songs
-    var arr_favo: MutableSet<SongData>? = null
+    var arr_favo: MutableSet<SongData> = mutableSetOf()
 
 
     //Categories Pattern and split

@@ -80,7 +80,7 @@ class Recent : Fragment() {
                     if (!scrollup){
 
                         activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(200)
-
+                        view.more.animate().translationY(150f).setDuration(100)
                     }
 
                 }
@@ -88,11 +88,12 @@ class Recent : Fragment() {
                 else if (scrollY == 0) {
                     activity!!.toolbar.x = 0f
                     activity!!.toolbar.y = 0f
-                    println("Top scroll")
+
                 }
 
-                else if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                    println("want to load more")
+                if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                    view.more.bringToFront()
+                    view.more.animate().translationY(-150f).setDuration(100)
                 }
             })
         }

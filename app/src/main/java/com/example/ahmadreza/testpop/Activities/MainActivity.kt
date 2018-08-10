@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
-
+        toolbar.translationX
         val viewPad = ViewPageAdaptor(supportFragmentManager)
 
         viewPad.addFragment(Recent(), "Recent")
