@@ -1,10 +1,13 @@
 package com.example.ahmadreza.testpop.DataFinders
 
+import android.app.Activity
 import android.content.Context
 import android.os.AsyncTask
+import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
@@ -15,10 +18,9 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Unit>() {
+class RecentDF(val view: View, val context: Context?, val activity: FragmentActivity?) : AsyncTask<Unit, Unit, Unit>() {
     val Ds = DataStorage.instance
     override fun doInBackground(vararg uni: Unit) {
-
         try {
             while (Ds.recentWebContent == ""){
                 //wait
@@ -131,7 +133,7 @@ class RecentDF(val view: View, val context: Context?) : AsyncTask<Unit, Unit, Un
         super.onPostExecute(result)
         println("Recent :Data set")
 
-        var adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context)
+        var adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context, activity)
         view.recent_recyclerView.adapter = adaptor
 
         var contextr: Context = view.recent_recyclerView.context

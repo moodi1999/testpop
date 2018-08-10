@@ -1,16 +1,17 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
+import android.app.Activity
 import android.content.Context
 import android.support.constraint.ConstraintLayout
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.ahmadreza.testpop.DataFinders.SongPageDF
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.SongData
-import com.example.ahmadreza.testpop.Fragments.Song
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.squareup.picasso.MemoryPolicy
@@ -19,7 +20,7 @@ import com.squareup.picasso.Picasso
 /**
  * Created by ahmadreza on 8/6/18.
  */
-class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?): RecyclerView.Adapter<RecentRecyAdp.ViewHolder>() {
+class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, val activity: FragmentActivity?): RecyclerView.Adapter<RecentRecyAdp.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var song: SongData = arrayList.get(position)
@@ -61,15 +62,16 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?): 
         }
 
         holder.card?.setOnClickListener {
+            var a = (activity as MainActivity)
+            a.play("http://dl.pop-music.ir/music/1397/Mordad/Mehdi%20Azar%20&%20Meysam%20Ebrahimi%20-%20Bi%20Ghraram%20(128).mp3", true)
+            //(activity as MainActivity).song = song.mp3.get(3)
+           /* a.csetPlayPause(!DataStorage.instance.isplay)
+            DataStorage.instance.isplay = !DataStorage.instance.isplay*/
 
-            Song.newInstance("http://dl.pop-music.ir/music/1396/Aban/Hamid%20Hiraad%20-%20Shookhie%20Mage%20(128).mp3","b")
-            Song()
             if (song.mp3.size == 0 || song.pageCon.equals("")){
                 GetSongPageCon().execute(position)
             }
             else{
-                println(song.mp3.get(1))
-                println(song.mp3.get(3))
 
             }
 

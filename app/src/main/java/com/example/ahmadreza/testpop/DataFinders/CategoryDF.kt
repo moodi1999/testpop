@@ -52,6 +52,7 @@ class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, U
             }
         }catch (e: Exception){
             e.printStackTrace()
+
         }
     }
 

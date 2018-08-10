@@ -51,12 +51,17 @@ class Recent : Fragment() {
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
         Ui(view)
-        RecentDF(view!!, context).execute()
+        RecentDF(view!!, context, activity).execute()
         scrolling(view)
 
         ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
         return view
     }
+
+    fun pleasework(){
+        (activity as MainActivity).csetPlayPause(true)
+    }
+
 
     fun Ui(view: View): Unit {
         val layoutm = GridLayoutManager(context, 2)

@@ -1,16 +1,7 @@
 package com.example.ahmadreza.testpop.DataFinders
 
-import android.content.Context
 import android.os.AsyncTask
-import android.view.View
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
-import com.example.ahmadreza.testpop.Datas.CatgoData
-import com.example.ahmadreza.testpop.Fragments.Song
 import com.example.ahmadreza.testpop.Storege.DataStorage
-import com.example.ahmadreza.testpop.R
-import kotlinx.android.synthetic.main.fragment_categories.view.*
 import java.util.regex.Pattern
 
 
@@ -47,10 +38,6 @@ class SongPageDF() : AsyncTask<Int, Unit, Unit>() {
                 e.printStackTrace()
             }
 
-            println(arr.mp3.get(0))
-            println(arr.mp3.get(1))
-            println(arr.mp3.get(2))
-            println(arr.mp3.get(3))
 
         }catch (e: Exception){
             e.printStackTrace()
