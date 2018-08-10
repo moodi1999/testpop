@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.RecentDF
 import com.example.ahmadreza.testpop.Storege.DataStorage
 
@@ -38,11 +39,11 @@ class Recent : Fragment() {
         }
     }
 
-    override fun onPause() {
+ /*   override fun onPause() {
         super.onPause()
         DataStorage.instance.arr_recentData.clear()
 
-    }
+    }*/
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -51,7 +52,7 @@ class Recent : Fragment() {
 
         Ui(view)
         RecentDF(view!!, context).execute()
-
+        scrolling(view)
 
         ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
         return view
@@ -62,6 +63,10 @@ class Recent : Fragment() {
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
 
+
+    }
+
+    fun scrolling(view: View){
         var scrollup = true
         if (view.scrollView != null) {
 

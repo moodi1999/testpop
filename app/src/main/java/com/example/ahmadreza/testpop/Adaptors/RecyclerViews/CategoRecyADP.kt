@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.ahmadreza.testpop.DataGeters.CatgoData
+import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.R
 
 /**

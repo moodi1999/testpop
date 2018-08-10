@@ -7,8 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.ahmadreza.testpop.DataFinders.SongPageDF
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
-import com.example.ahmadreza.testpop.DataGeters.SongData
+import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.squareup.picasso.MemoryPolicy
@@ -17,10 +18,10 @@ import com.squareup.picasso.Picasso
 /**
  * Created by ahmadreza on 8/6/18.
  */
-class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): RecyclerView.Adapter<RecentRecyAdp.ViewHolder>() {
+class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?): RecyclerView.Adapter<RecentRecyAdp.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var song:SongData = arrayList.get(position)
+        var song: SongData = arrayList.get(position)
 
         for (i in DataStorage.instance.set_favo){
             if (song.title == i.title){
@@ -51,7 +52,9 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
         }
 
         holder.card?.setOnClickListener {
+            println(DataStorage.instance.arr_recentData.size)
             GetSongPageCon().execute(position)
+
         }
 
 

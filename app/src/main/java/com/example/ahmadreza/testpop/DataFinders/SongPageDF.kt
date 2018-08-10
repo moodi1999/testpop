@@ -6,64 +6,55 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
-import com.example.ahmadreza.testpop.DataGeters.CatgoData
+import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import java.util.regex.Pattern
 
 
-class SongPageDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, Unit>() {
+class SongPageDF() : AsyncTask<Int, Unit, Unit>() {
 
-    override fun doInBackground(vararg params: Unit?) {
+    override fun doInBackground(vararg pos: Int?) {
         val Ds = DataStorage.instance
         try {
-            while (Ds.recentWebContent == "") {
-                //wait
+            val arr = DataStorage.instance.arr_recentData.get(pos[0]!!)
+            val url = Ds.arr_recentData.get(pos[0]!!).pageCon
+            val n = url.split(Ds.sp_song_page1)[1].split(Ds.sp_song_page2)[0]
+
+            val m_mp3s = Pattern.compile(Ds.pt_mp3_128_320).matcher(n)
+            val m_disc_320 = Pattern.compile(Ds.pt_mp3_disc_320).matcher(n)
+            val m_disc_128 = Pattern.compile(Ds.pt_mp3_disc_128).matcher(n)
+
+            try {
+                m_disc_320.find()
+                arr.mp3.add(m_disc_320.group(1))
+                m_mp3s.find()
+                arr.mp3.add(m_mp3s.group(1))
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+            // 320 Qu
+
+            try{
+                m_disc_128.find()
+                arr.mp3.add(m_disc_128.group(1))
+                m_mp3s.find()
+                arr.mp3.add(m_mp3s.group(1))
+
+            }catch (e: Exception){
+                e.printStackTrace()
             }
 
-            val n = Ds.recentWebContent.split(Ds.bn_catego)[1].split(Ds.an_catego)[0]
-            val m_linkandname = Pattern.compile(Ds.pt_categourlandname).matcher(n)
+            println(arr.mp3.get(0))
+            println(arr.mp3.get(1))
+            println(arr.mp3.get(2))
+            println(arr.mp3.get(3))
 
-            while (m_linkandname.find()){
-                val categostr = m_linkandname.group(1)
-                var name: String
-                var link: String
-
-                try {
-                    val m_name = Pattern.compile(Ds.pt_categoname).matcher(categostr)
-                    m_name.find()
-                    name = m_name.group(1)
-                }catch (e: Exception){
-                    name = "Not Found!"
-                }
-
-                try {
-                    link = categostr.split(Ds.sp_categourl)[0]
-                }catch (e: Exception){
-                    link = "Not Found!"
-                }
-
-                var categodata = CatgoData(name, link)
-                Ds.arr_categories.add(categodata)
-
-            }
         }catch (e: Exception){
             e.printStackTrace()
+
         }
     }
 
-    override fun onPostExecute(result: Unit?) {
-        println("Category :Data set")
-
-        var adaptor = CategoRecyADP(DataStorage.instance.arr_categories, context)
-        view.category_recyclerView.adapter = adaptor
-
-        var contextr: Context = view.category_recyclerView.context
-        var contoroler: LayoutAnimationController?
-        contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
-        view.category_recyclerView.setLayoutAnimation(contoroler)
-        view.category_recyclerView.getAdapter().notifyDataSetChanged()
-        view.category_recyclerView.scheduleLayoutAnimation()
-    }
 }

@@ -14,6 +14,7 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
 
     override fun onPreExecute() {
         super.onPreExecute()
+        println("DownloadWebContent.onPreExecute")
     }
 
     override fun doInBackground(vararg urls: String?): String {
@@ -50,5 +51,6 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
         super.onPostExecute(result)
         var dataSt = DataStorage.instance
         dataSt.recentWebContent = result!!
+        println("DownloadWebContent.onPostExecute")
     }
 }

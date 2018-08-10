@@ -1,7 +1,7 @@
 package com.example.ahmadreza.testpop.Storege
 
-import com.example.ahmadreza.testpop.DataGeters.CatgoData
-import com.example.ahmadreza.testpop.DataGeters.SongData
+import com.example.ahmadreza.testpop.Datas.CatgoData
+import com.example.ahmadreza.testpop.Datas.SongData
 
 /**
  * Created by ahmadreza on 8/5/18.
@@ -31,6 +31,13 @@ class DataStorage {
 
     // Recent songs
     var arr_recentData: ArrayList<SongData> = ArrayList()
+
+    // Song page Pattern and split
+    var sp_song_page1 = "<div class=\"download\">"
+    var sp_song_page2 = "<div id=\"related_posts\">"
+    var pt_mp3_disc_128 = "<span>(.*?)</h4>"
+    var pt_mp3_disc_320 = "<span>\n(.*?)</h4>"
+    var pt_mp3_128_320= "href=\"(.*?)\""
 
     // favorite Songs
     var set_favo: MutableSet<SongData> = mutableSetOf()

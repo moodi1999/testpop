@@ -6,7 +6,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
-import com.example.ahmadreza.testpop.DataGeters.CatgoData
+import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.fragment_categories.view.*

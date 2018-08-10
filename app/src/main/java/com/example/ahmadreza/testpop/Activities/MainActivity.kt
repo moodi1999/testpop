@@ -12,6 +12,7 @@ import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
 
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
-        toolbar.translationX
+
 
         val viewPad = ViewPageAdaptor(supportFragmentManager)
 
@@ -80,6 +81,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        fun ui(){
+            println("ji")
+        }
     }
 }
 
