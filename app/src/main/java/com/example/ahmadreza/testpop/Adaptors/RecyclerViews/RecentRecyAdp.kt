@@ -2,12 +2,12 @@ package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
 import android.content.Context
 import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.DataGeters.SongData
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -22,7 +22,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var song:SongData = arrayList.get(position)
 
-        for (i in DataStorage.instance.arr_favo){
+        for (i in DataStorage.instance.set_favo){
             if (song.title == i.title){
                 holder.faveBtn?.setImageResource(R.drawable.ic_fave_checked)
             }
@@ -32,26 +32,26 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>,val context: Context?): R
         holder.faveBtn?.setOnClickListener {
 
             if (song.fave){
-                DataStorage.instance.arr_favo.remove(song)
+                DataStorage.instance.set_favo.remove(song)
                 holder.faveBtn.setImageResource(R.drawable.ic_not_fave)
                 song.fave = false
             }
             else{
-                DataStorage.instance.arr_favo.add(song)
+                DataStorage.instance.set_favo.add(song)
                 holder.faveBtn.setImageResource(R.drawable.ic_fave_checked)
                 song.fave = true
             }
 
-            var sonddata = DataStorage.instance.arr_favo.elementAt(0)
+            var sonddata = DataStorage.instance.set_favo.elementAt(0)
             println(sonddata.title)
-            println(DataStorage.instance.arr_favo!!.size)
+            println(DataStorage.instance.set_favo!!.size)
         }
         holder.detBtn?.setOnClickListener {
             println("Det")
         }
 
         holder.card?.setOnClickListener {
-            println("clicked")
+            GetSongPageCon().execute(position)
         }
 
 

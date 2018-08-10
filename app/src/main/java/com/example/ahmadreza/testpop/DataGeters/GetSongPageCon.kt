@@ -10,19 +10,20 @@ import java.net.URL
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class GetSongPageCon : AsyncTask<String, Unit, String>() {
+class GetSongPageCon : AsyncTask<Int, Unit, Unit>() {
 
     override fun onPreExecute() {
         super.onPreExecute()
-        println("Start Download")
+        println("GetSongPageCon.onPreExecute")
     }
 
-    override fun doInBackground(vararg urls: String?): String {
+    override fun doInBackground(vararg songPo: Int?): Unit {
 
+        val url = DataStorage.instance.arr_recentData.get(songPo[0]!!).url
         val xml = StringBuilder()
 
         try {
-            val url = URL(urls[0])
+            val url = URL(url)
             val connection = url.openConnection() as HttpURLConnection
 
             val reader = BufferedReader(InputStreamReader(connection.inputStream))
@@ -38,17 +39,15 @@ class GetSongPageCon : AsyncTask<String, Unit, String>() {
                 }
             }
             reader.close()
-            return xml.toString()
-
+            DataStorage.instance.arr_recentData.get(songPo[0]!!).pageCon = xml.toString()
         }
         catch (e: Exception){
             e.printStackTrace()
-            return ":|"
         }
     }
 
-    override fun onPostExecute(result: String?) {
+    override fun onPostExecute(result: Unit?) {
         super.onPostExecute(result)
-        println("End Download")
+        println("GetSongPageCon.onPostExecute: done")
     }
 }
