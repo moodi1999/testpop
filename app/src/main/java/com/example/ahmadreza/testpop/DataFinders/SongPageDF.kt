@@ -7,14 +7,14 @@ import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.util.regex.Pattern
 
 
-class SongPageDF(val activity: FragmentActivity?) : AsyncTask<Int, Unit, Int>() {
+class SongPageDF(val activity: FragmentActivity?) : AsyncTask<ArrayList<Int>?, Unit, Int>() {
 
-    override fun doInBackground(vararg pos: Int?): Int {
-        if (pos[0] != -1) {
+    override fun doInBackground(vararg pos: ArrayList<Int>?): Int? {
+        if (pos[0]!!.get(1) != -1) {
             val Ds = DataStorage.instance
             try {
-                val arr = DataStorage.instance.arr_recentData.get(pos[0]!!)
-                val url = Ds.arr_recentData.get(pos[0]!!).pageCon
+                val arr = DataStorage.instance.arr_recentData.get(pos[0]!!.get(0))
+                val url = Ds.arr_recentData.get(pos[0]!!.get(0)).pageCon
                 val n = url.split(Ds.sp_song_page1)[1].split(Ds.sp_song_page2)[0]
 
                 val m_mp3s = Pattern.compile(Ds.pt_mp3_128_320).matcher(n)
@@ -48,7 +48,7 @@ class SongPageDF(val activity: FragmentActivity?) : AsyncTask<Int, Unit, Int>() 
             }
 
         }
-        return pos[0]!!
+        return pos[0]!!.get(0)
     }
 
     override fun onPostExecute(result: Int?) {

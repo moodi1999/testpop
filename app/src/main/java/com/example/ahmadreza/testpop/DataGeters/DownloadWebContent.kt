@@ -20,9 +20,9 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
     override fun doInBackground(vararg urls: String?): String {
 
         val xml = StringBuilder()
-
+        val Ds = DataStorage.instance
        try {
-           val url = URL(urls[0])
+           val url = URL(Ds.Main_URL)
            val connection = url.openConnection() as HttpURLConnection
 
            val reader = BufferedReader(InputStreamReader(connection.inputStream))
@@ -51,6 +51,7 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
         super.onPostExecute(result)
         var dataSt = DataStorage.instance
         dataSt.recentWebContent = result!!
+        dataSt.recentWebContent_Done = true
         println("DownloadWebContent.onPostExecute")
     }
 }

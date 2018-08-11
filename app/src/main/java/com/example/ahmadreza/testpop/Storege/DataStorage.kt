@@ -10,7 +10,9 @@ class DataStorage {
 
     val Main_URL = "http://pop-music.ir/"
 
+
     var recentWebContent: String = ""
+    var recentWebContent_Done= false
 
     // recent Song pattern and split String
     var bn_songs = "موضوعات و دسته بندی سایت"
@@ -61,7 +63,8 @@ class DataStorage {
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
-
+        var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good","ok","today", "a lot")
+        arr_recentData.add(song)
     }
 
     companion object {

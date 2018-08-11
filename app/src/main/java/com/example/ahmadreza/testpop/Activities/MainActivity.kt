@@ -186,9 +186,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    fun pr(){
-        println(song)
-    }
+
     fun play(s: String, b: Boolean = false){
         bandwidthMeter = DefaultBandwidthMeter()
         extractorsFactory = DefaultExtractorsFactory()
@@ -220,9 +218,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getData(){
-        println("pass 0")
-        DownloadWebContent().execute(DataStorage.instance.Main_URL)
-        println("pass 1")
+        DownloadWebContent().execute()
     }
 
     fun uiInit(){

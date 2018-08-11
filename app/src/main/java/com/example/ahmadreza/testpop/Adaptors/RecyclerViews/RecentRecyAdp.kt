@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -57,8 +58,13 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
             println(sonddata.title)
             println(DataStorage.instance.set_favo!!.size)
         }
+
         holder.detBtn?.setOnClickListener {
-            println("Det")
+            var builder = AlertDialog.Builder(context!!)
+            builder.setMessage("just do it")
+            var alertdialog = builder.create()
+            alertdialog.show()
+
         }
 
         holder.card?.setOnClickListener {

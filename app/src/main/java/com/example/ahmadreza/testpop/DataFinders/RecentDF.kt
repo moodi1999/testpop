@@ -22,7 +22,7 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
     val Ds = DataStorage.instance
     override fun doInBackground(vararg uni: Unit) {
         try {
-            while (Ds.recentWebContent == ""){
+            while (!Ds.recentWebContent_Done){
                 //wait
             }
 

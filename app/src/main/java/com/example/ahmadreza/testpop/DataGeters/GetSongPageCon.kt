@@ -12,14 +12,14 @@ import java.net.URL
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class GetSongPageCon(val activity: FragmentActivity?) : AsyncTask<Int, Unit, IntArray>(){
+class GetSongPageCon(val activity: FragmentActivity?) : AsyncTask<Int, Unit, ArrayList<Int>>(){
 
     override fun onPreExecute() {
         super.onPreExecute()
         println("GetSongPageCon.onPreExecute")
     }
 
-    override fun doInBackground(vararg songPo: Int?): Array<Int> {
+    override fun doInBackground(vararg songPo: Int?): ArrayList<Int> {
 
         val arr = DataStorage.instance.arr_recentData
         if(arr.get(songPo[0]!!).pageCon.equals("")) {
@@ -49,15 +49,15 @@ class GetSongPageCon(val activity: FragmentActivity?) : AsyncTask<Int, Unit, Int
                 e.printStackTrace()
             }
 
-            var a = arrayOf(1,2)
-            return a
+
+            return arrayListOf(songPo[0]!!, 1)
         }
         else{
-            return -1
+            return arrayListOf(songPo[0]!!, -1)
         }
     }
 
-    override fun onPostExecute(result: Int?) {
+    override fun onPostExecute(result: ArrayList<Int>?) {
         super.onPostExecute(result)
         SongPageDF(activity).execute(result)
         println("GetSongPageCon.onPostExecute: done")

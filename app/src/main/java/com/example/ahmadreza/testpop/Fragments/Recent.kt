@@ -39,12 +39,12 @@ class Recent : Fragment() {
         }
     }
 
-    override fun onPause() {
+   /* override fun onPause() {
         super.onPause()
         DataStorage.instance.arr_recentData.clear()
 
     }
-
+*/
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -54,12 +54,8 @@ class Recent : Fragment() {
         RecentDF(view!!, context, activity).execute()
         scrolling(view)
 
-        ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
-        return view
-    }
 
-    fun pleasework(){
-        (activity as MainActivity).csetPlayPause(true)
+        return view
     }
 
 
@@ -67,8 +63,7 @@ class Recent : Fragment() {
         val layoutm = GridLayoutManager(context, 2)
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
-
-
+        ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
     }
 
     fun scrolling(view: View){
