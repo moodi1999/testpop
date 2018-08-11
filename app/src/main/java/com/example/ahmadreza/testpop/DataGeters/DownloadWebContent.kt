@@ -50,8 +50,14 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
         var dataSt = DataStorage.instance
-        dataSt.recentWebContent = result!!
-        dataSt.recentWebContent_Done = true
+        if (!result.equals(":|")){
+            dataSt.recentWebContent = result!!
+            dataSt.recentWebContent_Done = true
+        }
+        else{
+            dataSt.recentWebContent_Done = false
+        }
+
         println("DownloadWebContent.onPostExecute")
     }
 }

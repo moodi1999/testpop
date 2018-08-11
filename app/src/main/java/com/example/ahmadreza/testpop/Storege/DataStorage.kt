@@ -12,7 +12,7 @@ class DataStorage {
 
 
     var recentWebContent: String = ""
-    var recentWebContent_Done= false
+    var recentWebContent_Done: Boolean? = null
 
     // recent Song pattern and split String
     var bn_songs = "موضوعات و دسته بندی سایت"
@@ -58,7 +58,7 @@ class DataStorage {
     /*var arr_catego_name = arrayListOf<String>("Archives Month", "Album", "Music News", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")*/
 
     var isplay = false
-
+    var time = 0
 
     private constructor(){
         //connect to the server and get the data and set them all

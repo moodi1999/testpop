@@ -54,17 +54,14 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 holder.faveBtn.setImageResource(R.drawable.ic_not_fave)
                 song.fave = false
             }
-            var sonddata = DataStorage.instance.set_favo.elementAt(0)
-            println(sonddata.title)
-            println(DataStorage.instance.set_favo!!.size)
         }
 
         holder.detBtn?.setOnClickListener {
             var builder = AlertDialog.Builder(context!!)
-            builder.setMessage("just do it")
+            builder.setTitle("Details :")
+            builder.setMessage("title: ${song.title}\n singer: ${song.singer}\n")
             var alertdialog = builder.create()
             alertdialog.show()
-
         }
 
         holder.card?.setOnClickListener {
@@ -98,7 +95,11 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
 
-            Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
+            try {
+                Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
         }
 
     }

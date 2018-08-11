@@ -20,12 +20,9 @@ import java.util.regex.Pattern
  */
 class RecentDF(val view: View, val context: Context?, val activity: FragmentActivity?) : AsyncTask<Unit, Unit, Unit>() {
     val Ds = DataStorage.instance
+
     override fun doInBackground(vararg uni: Unit) {
         try {
-            while (!Ds.recentWebContent_Done){
-                //wait
-            }
-
             val n = ((Ds.recentWebContent.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
             val m_titleAndSinger_songs = Pattern.compile(Ds.pt_titleAndSinger_songs).matcher(n)
@@ -126,6 +123,10 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
         }
         catch (e : Exception){
             e.printStackTrace()
+            if(Ds.recentWebContent_Done == null){
+                doInBackground()
+            }
+
         }
     }
 
