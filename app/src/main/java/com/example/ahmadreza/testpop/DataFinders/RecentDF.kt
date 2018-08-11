@@ -23,29 +23,31 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
 
     override fun doInBackground(vararg uni: Unit) {
         try {
+            while(Ds.recentWebContent_Done == null) {
+                //wait
+            }
             val n = ((Ds.recentWebContent.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
             val m_titleAndSinger_songs = Pattern.compile(Ds.pt_titleAndSinger_songs).matcher(n)
             val m_ImgUrl = Pattern.compile(Ds.pt_Img_Url_songs).matcher(n)
-            val m_cat = Pattern.compile(Ds.pt_allcat_songs).matcher(n)
+            val m_allcat = Pattern.compile(Ds.pt_allcat_songs).matcher(n)
             val m_date = Pattern.compile(Ds.pt_date_songs).matcher(n)
             val m_views = Pattern.compile(Ds.pt_views_songs).matcher(n)
 
             while (m_titleAndSinger_songs.find()){
 
                 var cats = ""
-                var title: String
-                var singer: String
+                var title: String = ""
+                var singer: String = ""
                 var link: String
                 var ImgUrl: String
                 var date: String
                 var views: String
 
 
-
+                m_allcat.find()
                 try{
-                    m_cat.find()
-                    var catstr = m_cat.group(1)
+                    var catstr = m_allcat.group(1)
                     var m_each_cat = Pattern.compile(Ds.pt_each_cat_songs).matcher(catstr)
 
                     try {
@@ -77,7 +79,7 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
 
                 }
                 catch (e: Exception){
-                    println("somoe thing is wrong with categoryyy")
+                    e.printStackTrace()
                 }
 
 
@@ -149,9 +151,15 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
 
                 }
                 catch (e: Exception){
-                    title = "Not Found!"
-                    singer = "Not Found!"
-
+                    try {
+                        val m_fa_titleAndsinger = Pattern.compile(Ds.pt_title_fa).matcher(n)
+                        m_fa_titleAndsinger.find()
+                        title = m_fa_titleAndsinger.group(1)
+                    }
+                    catch (e: Exception){
+                        title = "Not Found!"
+                        singer = "Not Found!"
+                    }
                 }
 
 
@@ -161,7 +169,6 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
             println("number of song =  ${Ds.arr_recentData.count()}")
         }
         catch (e : Exception){
-            if(Ds.recentWebContent_Done == null) doInBackground()
             e.printStackTrace()
         }
     }

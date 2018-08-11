@@ -21,6 +21,7 @@ class DownloadWebContent : AsyncTask<String, Unit, String>() {
 
         val xml = StringBuilder()
         val Ds = DataStorage.instance
+
        try {
            val url = URL(Ds.Main_URL)
            val connection = url.openConnection() as HttpURLConnection

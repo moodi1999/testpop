@@ -23,8 +23,10 @@ class DataStorage {
     var pt_titleAndSinger_songs2 = "href=\"http://pop-music.ir/tag/download-new(.*?)p>"
     var pt_title_songs = "&#8211;(.*?)</"
     var pt_singer_songs = ">(.*?)</a>"
+    var pt_title_fa = "title=\"(.*?)\" src=\""
     var pt_Img_Url_songs = "\" src=\"" + "(.*?)" + "\" alt=\""
-    var pt_allcat_songs = "<span class=\"cat\"" + "(.*?)" + "<span class=\"date\""
+    var pt_allcat_songs = "<a href=\"(.*?)\n" +
+            "\t<span class=\"date\""
     var pt_each_cat_songs = "rel=\"category tag\">" + "(.*?)" + "</a>"
     var sp_catg_songs = "</a>, <a href=\""
     var sp_catt_songs1 = "rel=\"category tag\">"
@@ -64,7 +66,7 @@ class DataStorage {
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
-        var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
+       /* var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
         arr_recentData.add(song)
         arr_recentData.add(song)
         arr_recentData.add(song)
@@ -74,7 +76,7 @@ class DataStorage {
         arr_categories.add(cat)
         arr_categories.add(cat)
         arr_categories.add(cat)
-        arr_categories.add(cat)
+        arr_categories.add(cat)*/
     }
 
     companion object {

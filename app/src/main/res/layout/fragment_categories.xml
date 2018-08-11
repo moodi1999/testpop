@@ -1,37 +1,40 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.ahmadreza.testpop.Fragments.Categories">
 
-    <android.support.constraint.ConstraintLayout
+
+    <include layout="@layout/catego_first_lay"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <include
+        android:id="@+id/main"
+        layout="@layout/catego_second_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/main_catego">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/category_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/category_recyclerView_items"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
 
+    <!-- <android.support.constraint.ConstraintLayout
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:id="@+id/main_catego">
+         <android.support.v7.widget.RecyclerView
+             android:id="@+id/category_recyclerView"
+             android:layout_width="0dp"
+             android:layout_height="0dp"
+             app:layout_constraintBottom_toBottomOf="parent"
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintStart_toStartOf="parent"
+             app:layout_constraintTop_toTopOf="parent" />
+     </android.support.constraint.ConstraintLayout>
+ -->
 
-</FrameLayout>
+
+</RelativeLayout>

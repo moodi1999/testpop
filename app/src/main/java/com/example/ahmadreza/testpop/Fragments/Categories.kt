@@ -11,6 +11,7 @@ import com.example.ahmadreza.testpop.DataFinders.CategoryDF
 import com.example.ahmadreza.testpop.Storege.DataStorage
 
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 
 
@@ -36,7 +37,6 @@ class Categories : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
-
         Ui(view)
         CategoryDF(view, context!!).execute()
 

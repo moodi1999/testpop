@@ -9,6 +9,7 @@ import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
 import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 import java.util.regex.Pattern
 

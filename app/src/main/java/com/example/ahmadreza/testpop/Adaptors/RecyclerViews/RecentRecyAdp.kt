@@ -35,6 +35,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
         holder.updateUi(song)
 
         holder.faveBtn?.setOnClickListener {
+
             var isin = false
             for (i in DataStorage.instance.set_favo){
                 if (song.title == i.title){
@@ -42,21 +43,40 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                     break
                 }
             }
+            println("faveeeee")
             if (!isin) {
+                println("in1")
                 if (!song.fave) {
+                    println("in0")
                     DataStorage.instance.set_favo.add(song)
                     holder.faveBtn.setImageResource(R.drawable.ic_fave_checked)
                     song.fave = true
                 }
+            }else{
+                println("out1")
+                if (song.fave) {
+                    println("out0")
+                    DataStorage.instance.set_favo.remove(song)
+                    holder.faveBtn.setImageResource(R.drawable.ic_not_fave)
+                    song.fave = false
+                }
             }
 
-            if (song.fave) {
-                DataStorage.instance.set_favo.remove(song)
-                holder.faveBtn.setImageResource(R.drawable.ic_not_fave)
-                song.fave = false
+
+        }
+        holder.card?.setOnClickListener {
+            if (song.category_tag.equals("بزودی", true)) {
+
+                var builder = AlertDialog.Builder(context!!)
+                var alertdialog: AlertDialog? = null
+                builder.setTitle("\nComing Soon!!")
+                alertdialog = builder.create()
+                alertdialog.show()
+
+            } else {
+                GetSongPageCon(activity).execute(position)
             }
         }
-
         holder.detBtn?.setOnClickListener {
             var builder = AlertDialog.Builder(context!!)
             var alertdialog: AlertDialog? = null
@@ -69,13 +89,10 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 }
             })
             alertdialog = builder.create()
-            alertdialog.show()
+            alertdialog!!.show()
         }
 
-        holder.card?.setOnClickListener {
 
-            GetSongPageCon(activity).execute(position)
-        }
 
 
     }
