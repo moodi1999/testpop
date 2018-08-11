@@ -2,6 +2,7 @@ package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog
@@ -58,9 +59,16 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
 
         holder.detBtn?.setOnClickListener {
             var builder = AlertDialog.Builder(context!!)
-            builder.setTitle("Details :")
-            builder.setMessage("title: ${song.title}\n singer: ${song.singer}\n")
-            var alertdialog = builder.create()
+            var alertdialog: AlertDialog? = null
+            builder.setIcon(R.drawable.ic_det_dialog)
+            builder.setTitle("\nDetails :")
+            builder.setMessage("\nTitle:  ${song.title}\n\nArtist: ${song.singer}\n\nCategory:  ${song.category_tag}\n\nViews:  ${song.views}\n\nDate:  ${song.Date}")
+            builder.setPositiveButton("Ok",object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    alertdialog?.cancel()
+                }
+            })
+            alertdialog = builder.create()
             alertdialog.show()
         }
 

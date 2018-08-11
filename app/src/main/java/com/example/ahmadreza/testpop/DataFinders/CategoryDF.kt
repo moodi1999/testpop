@@ -20,10 +20,6 @@ class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, U
     override fun doInBackground(vararg params: Unit?) {
         val Ds = DataStorage.instance
         try {
-            while (Ds.recentWebContent == "") {
-                //wait
-            }
-
             val n = Ds.recentWebContent.split(Ds.bn_catego)[1].split(Ds.an_catego)[0]
             val m_linkandname = Pattern.compile(Ds.pt_categourlandname).matcher(n)
 
@@ -51,8 +47,8 @@ class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, U
 
             }
         }catch (e: Exception){
+            if(Ds.recentWebContent_Done == null) doInBackground()
             e.printStackTrace()
-
         }
     }
 

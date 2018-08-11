@@ -33,8 +33,7 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
 
             while (m_titleAndSinger_songs.find()){
 
-                var catG: String
-                var catT: String
+                var cats = ""
                 var title: String
                 var singer: String
                 var link: String
@@ -42,7 +41,47 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
                 var date: String
                 var views: String
 
-                try {
+
+
+                try{
+                    m_cat.find()
+                    var catstr = m_cat.group(1)
+                    var m_each_cat = Pattern.compile(Ds.pt_each_cat_songs).matcher(catstr)
+
+                    try {
+                        m_each_cat.find()
+                        var cat1 = m_each_cat.group(1)
+                        println("catsss = ${cat1}")
+                        cats += cat1
+                    }catch (e: Exception){
+                        println("cat1 not found")
+                    }
+
+                    try {
+                        m_each_cat.find()
+                        var cat2 = m_each_cat.group(1)
+                        println("catsss = ${cat2}")
+                        cats += " , " + cat2
+                    }catch (e: Exception){
+                        println("cat2 not found")
+                    }
+
+                    try {
+                        m_each_cat.find()
+                        var cat3 = m_each_cat.group(1)
+                        println("catsss = ${cat3}")
+                        cats += " , " + cat3
+                    }catch (e: Exception){
+                        println("cat3 not found")
+                    }
+
+                }
+                catch (e: Exception){
+                    println("somoe thing is wrong with categoryyy")
+                }
+
+
+       /*         try {
                     m_cat.find()
                     var all_cat = m_cat.group(1)
 
@@ -58,7 +97,7 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
                 catch (e: Exception){
                     catG = "Not Found!"
                     catT = "Not Found!"
-                }
+                }*/
 
                 try {
                     m_link.find()
@@ -94,17 +133,17 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
                 }
 
                 try {
-                    var tands: String = m_titleAndSinger_songs.group(1) + "p>"
-                    val m_titleAndSinger_songs2 = Pattern.compile(Ds.pt_titleAndSinger_songs2).matcher(tands)
+                    var TandS: String = m_titleAndSinger_songs.group(1) + "p>"
+                    val m_titleAndSinger_songs2 = Pattern.compile(Ds.pt_titleAndSinger_songs2).matcher(TandS)
                     m_titleAndSinger_songs2.find()
-                    tands = m_titleAndSinger_songs2.group(1)
+                    TandS = m_titleAndSinger_songs2.group(1)
 
 
-                        var m_title = Pattern.compile(Ds.pt_title_songs).matcher(tands)
+                        var m_title = Pattern.compile(Ds.pt_title_songs).matcher(TandS)
                         m_title.find()
                         title = m_title.group(1)
 
-                        val m_singer = Pattern.compile(Ds.pt_singer_songs).matcher(tands)
+                        val m_singer = Pattern.compile(Ds.pt_singer_songs).matcher(TandS)
                         m_singer.find()
                         singer = m_singer.group(1)
 
@@ -116,17 +155,14 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
                 }
 
 
-                val songdata = SongData(link, title, singer, ImgUrl, catG, catT, date, views)
+                val songdata = SongData(link, title, singer, ImgUrl, cats, date, views)
                 Ds.arr_recentData.add(songdata)
             }
             println("number of song =  ${Ds.arr_recentData.count()}")
         }
         catch (e : Exception){
+            if(Ds.recentWebContent_Done == null) doInBackground()
             e.printStackTrace()
-            if(Ds.recentWebContent_Done == null){
-                doInBackground()
-            }
-
         }
     }
 
