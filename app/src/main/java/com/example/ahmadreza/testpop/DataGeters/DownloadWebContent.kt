@@ -63,6 +63,7 @@ class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>()
             }
 
             CallType.CATGORY -> {
+                println("got here")
                 if (!result.equals(":|")){
                     Ds.item_categoWebContent = result!!
                     Ds.item_categoWebContent_Done = true

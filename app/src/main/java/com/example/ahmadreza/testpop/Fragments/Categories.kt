@@ -3,6 +3,7 @@ package com.example.ahmadreza.testpop.Fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -31,37 +32,50 @@ class Categories : Fragment() {
         }
     }
 
-    override fun onPause() {
+    /*override fun onPause() {
         super.onPause()
         DataStorage.instance.arr_categories.clear()
 
     }
-
+*/
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
-
+        println("Categories.onCreateView")
         Ui(view)
-        view.second.animate().translationXBy(10000f).setDuration(10000)
+        //view.second.animate().translationYBy(5000f).setDuration(800)
         CategoryDF(view, context!!, activity).execute()
-        scrolling(view)
 
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+        println("Categories.onStart")
+    }
     fun Ui(view: View) {
+        view.first.x = 0f
+        view.first.y = 0f
+        view.second.x = 2000f
+        view.second.y = 2000f
+        view.second.animate().translationXBy(-2000f).setDuration(600)
         val layoutm = LinearLayoutManager(context)
         view.category_recyclerView_fst.layoutManager = layoutm
         view.category_recyclerView_fst.setHasFixedSize(true)
-
-
+        view.animate.setOnClickListener {
+            view.second.animate().translationXBy(-2000f).setDuration(600)
+        }
+        scrolling_item(view)
+        scrolling_song(view)
+        ViewCompat.setNestedScrollingEnabled(view.catego_item_scroll, false)
+        ViewCompat.setNestedScrollingEnabled(view.catego_song_scroll, false)
     }
 
-    fun scrolling(view: View){
+    fun scrolling_item(view: View){
         var scrollup = true
-        if (view.scrollView_catego != null) {
+        if (view.catego_item_scroll != null) {
 
-            view.scrollView_catego.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            view.catego_item_scroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY > oldScrollY) { // Up
                     if (scrollup){
                         activity!!.toolbar.x = 0f
@@ -95,6 +109,44 @@ class Categories : Fragment() {
         }
     }
 
+
+    fun scrolling_song(view: View){
+        var scrollup = true
+        if (view.catego_song_scroll != null) {
+
+            view.catego_song_scroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY > oldScrollY) { // Up
+                    if (scrollup){
+                        activity!!.toolbar.x = 0f
+                        activity!!.toolbar.y = 0f
+                        activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
+
+
+                    }
+
+                }
+                else if (scrollY < oldScrollY) { // Down
+                    if (!scrollup){
+
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(200)
+                        view.more_catego.animate().translationY(150f).setDuration(100)
+                    }
+
+                }
+
+                else if (scrollY == 0) {
+                    activity!!.toolbar.x = 0f
+                    activity!!.toolbar.y = 0f
+
+                }
+
+                if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                    view.more_catego.bringToFront()
+                    view.more_catego.animate().translationY(-150f).setDuration(100)
+                }
+            })
+        }
+    }
 
     companion object {
         private val ARG_PARAM1 = "param1"

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Activities.MainActivity
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoSongItemADP
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -29,6 +30,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
     val type: CallType
 
     constructor(view: View, context: Context?, activity: FragmentActivity?, type: CallType) : super() {
+        println("got here toooo")
         this.view = view
         this.context = context
         this.activity = activity
@@ -38,6 +40,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
     val Ds = DataStorage.instance
 
     override fun doInBackground(vararg str: String): ArrayList<SongData> {
+        println("typeee ${type}")
         val arr :ArrayList<SongData> = ArrayList()
         try {
             if (type == CallType.CATGORY){
@@ -50,11 +53,17 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                     //wait
                 }
             }
-            var content = str[0]
+            var content = ""
+            var n = ""
             if (type == CallType.RECENT){
                 content = Ds.recentWebContent
+                n = ((content.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             }
-            val n = ((content.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
+            else if (type == CallType.CATGORY){
+                content = Ds.item_categoWebContent
+                n = ((content.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
+            }
+
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
             val m_titleAndSinger_songs = Pattern.compile(Ds.pt_titleAndSinger_songs).matcher(n)
             val m_fa_titleAndsinger = Pattern.compile(Ds.pt_title_fa).matcher(n)
@@ -182,6 +191,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
 
                 val songdata = SongData(link, title, singer, ImgUrl, cats, date, views)
                 arr.add(songdata)
+                println(arr.size)
             }
             return arr
         }
@@ -212,12 +222,13 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
         }
         else if (type == CallType.CATGORY){
 
+            println("got here too")
             Ds.arr_catego_item_Data = result
             println(Ds.arr_recentData.size)
             print("\nsizeeee")
 
-            val adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context, activity)
-            view.recent_recyclerView.adapter = adaptor
+            val adaptor = CategoSongItemADP(DataStorage.instance.arr_catego_item_Data, context, activity)
+            view.category_recyclerView_sec.adapter = adaptor
 
             var contextr: Context = view.category_recyclerView_sec.context
             var contoroler: LayoutAnimationController?

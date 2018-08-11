@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
 import android.content.Context
+import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,18 +13,28 @@ import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.fragment_categories.view.*
 
 /**
  * Created by ahmadreza on 8/8/18.
  */
-class CategoRecyADP(val view: View, val arrayList: ArrayList<CatgoData>, val context: Context) : RecyclerView.Adapter<CategoRecyADP.ViewHolder>() {
+class CategoRecyADP(val view: View, val context: Context, val arrayList: ArrayList<CatgoData>, val activity: FragmentActivity?) : RecyclerView.Adapter<CategoRecyADP.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val categoData = arrayList.get(position)
         holder.updateUi(categoData)
 
         holder.cardview?.setOnClickListener {
+            view.second.animate().translationXBy(2000f).setDuration(600).withEndAction {
+                view.second.x = 0f
+                view.second.y = 0f
+            }
+
+            println("1")
+            println(categoData.name)
+            println(categoData.url)
             DownloadWebContent(CallType.CATGORY).execute(categoData.url)
-            SongDataFinder()
+            println("2")
+            SongDataFinder(view,context,activity,CallType.CATGORY).execute()
         }
     }
 

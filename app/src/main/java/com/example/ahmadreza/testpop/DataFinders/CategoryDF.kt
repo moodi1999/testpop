@@ -57,7 +57,7 @@ class CategoryDF(val view: View, val context: Context, val activity: FragmentAct
     override fun onPostExecute(result: Unit?) {
         println("Category :Data set")
 
-        var adaptor = CategoRecyADP(DataStorage.instance.arr_categories, context)
+        var adaptor = CategoRecyADP(view, context, DataStorage.instance.arr_categories, activity)
         view.category_recyclerView_fst.adapter = adaptor
 
         var contextr: Context = view.category_recyclerView_fst.context

@@ -67,7 +67,7 @@ class DataStorage {
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
-        var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
+      /*  var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
         arr_recentData.add(song)
         arr_recentData.add(song)
         arr_recentData.add(song)
@@ -78,7 +78,7 @@ class DataStorage {
         arr_categories.add(cat)
         arr_categories.add(cat)
         arr_categories.add(cat)
-    }
+    */}
 
     companion object {
         val instance : DataStorage by lazy { DataStorage() }

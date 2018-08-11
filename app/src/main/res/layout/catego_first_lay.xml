@@ -3,11 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/Tabbackground">
+    android:background="#000">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/category_recyclerView_fst"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/catego_item_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/category_recyclerView_fst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>
