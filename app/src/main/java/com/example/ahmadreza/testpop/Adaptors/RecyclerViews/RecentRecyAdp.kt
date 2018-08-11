@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R

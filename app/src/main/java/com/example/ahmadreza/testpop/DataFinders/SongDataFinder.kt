@@ -18,7 +18,7 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class RecentDF(val view: View, val context: Context?, val activity: FragmentActivity?) : AsyncTask<Unit, Unit, Unit>() {
+class SongDataFinder(val view: View, val context: Context?, val activity: FragmentActivity?) : AsyncTask<Unit, Unit, Unit>() {
     val Ds = DataStorage.instance
 
     override fun doInBackground(vararg uni: Unit) {
@@ -82,25 +82,6 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
                     e.printStackTrace()
                 }
 
-
-       /*         try {
-                    m_cat.find()
-                    var all_cat = m_cat.group(1)
-
-                    if (all_cat.length < 15){
-                        catG = all_cat
-                        catT = all_cat
-                    }
-                    else{
-                        catG = all_cat.split(Ds.sp_catg_songs)[0]
-                        catT = all_cat.split(Ds.sp_catg_songs)[1].split(Ds.sp_catt_songs1)[1].split(Ds.sp_catt_songs2)[0]
-                    }
-                }
-                catch (e: Exception){
-                    catG = "Not Found!"
-                    catT = "Not Found!"
-                }*/
-
                 try {
                     m_link.find()
                     link = m_link.group(1)
@@ -108,7 +89,6 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
                 catch (e: Exception){
                     link = "http://pop-music.ir/wp-content/themes/PMWP/images/favicon.png"
                 }
-
 
                 try {
                     m_ImgUrl.find()
@@ -190,3 +170,24 @@ class RecentDF(val view: View, val context: Context?, val activity: FragmentActi
     }
 
 }
+
+
+/*mabe needed for futuare
+   /*         try {
+                    m_cat.find()
+                    var all_cat = m_cat.group(1)
+
+                    if (all_cat.length < 15){
+                        catG = all_cat
+                        catT = all_cat
+                    }
+                    else{
+                        catG = all_cat.split(Ds.sp_catg_songs)[0]
+                        catT = all_cat.split(Ds.sp_catg_songs)[1].split(Ds.sp_catt_songs1)[1].split(Ds.sp_catt_songs2)[0]
+                    }
+                }
+                catch (e: Exception){
+                    catG = "Not Found!"
+                    catT = "Not Found!"
+                }*/
+ */

@@ -9,10 +9,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.example.ahmadreza.testpop.Activities.MainActivity
-import com.example.ahmadreza.testpop.DataFinders.RecentDF
-import com.example.ahmadreza.testpop.Storege.DataStorage
+import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
 
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.cor_activity_main.*
@@ -51,7 +48,7 @@ class Recent : Fragment() {
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
         Ui(view)
-        RecentDF(view!!, context, activity).execute()
+        SongDataFinder(view!!, context, activity).execute()
         scrolling(view)
 
 

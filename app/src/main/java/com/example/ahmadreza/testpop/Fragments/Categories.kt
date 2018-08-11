@@ -47,6 +47,7 @@ class Categories : Fragment() {
         val layoutm = LinearLayoutManager(context)
         view.category_recyclerView.layoutManager = layoutm
         view.category_recyclerView.setHasFixedSize(true)
+
     }
 
     companion object {
