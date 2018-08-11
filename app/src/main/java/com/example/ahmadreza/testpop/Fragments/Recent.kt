@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
+import com.example.ahmadreza.testpop.Datas.CallType
 
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.cor_activity_main.*
@@ -48,7 +49,7 @@ class Recent : Fragment() {
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
         Ui(view)
-        SongDataFinder(view!!, context, activity).execute()
+        SongDataFinder(view!!, context, activity, CallType.RECENT).execute("")
         scrolling(view)
 
 

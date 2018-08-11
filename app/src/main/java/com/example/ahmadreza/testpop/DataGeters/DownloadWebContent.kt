@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.DataGeters
 
 import android.os.AsyncTask
+import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -10,21 +11,21 @@ import java.net.URL
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class DownloadWebContent : AsyncTask<String, Unit, String>() {
+class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>() {
 
     override fun onPreExecute() {
         super.onPreExecute()
         println("DownloadWebContent.onPreExecute")
     }
 
-    override fun doInBackground(vararg urls: String?): String {
+    override fun doInBackground(vararg strs: String?): String {
 
         val xml = StringBuilder()
         val Ds = DataStorage.instance
 
        try {
-           val url = URL(Ds.Main_URL)
-           val connection = url.openConnection() as HttpURLConnection
+
+           val connection = URL(strs[0]).openConnection() as HttpURLConnection
 
            val reader = BufferedReader(InputStreamReader(connection.inputStream))
            var charsread: Int

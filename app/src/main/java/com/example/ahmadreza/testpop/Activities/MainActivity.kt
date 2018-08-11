@@ -14,6 +14,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
@@ -218,7 +219,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getData(){
-        DownloadWebContent().execute()
+        DownloadWebContent(CallType.RECENT).execute(DataStorage.instance.Main_URL)
     }
 
     fun uiInit(){
@@ -243,12 +244,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
-        val fragmentTransaction = beginTransaction()
-        fragmentTransaction.func()
-        fragmentTransaction.commit()
-    }
-
+    // Menu Config
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         menuInflater.inflate(R.menu.item_menu, menu)
@@ -268,5 +264,12 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+
 }
 
+/*inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Unit) {
+      val fragmentTransaction = beginTransaction()
+      fragmentTransaction.func()
+      fragmentTransaction.commit()
+  }
+*/
