@@ -13,6 +13,7 @@ import java.net.URL
  */
 class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>() {
 
+    val Ds = DataStorage.instance
     override fun onPreExecute() {
         super.onPreExecute()
         println("DownloadWebContent.onPreExecute")
@@ -21,7 +22,6 @@ class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>()
     override fun doInBackground(vararg strs: String?): String {
 
         val xml = StringBuilder()
-        val Ds = DataStorage.instance
 
        try {
 
@@ -51,13 +51,26 @@ class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>()
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        var dataSt = DataStorage.instance
-        if (!result.equals(":|")){
-            dataSt.recentWebContent = result!!
-            dataSt.recentWebContent_Done = true
-        }
-        else{
-            dataSt.recentWebContent_Done = false
+        when(type){
+            CallType.RECENT -> {
+                if (!result.equals(":|")){
+                    Ds.recentWebContent = result!!
+                    Ds.recentWebContent_Done = true
+                }
+                else{
+                    Ds.recentWebContent_Done = false
+                }
+            }
+
+            CallType.CATGORY -> {
+                if (!result.equals(":|")){
+                    Ds.item_categoWebContent = result!!
+                    Ds.item_categoWebContent_Done = true
+                }
+                else{
+                    Ds.item_categoWebContent_Done = false
+                }
+            }
         }
 
         println("DownloadWebContent.onPostExecute")

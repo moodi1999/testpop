@@ -2,6 +2,7 @@ package com.example.ahmadreza.testpop.DataFinders
 
 import android.content.Context
 import android.os.AsyncTask
+import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -16,7 +17,7 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/8/18.
  */
-class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, Unit>() {
+class CategoryDF(val view: View, val context: Context, val activity: FragmentActivity?) : AsyncTask<Unit, Unit, Unit>() {
 
     override fun doInBackground(vararg params: Unit?) {
         val Ds = DataStorage.instance
@@ -57,13 +58,13 @@ class CategoryDF(val view: View, val context: Context) : AsyncTask<Unit, Unit, U
         println("Category :Data set")
 
         var adaptor = CategoRecyADP(DataStorage.instance.arr_categories, context)
-        view.category_recyclerView.adapter = adaptor
+        view.category_recyclerView_fst.adapter = adaptor
 
-        var contextr: Context = view.category_recyclerView.context
+        var contextr: Context = view.category_recyclerView_fst.context
         var contoroler: LayoutAnimationController?
         contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
-        view.category_recyclerView.setLayoutAnimation(contoroler)
-        view.category_recyclerView.getAdapter().notifyDataSetChanged()
-        view.category_recyclerView.scheduleLayoutAnimation()
+        view.category_recyclerView_fst.setLayoutAnimation(contoroler)
+        view.category_recyclerView_fst.getAdapter().notifyDataSetChanged()
+        view.category_recyclerView_fst.scheduleLayoutAnimation()
     }
 }

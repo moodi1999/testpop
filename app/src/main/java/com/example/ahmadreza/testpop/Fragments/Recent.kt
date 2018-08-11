@@ -66,9 +66,9 @@ class Recent : Fragment() {
 
     fun scrolling(view: View){
         var scrollup = true
-        if (view.scrollView != null) {
+        if (view.scrollView_recent != null) {
 
-            view.scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            view.scrollView_recent.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY > oldScrollY) { // Up
                     if (scrollup){
                         activity!!.toolbar.x = 0f

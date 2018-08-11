@@ -7,12 +7,12 @@
 
 
     <include layout="@layout/catego_first_lay"
-        android:id="@+id/main"
+        android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <include
-        android:id="@+id/main"
+        android:id="@+id/second"
         layout="@layout/catego_second_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

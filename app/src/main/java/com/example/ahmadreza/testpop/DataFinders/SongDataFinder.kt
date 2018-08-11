@@ -14,6 +14,7 @@ import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
 
@@ -39,8 +40,15 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
     override fun doInBackground(vararg str: String): ArrayList<SongData> {
         val arr :ArrayList<SongData> = ArrayList()
         try {
-            while(Ds.recentWebContent_Done == null) {
-                //wait
+            if (type == CallType.CATGORY){
+                while (Ds.item_categoWebContent_Done == null){
+                    //wait
+                }
+            }
+            else if(type == CallType.RECENT){
+                while(Ds.recentWebContent_Done == null) {
+                    //wait
+                }
             }
             var content = str[0]
             if (type == CallType.RECENT){
@@ -203,19 +211,20 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             view.recent_recyclerView.scheduleLayoutAnimation()
         }
         else if (type == CallType.CATGORY){
-            Ds.arr_recentData.addAll(result)
+
+            Ds.arr_catego_item_Data = result
             println(Ds.arr_recentData.size)
             print("\nsizeeee")
 
             val adaptor = RecentRecyAdp(DataStorage.instance.arr_recentData, context, activity)
             view.recent_recyclerView.adapter = adaptor
 
-            var contextr: Context = view.recent_recyclerView.context
+            var contextr: Context = view.category_recyclerView_sec.context
             var contoroler: LayoutAnimationController?
             contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
-            view.recent_recyclerView.setLayoutAnimation(contoroler)
-            view.recent_recyclerView.getAdapter().notifyDataSetChanged()
-            view.recent_recyclerView.scheduleLayoutAnimation()
+            view.category_recyclerView_sec.setLayoutAnimation(contoroler)
+            view.category_recyclerView_sec.getAdapter().notifyDataSetChanged()
+            view.category_recyclerView_sec.scheduleLayoutAnimation()
         }
 
 

@@ -6,7 +6,7 @@
     android:background="@color/Tabbackground">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/category_recyclerView"
+        android:id="@+id/category_recyclerView_fst"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
