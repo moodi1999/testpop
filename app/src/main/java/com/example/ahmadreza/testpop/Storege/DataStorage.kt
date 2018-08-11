@@ -14,9 +14,6 @@ class DataStorage {
     var recentWebContent: String = ""
     var recentWebContent_Done: Boolean? = null
 
-    var item_categoWebContent: String = ""
-    var item_categoWebContent_Done: Boolean? = null
-
     // recent Song pattern and split String
     var bn_songs = "موضوعات و دسته بندی سایت"
     var an_songs = "<a href=\"#week\">هفته</a>"
@@ -51,22 +48,39 @@ class DataStorage {
     var set_favo: MutableSet<SongData> = mutableSetOf()
 
 
-    //Categories Pattern and split
+    //Category Web Content
+
+    var item_categoWebContent: String = ""
+    var item_categoWebContent_Done: Boolean? = null
+
+    var arr_categories: ArrayList<CatgoData> = ArrayList()
+    var arr_catego_item_Data: ArrayList<SongData> = ArrayList()
+
+    //Categories Pattern and spli
+
+    var bn_songs_catego = "<div class=\"define-post\"><div id=\"yektanet-pos-2\"></div></div>"
+    var an_songs_catego = "<a href=\"#week\">هفته</a>"
+
     var bn_catego = "دسته بندی ها"
     var an_catego = "بزودی ها"
     var pt_categourlandname = "href=\"(.*?)/a>"
     var pt_categoname = "\" >(.*?)<"
     var sp_categourl = "\""
 
-    var arr_categories: ArrayList<CatgoData> = ArrayList()
 
     //
-    var arr_catego_item_Data: ArrayList<SongData> = ArrayList()
+
     /*var arr_catego_name = arrayListOf<String>("Archives Month", "Album", "Music News", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")*/
 
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
+        var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
+        arr_catego_item_Data.add(song)
+        arr_catego_item_Data.add(song)
+        arr_catego_item_Data.add(song)
+        arr_catego_item_Data.add(song)
+        arr_catego_item_Data.add(song)
       /*  var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
         arr_recentData.add(song)
         arr_recentData.add(song)

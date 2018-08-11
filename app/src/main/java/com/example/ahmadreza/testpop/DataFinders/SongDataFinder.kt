@@ -15,6 +15,7 @@ import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
@@ -24,8 +25,11 @@ import java.util.regex.Pattern
  */
 class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
 
+    @SuppressLint("StaticFieldLeak")
     val view: View
+    @SuppressLint("StaticFieldLeak")
     val context: Context?
+    @SuppressLint("StaticFieldLeak")
     val activity: FragmentActivity?
     val type: CallType
 
@@ -40,10 +44,11 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
     val Ds = DataStorage.instance
 
     override fun doInBackground(vararg str: String): ArrayList<SongData> {
-        println("typeee ${type}")
+
         val arr :ArrayList<SongData> = ArrayList()
         try {
             if (type == CallType.CATGORY){
+
                 while (Ds.item_categoWebContent_Done == null){
                     //wait
                 }
@@ -56,12 +61,15 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             var content = ""
             var n = ""
             if (type == CallType.RECENT){
+
                 content = Ds.recentWebContent
                 n = ((content.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
             }
             else if (type == CallType.CATGORY){
+                println("typeee ${type}")
                 content = Ds.item_categoWebContent
-                n = ((content.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
+                n = ((content.split(Ds.bn_songs_catego))[1].split(Ds.an_songs_catego))[0]
+                println(n)
             }
 
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
@@ -72,8 +80,9 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             val m_date = Pattern.compile(Ds.pt_date_songs).matcher(n)
             val m_views = Pattern.compile(Ds.pt_views_songs).matcher(n)
 
-            while (m_titleAndSinger_songs.find()){
-
+            while (m_allcat.find()){
+                println("something")
+                m_titleAndSinger_songs.find()
                 var cats = ""
                 var title: String = ""
                 var singer: String = ""
@@ -135,6 +144,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                     link = m_link.group(1)
                 }
                 catch (e: Exception){
+                    e.printStackTrace()
                     link = "http://pop-music.ir/wp-content/themes/PMWP/images/favicon.png"
                 }
 
@@ -144,6 +154,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 }
                 catch (e: Exception){
                     ImgUrl = "Not Found"
+                    e.printStackTrace()
                 }
 
                 try {
@@ -152,6 +163,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 }
                 catch (e: Exception){
                     date = "Not Found!"
+                    e.printStackTrace()
                 }
 
                 try {
@@ -160,6 +172,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 }
                 catch (e: Exception){
                     views = "Not Found!"
+                    e.printStackTrace()
                 }
 
                 try {
@@ -185,25 +198,28 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                     catch (e: Exception){
                         title = "Not Found!"
                         singer = "Not Found!"
+                        e.printStackTrace()
                     }
                 }
 
 
                 val songdata = SongData(link, title, singer, ImgUrl, cats, date, views)
                 arr.add(songdata)
-                println(arr.size)
+                println("${type} : size is = ${arr.size}")
             }
+
             return arr
         }
         catch (e : Exception){
             e.printStackTrace()
+            println("something")
             return arr
         }
     }
 
     override fun onPostExecute(result: ArrayList<SongData>) {
         super.onPostExecute(result)
-        println("Recent :Data set")
+        println("SongDataFinder.onPostExecute")
 
         if (type == CallType.RECENT)  {
             Ds.arr_recentData.addAll(result)
@@ -222,11 +238,11 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
         }
         else if (type == CallType.CATGORY){
 
-            println("got here too")
-            Ds.arr_catego_item_Data = result
-            println(Ds.arr_recentData.size)
-            print("\nsizeeee")
+            println("got here too size of the ")
+            Ds.arr_catego_item_Data.addAll(result)
+            println("size is === ${Ds.arr_catego_item_Data.size}")
 
+            view.animate.setText("huhuhuhuhuhhuhu")
             val adaptor = CategoSongItemADP(DataStorage.instance.arr_catego_item_Data, context, activity)
             view.category_recyclerView_sec.adapter = adaptor
 
@@ -236,6 +252,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             view.category_recyclerView_sec.setLayoutAnimation(contoroler)
             view.category_recyclerView_sec.getAdapter().notifyDataSetChanged()
             view.category_recyclerView_sec.scheduleLayoutAnimation()
+
         }
 
 

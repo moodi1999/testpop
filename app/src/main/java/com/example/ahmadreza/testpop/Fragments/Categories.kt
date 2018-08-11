@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.NestedScrollView
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -59,16 +60,26 @@ class Categories : Fragment() {
         view.second.x = 2000f
         view.second.y = 2000f
         view.second.animate().translationXBy(-2000f).setDuration(600)
+
         val layoutm = LinearLayoutManager(context)
         view.category_recyclerView_fst.layoutManager = layoutm
         view.category_recyclerView_fst.setHasFixedSize(true)
+
+
+        val layoutm_song = GridLayoutManager(context, 2)
+        view.category_recyclerView_sec.layoutManager = layoutm_song
+        view.category_recyclerView_sec.setHasFixedSize(true)
+
+
+        ViewCompat.setNestedScrollingEnabled(view.catego_item_scroll, false)
+        ViewCompat.setNestedScrollingEnabled(view.catego_song_scroll, false)
         view.animate.setOnClickListener {
             view.second.animate().translationXBy(-2000f).setDuration(600)
         }
         scrolling_item(view)
         scrolling_song(view)
-        ViewCompat.setNestedScrollingEnabled(view.catego_item_scroll, false)
-        ViewCompat.setNestedScrollingEnabled(view.catego_song_scroll, false)
+
+
     }
 
     fun scrolling_item(view: View){
