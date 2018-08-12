@@ -1,5 +1,6 @@
 package com.example.ahmadreza.testpop.Storege
 
+import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.Datas.SongData
 
@@ -66,6 +67,19 @@ class DataStorage {
     var pt_categourlandname = "href=\"(.*?)/a>"
     var pt_categoname = "\" >(.*?)<"
     var sp_categourl = "\""
+
+    // Album pt and sp
+
+    val arr_album: ArrayList<AlbumData>? = null
+
+    var bn_album = "Download"
+    var an_album = "<div class=\"post-tags\">"
+
+    var pt_album_url = "href=\"(.*?)\" target=\"_blank\""
+    var pt_album_song_name = "noopener(.*?)</p>"
+    var pt_album_song_name2 = "noreferrer\">(.*?)</a>"
+    var sp_album_song_name3 = "&#8211;"
+
 
 
     //

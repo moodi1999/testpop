@@ -18,16 +18,16 @@
         app:srcCompat="@drawable/above_shadow" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/small_img"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/single_album"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView5"
         app:srcCompat="@drawable/omidnb" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/song_text_small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -35,34 +35,34 @@
         android:text="Delbar"
         android:textColor="@color/defaultTabTextColor"
         android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/small_img"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/artist_text_small"
         android:layout_width="129dp"
         android:layout_height="21dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
         android:text="Omid Biglary"
         android:textColor="@color/defaultTabTextColor"
-        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/song_text_small"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progresbar_small"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/small_img"
         app:layout_constraintTop_toTopOf="parent" />
 
 
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/single_album"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="56dp"
@@ -73,6 +73,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <include layout="@layout/single_music"
+            android:id="@+id/single"/>
 
 
     </android.support.constraint.ConstraintLayout>
@@ -157,7 +159,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/next_button_small"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginBottom="4dp"
@@ -165,34 +167,33 @@
         android:layout_marginTop="8dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/single_album"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_media_next"
         android:layout_marginRight="14dp" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/pervi_button_small"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:srcCompat="@android:drawable/ic_media_previous"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/play_button_small"
+        app:layout_constraintEnd_toStartOf="@+id/play_button_small"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/artist_text_small"
+        app:srcCompat="@android:drawable/ic_media_previous" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/play_button_small"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/next_button_small"
+        app:layout_constraintEnd_toStartOf="@+id/next_button_small"
         app:srcCompat="@android:drawable/ic_media_play" />
 
 

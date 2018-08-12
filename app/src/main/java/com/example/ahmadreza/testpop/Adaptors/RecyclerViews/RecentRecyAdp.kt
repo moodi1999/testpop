@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
+import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -73,7 +74,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 alertdialog.show()
 
             } else {
-                GetSongPageCon(activity).execute(position)
+                GetSongPageCon(activity,song).execute(position)
             }
         }
         holder.detBtn?.setOnClickListener {

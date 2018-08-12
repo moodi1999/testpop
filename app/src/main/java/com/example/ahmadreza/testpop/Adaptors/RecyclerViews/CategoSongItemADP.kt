@@ -13,6 +13,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
+import com.example.ahmadreza.testpop.Datas.CallType
+import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -74,7 +76,11 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
                 alertdialog.show()
 
             } else {
-                GetSongPageCon(activity).execute(position)
+                var musicT = MusicType.Single
+                if (song.category_tag.equals("آلبوم", true)){
+                    musicT = MusicType.Album
+                }
+                GetSongPageCon(activity, song, musicT).execute(position)
             }
         }
 
