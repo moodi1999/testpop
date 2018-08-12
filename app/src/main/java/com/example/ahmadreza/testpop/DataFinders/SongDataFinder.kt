@@ -70,7 +70,6 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 println("typeee ${type}")
                 content = Ds.item_categoWebContent
                 n = ((content.split(Ds.bn_songs_catego))[1].split(Ds.an_songs_catego))[0]
-                Log.i("Content is:", n)
             }
 
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
@@ -271,24 +270,3 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
     }
 
 }
-
-
-/*mabe needed for futuare
-   /*         try {
-                    m_cat.find()
-                    var all_cat = m_cat.group(1)
-
-                    if (all_cat.length < 15){
-                        catG = all_cat
-                        catT = all_cat
-                    }
-                    else{
-                        catG = all_cat.split(Ds.sp_catg_songs)[0]
-                        catT = all_cat.split(Ds.sp_catg_songs)[1].split(Ds.sp_catt_songs1)[1].split(Ds.sp_catt_songs2)[0]
-                    }
-                }
-                catch (e: Exception){
-                    catG = "Not Found!"
-                    catT = "Not Found!"
-                }*/
- */
