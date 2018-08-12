@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Fragments
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
@@ -10,6 +11,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
 import com.example.ahmadreza.testpop.DataFinders.CategoryDF
 import com.example.ahmadreza.testpop.Storege.DataStorage
 
@@ -44,16 +48,12 @@ class Categories : Fragment() {
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
         println("Categories.onCreateView")
         Ui(view)
-        //view.second.animate().translationYBy(5000f).setDuration(800)
         CategoryDF(view, context!!, activity).execute()
+
 
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        println("Categories.onStart")
-    }
     fun Ui(view: View) {
         view.first.x = 0f
         view.first.y = 0f
@@ -72,6 +72,8 @@ class Categories : Fragment() {
         ViewCompat.setNestedScrollingEnabled(view.category_recyclerView_sec, false)
 
         view.animate.setOnClickListener {
+            view.second.x = 0f
+            view.second.y = 0f
             view.second.animate().translationXBy(-2000f).setDuration(600)
         }
         scrolling_item(view)
@@ -98,7 +100,9 @@ class Categories : Fragment() {
                 else if (scrollY < oldScrollY) { // Down
                     if (!scrollup){
 
-                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(200)
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true
+                            activity!!.toolbar.x = 0f
+                            activity!!.toolbar.y = 0f}).setDuration(200)
                         view.more_catego.animate().translationY(150f).setDuration(100)
                     }
 
@@ -137,7 +141,10 @@ class Categories : Fragment() {
                 else if (scrollY < oldScrollY) { // Down
                     if (!scrollup){
 
-                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true }).setDuration(200)
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true
+                            activity!!.toolbar.x = 0f
+                            activity!!.toolbar.y = 0f
+                        }).setDuration(200)
                         view.more_catego.animate().translationY(150f).setDuration(100)
                     }
 

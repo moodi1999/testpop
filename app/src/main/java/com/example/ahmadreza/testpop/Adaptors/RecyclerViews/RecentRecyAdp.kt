@@ -109,21 +109,27 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
         val atristTxt = itemView?.findViewById<TextView>(R.id.artist_txtv)
+        val tap = itemView?.findViewById<TextView>(R.id.tap_image)
         val artistImg = itemView?.findViewById<ImageView>(R.id.artist_imageView)
         val faveBtn = itemView?.findViewById<ImageButton>(R.id.fav_img)
         val detBtn = itemView?.findViewById<ImageButton>(R.id.det_img)
         val songTxt = itemView?.findViewById<TextView>(R.id.song_txtv)
         val card = itemView?.findViewById<ConstraintLayout>(R.id.conscard)
 
-        fun updateUi(songdata: SongData){
-            songTxt?.setText(songdata.title)
-            atristTxt?.setText(songdata.singer)
+        fun updateUi(song: SongData){
+            songTxt?.setText(song.title)
+            atristTxt?.setText(song.singer)
 
-            try {
-                Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
-            }catch (e: Exception){
-                e.printStackTrace()
+            tap?.setOnClickListener {
+                try {
+                    Picasso.with(context!!).load(song.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+                tap.visibility = View.GONE
+                card?.bringToFront()
             }
+
         }
 
     }

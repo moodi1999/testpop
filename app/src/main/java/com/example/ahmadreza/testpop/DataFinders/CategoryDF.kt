@@ -22,10 +22,43 @@ class CategoryDF(val view: View, val context: Context, val activity: FragmentAct
     override fun doInBackground(vararg params: Unit?) {
         val Ds = DataStorage.instance
         try {
-            val n = Ds.recentWebContent.split(Ds.bn_catego)[1].split(Ds.an_catego)[0]
-            val m_linkandname = Pattern.compile(Ds.pt_categourlandname).matcher(n)
+            var i = 0
+            while (i < 18){
 
-            while (m_linkandname.find()){
+                val name = Ds.arr_catego_name.get(i)
+                val link = Ds.arr_catego_url.get(i)
+
+                var categodata = CatgoData(name, link)
+                Ds.arr_categories.add(categodata)
+
+                i++
+            }
+
+            }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    override fun onPostExecute(result: Unit?) {
+        println("Category :Data set")
+
+        var adaptor = CategoRecyADP(view, context, DataStorage.instance.arr_categories, activity)
+        view.category_recyclerView_fst.adapter = adaptor
+
+        var contextr: Context = view.category_recyclerView_fst.context
+        var contoroler: LayoutAnimationController?
+        contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
+        view.category_recyclerView_fst.setLayoutAnimation(contoroler)
+        view.category_recyclerView_fst.getAdapter().notifyDataSetChanged()
+        view.category_recyclerView_fst.scheduleLayoutAnimation()
+    }
+}
+
+
+/*
+ val n = Ds.recentWebContent.split(Ds.bn_catego)[1].split(Ds.an_catego)[0]
+            val m_linkandname = Pattern.compile(Ds.pt_categourlandname).matcher(n)
+while (m_linkandname.find()){
                 val categostr = m_linkandname.group(1)
                 var name: String
                 var link: String
@@ -46,25 +79,4 @@ class CategoryDF(val view: View, val context: Context, val activity: FragmentAct
 
                 var categodata = CatgoData(name, link)
                 Ds.arr_categories.add(categodata)
-
-            }
-        }catch (e: Exception){
-            if(Ds.recentWebContent_Done == null) doInBackground()
-            e.printStackTrace()
-        }
-    }
-
-    override fun onPostExecute(result: Unit?) {
-        println("Category :Data set")
-
-        var adaptor = CategoRecyADP(view, context, DataStorage.instance.arr_categories, activity)
-        view.category_recyclerView_fst.adapter = adaptor
-
-        var contextr: Context = view.category_recyclerView_fst.context
-        var contoroler: LayoutAnimationController?
-        contoroler = AnimationUtils.loadLayoutAnimation(contextr, R.anim.layout_fall_down)
-        view.category_recyclerView_fst.setLayoutAnimation(contoroler)
-        view.category_recyclerView_fst.getAdapter().notifyDataSetChanged()
-        view.category_recyclerView_fst.scheduleLayoutAnimation()
-    }
-}
+*/

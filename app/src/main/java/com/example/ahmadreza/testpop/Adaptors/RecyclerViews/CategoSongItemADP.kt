@@ -27,11 +27,11 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var song: SongData = arrayList.get(position)
 
-      /*  for (i in DataStorage.instance.set_favo){
+        for (i in DataStorage.instance.set_favo){
             if (song.title == i.title){
                 holder.faveBtn?.setImageResource(R.drawable.ic_fave_checked)
             }
-        }*/
+        }
         holder.updateUi(song)
 
         holder.faveBtn?.setOnClickListener {
@@ -116,15 +116,20 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
         val detBtn = itemView?.findViewById<ImageButton>(R.id.det_img)
         val songTxt = itemView?.findViewById<TextView>(R.id.song_txtv)
         val card = itemView?.findViewById<ConstraintLayout>(R.id.conscard)
+        val tap = itemView?.findViewById<TextView>(R.id.tap_image)
 
         fun updateUi(songdata: SongData){
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
 
-            try {
-                Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
-            }catch (e: Exception){
-                e.printStackTrace()
+            tap?.setOnClickListener {
+                try {
+                    Picasso.with(context!!).load(songdata.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+                tap.visibility = View.GONE
+                card?.bringToFront()
             }
         }
 
