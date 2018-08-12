@@ -34,7 +34,7 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
         }*/
         holder.updateUi(song)
 
-   /*     holder.faveBtn?.setOnClickListener {
+        holder.faveBtn?.setOnClickListener {
 
             var isin = false
             for (i in DataStorage.instance.set_favo){
@@ -77,6 +77,8 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
                 GetSongPageCon(activity).execute(position)
             }
         }
+
+
         holder.detBtn?.setOnClickListener {
             var builder = AlertDialog.Builder(context!!)
             var alertdialog: AlertDialog? = null
@@ -92,7 +94,6 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
             alertdialog!!.show()
         }
 
-*/
 
 
     }

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -69,7 +70,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 println("typeee ${type}")
                 content = Ds.item_categoWebContent
                 n = ((content.split(Ds.bn_songs_catego))[1].split(Ds.an_songs_catego))[0]
-                println(n)
+                Log.i("Content is:", n)
             }
 
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
@@ -80,9 +81,8 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             val m_date = Pattern.compile(Ds.pt_date_songs).matcher(n)
             val m_views = Pattern.compile(Ds.pt_views_songs).matcher(n)
 
-            while (m_allcat.find()){
+            while (m_titleAndSinger_songs.find()){
                 println("something")
-                m_titleAndSinger_songs.find()
                 var cats = ""
                 var title: String = ""
                 var singer: String = ""
@@ -97,7 +97,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                     var catstr = m_allcat.group(1)
                     var m_each_cat = Pattern.compile(Ds.pt_each_cat_songs).matcher(catstr)
 
-                    while (m_each_cat.find()){
+             /*       while (m_each_cat.find()){
                         try {
                             val cat = m_each_cat.group(1)
                             println("catsss = ${cat}")
@@ -106,8 +106,8 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                             println("cat1 not found")
                         }
                     }
-
-                /*    try {
+*/
+                    try {
                         m_each_cat.find()
                         var cat1 = m_each_cat.group(1)
                         println("catsss = ${cat1}")
@@ -132,7 +132,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                         cats += " , " + cat3
                     }catch (e: Exception){
                         println("cat3 not found")
-                    }*/
+                    }
 
                 }
                 catch (e: Exception){
@@ -175,31 +175,43 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                     e.printStackTrace()
                 }
 
+                var TandS = ""
                 try {
                     m_fa_titleAndsinger.find()
-                    var TandS: String = m_titleAndSinger_songs.group(1) + "p>"
+                    TandS = m_titleAndSinger_songs.group(1) + "p>"
                     val m_titleAndSinger_songs2 = Pattern.compile(Ds.pt_titleAndSinger_songs2).matcher(TandS)
                     m_titleAndSinger_songs2.find()
-                    TandS = m_titleAndSinger_songs2.group(1)
+                    var TandS2 = m_titleAndSinger_songs2.group(1)
 
-                    var m_title = Pattern.compile(Ds.pt_title_songs).matcher(TandS)
+                    var m_title = Pattern.compile(Ds.pt_title_songs).matcher(TandS2)
                     m_title.find()
                     title = m_title.group(1)
 
-                    val m_singer = Pattern.compile(Ds.pt_singer_songs).matcher(TandS)
+                    val m_singer = Pattern.compile(Ds.pt_singer_songs).matcher(TandS2)
                     m_singer.find()
                     singer = m_singer.group(1)
 
                 }
                 catch (e: Exception){
                     try {
-                        title = m_fa_titleAndsinger.group(1)
+                        val m_title2 = Pattern.compile("&#8211;(.*?)</").matcher(TandS)
+                        m_title2.find()
+                        title = m_title2.group(1)
+
+                        val m_singer2 = Pattern.compile("</span>(.*?)&#8211;").matcher(TandS)
+                        m_singer2.find()
+                        singer = m_singer2.group(1)
+                    }catch (e: Exception){
+                        try {
+                            title = m_fa_titleAndsinger.group(1)
+                        }
+                        catch (e: Exception){
+                            title = "Not Found!"
+                            singer = "Not Found!"
+                            e.printStackTrace()
+                        }
                     }
-                    catch (e: Exception){
-                        title = "Not Found!"
-                        singer = "Not Found!"
-                        e.printStackTrace()
-                    }
+
                 }
 
 
@@ -239,7 +251,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
         else if (type == CallType.CATGORY){
 
             println("got here too size of the ")
-            Ds.arr_catego_item_Data.addAll(result)
+            Ds.arr_catego_item_Data = result
             println("size is === ${Ds.arr_catego_item_Data.size}")
 
             view.animate.setText("huhuhuhuhuhhuhu")
