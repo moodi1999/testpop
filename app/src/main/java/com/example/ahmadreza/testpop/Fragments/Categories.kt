@@ -57,11 +57,12 @@ class Categories : Fragment() {
     fun Ui(view: View) {
         view.first.x = 0f
         view.first.y = 0f
-        view.second.x = 2000f
-        view.second.y = 2000f
-        view.second.animate().translationXBy(-2000f).setDuration(600)
+        view.second.animate().translationXBy(-2000f).setDuration(600).withEndAction {
+            view.second.x = 2000f
+            view.second.y = 2000f
+        }
 
-        val layoutm = LinearLayoutManager(context)
+        val layoutm = GridLayoutManager(context, 3)
         view.category_recyclerView_fst.layoutManager = layoutm
         view.category_recyclerView_fst.setHasFixedSize(true)
         ViewCompat.setNestedScrollingEnabled(view.category_recyclerView_fst, false)
