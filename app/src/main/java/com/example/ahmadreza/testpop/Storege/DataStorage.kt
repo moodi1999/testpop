@@ -8,8 +8,9 @@ import com.example.ahmadreza.testpop.Datas.SongData
  */
 class DataStorage {
 
-    val Main_URL = "http://pop-music.ir/"
+    var before_loading: ArrayList<SongData> = ArrayList()
 
+    val Main_URL = "http://pop-music.ir/"
 
     var recentWebContent: String = ""
     var recentWebContent_Done: Boolean? = null
@@ -69,19 +70,20 @@ class DataStorage {
 
     //
 
-    var arr_catego_name = arrayListOf<String>("Album", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Full Album", "Music Video(Coming soon)", "Sound Track", "Moloody", "Nohe", "Special")
+    var arr_catego_name = arrayListOf<String>("Album", "Coming Sonn", "Voiceles", "Single Music", "Single Music/Epic", "Single Music/Rock", "Single Music/Traditional", "Single Music/Happy", "Single Music/Sad", "Titles", "Remix", "public", "Music Video(Coming soon)", "Sound Track", "Special")
 
-    var arr_catego_url = arrayListOf<String>("http://pop-music.ir/category/album", "http://pop-music.ir/category/coming-soon", "http://pop-music.ir/category/%d8%a8%db%8c-%da%a9%d9%84%d8%a7%d9%85", "http://pop-music.ir/category/single-music", "http://pop-music.ir/category/single-music/anthem", "http://pop-music.ir/category/single-music/rock", "http://pop-music.ir/category/single-music/traditional-songs", "http://pop-music.ir/category/single-music/happy-song", "http://pop-music.ir/category/single-music/sad-song", "http://pop-music.ir/category/titles", "http://pop-music.ir/category/%d8%b1%d9%85%db%8c%da%a9%d8%b3", "http://pop-music.ir/category/%d8%af%d8%b3%d8%aa%d9%87%e2%80%8c%d8%a8%d9%86%d8%af%db%8c-%d9%86%d8%b4%d8%af%d9%87", "http://pop-music.ir/category/full-album", "http://pop-music.ir/category/music-video", "http://pop-music.ir/category/soundtrack", "http://pop-music.ir/category/molody", "http://pop-music.ir/category/%d9%86%d9%88%d8%ad%d9%87", "http://pop-music.ir/category/special")
+    var arr_catego_url = arrayListOf<String>("http://pop-music.ir/category/album", "http://pop-music.ir/category/coming-soon", "http://pop-music.ir/category/%d8%a8%db%8c-%da%a9%d9%84%d8%a7%d9%85", "http://pop-music.ir/category/single-music", "http://pop-music.ir/category/single-music/anthem", "http://pop-music.ir/category/single-music/rock", "http://pop-music.ir/category/single-music/traditional-songs", "http://pop-music.ir/category/single-music/happy-song", "http://pop-music.ir/category/single-music/sad-song", "http://pop-music.ir/category/titles", "http://pop-music.ir/category/%d8%b1%d9%85%db%8c%da%a9%d8%b3", "http://pop-music.ir/category/%d8%af%d8%b3%d8%aa%d9%87%e2%80%8c%d8%a8%d9%86%d8%af%db%8c-%d9%86%d8%b4%d8%af%d9%87",  "http://pop-music.ir/category/music-video", "http://pop-music.ir/category/soundtrack", "http://pop-music.ir/category/special")
 
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
-      /*  var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
-        arr_catego_item_Data.add(song)
-        arr_catego_item_Data.add(song)
-        arr_catego_item_Data.add(song)
-        arr_catego_item_Data.add(song)
-        arr_catego_item_Data.add(song)*/
+        var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
+        before_loading.add(song)
+        before_loading.add(song)
+        before_loading.add(song)
+        before_loading.add(song)
+        before_loading.add(song)
+        before_loading.add(song)
       /*  var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
         arr_recentData.add(song)
         arr_recentData.add(song)

@@ -117,10 +117,14 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
         val songTxt = itemView?.findViewById<TextView>(R.id.song_txtv)
         val card = itemView?.findViewById<ConstraintLayout>(R.id.conscard)
         val tap = itemView?.findViewById<TextView>(R.id.tap_image)
+        val album = itemView?.findViewById<TextView>(R.id.album_item_txt)
 
         fun updateUi(songdata: SongData){
             songTxt?.setText(songdata.title)
             atristTxt?.setText(songdata.singer)
+            if (songdata.category_tag.equals("آلبوم",true)){
+                album?.visibility = View.VISIBLE
+            }
 
             tap?.setOnClickListener {
                 try {

@@ -110,6 +110,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView){
         val atristTxt = itemView?.findViewById<TextView>(R.id.artist_txtv)
         val tap = itemView?.findViewById<TextView>(R.id.tap_image)
+        val album = itemView?.findViewById<TextView>(R.id.album_item_txt)
         val artistImg = itemView?.findViewById<ImageView>(R.id.artist_imageView)
         val faveBtn = itemView?.findViewById<ImageButton>(R.id.fav_img)
         val detBtn = itemView?.findViewById<ImageButton>(R.id.det_img)
@@ -119,6 +120,9 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
         fun updateUi(song: SongData){
             songTxt?.setText(song.title)
             atristTxt?.setText(song.singer)
+            if (song.category_tag.equals("آلبوم",true)){
+                album?.visibility = View.VISIBLE
+            }
 
             tap?.setOnClickListener {
                 try {

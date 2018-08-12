@@ -54,7 +54,6 @@ class SongPageDF(val activity: FragmentActivity?) : AsyncTask<ArrayList<Int>?, U
     override fun onPostExecute(result: Int?) {
         super.onPostExecute(result)
         var a = (activity as MainActivity)
-        a.csetPlayPause(false)
-        a.play(DataStorage.instance.arr_recentData.get(result!!).mp3.get(3), true)
+        a.play(DataStorage.instance.arr_recentData.get(result!!).mp3.get(1), true)
     }
 }

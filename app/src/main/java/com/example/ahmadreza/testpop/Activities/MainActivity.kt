@@ -35,6 +35,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
+import kotlinx.android.synthetic.main.main_slide_lay.*
 import java.util.*
 
 
@@ -181,14 +182,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_slide_lay)
-        play("")
         uiInit()
         getData()
+        play("")
 
 
     }
 
     fun play(s: String, b: Boolean = false){
+        println("going to play ${s}")
         bandwidthMeter = DefaultBandwidthMeter()
         extractorsFactory = DefaultExtractorsFactory()
 
@@ -240,7 +242,7 @@ class MainActivity : AppCompatActivity() {
 
         tab_View_pager.bringToFront()
         toolbar.bringToFront()
-
+        //sliding_layout.isClipPanel = true
 
     }
 

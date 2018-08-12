@@ -253,7 +253,6 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             Ds.arr_catego_item_Data = result
             println("size is === ${Ds.arr_catego_item_Data.size}")
 
-            view.animate.setText("huhuhuhuhuhhuhu")
             val adaptor = CategoSongItemADP(DataStorage.instance.arr_catego_item_Data, context, activity)
             view.category_recyclerView_sec.adapter = adaptor
 

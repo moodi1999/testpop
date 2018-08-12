@@ -23,7 +23,7 @@ class CategoryDF(val view: View, val context: Context, val activity: FragmentAct
         val Ds = DataStorage.instance
         try {
             var i = 0
-            while (i < 18){
+            while (i < 15){
 
                 val name = Ds.arr_catego_name.get(i)
                 val link = Ds.arr_catego_url.get(i)
