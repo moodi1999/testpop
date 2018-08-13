@@ -74,9 +74,7 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
                     song_name = m_song_name2.group(1)
                 }catch (e: Exception){
                     try {
-                        val num = song_name_or.split("&#8211;")[1]
-                        val name = song_name_or.split("&#8211;")[2]
-                        song_name = num + name
+                        song_name = song_name_or.split("&#8211;")[2]
                     }catch (e: Exception){
                     }
                     e.printStackTrace()

@@ -5,34 +5,43 @@
     android:id="@+id/album_song_click"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    android:layout_marginTop="2dp">
+    android:layout_marginBottom="3dp"
+    android:layout_marginTop="3dp">
 
-    <android.support.v4.widget.CircleImageView
-        android:id="@+id/album_circle_img"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/album_circle_imgview"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/omidnb"
+        app:civ_border_color="#c405302e"
+        app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/album_song_name_txt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="221dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="TextView"
-        android:textSize="16sp"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/album_play_img"
-        app:layout_constraintStart_toEndOf="@+id/album_circle_img"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/album_circle_imgview"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.142" />
 
     <ImageView
         android:id="@+id/album_play_img"
         android:layout_width="wrap_content"
         android:layout_height="34dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

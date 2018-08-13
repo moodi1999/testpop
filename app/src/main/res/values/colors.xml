@@ -10,4 +10,7 @@
     <color name="Background">#572d4059</color>
     <color name="btn_more">#2c526b</color>
     <color name="tap_text">#2b9c9c9c</color>
+    <color name="slide_toobar">#83000000</color>
+    <color name="media_contorol">#45000000</color>
+
 </resources>

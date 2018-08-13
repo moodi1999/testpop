@@ -14,6 +14,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.AlbumRecyAdp
@@ -41,9 +42,12 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import de.hdodenhof.circleimageview.CircleImageView
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
+import kotlinx.android.synthetic.main.media_contorol.*
 import kotlinx.android.synthetic.main.up_slide_lay.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -64,16 +68,13 @@ class MainActivity : AppCompatActivity() {
 
     var seekPlayerProgress: SeekBar? = null
     var handler: Handler? = null
-    var btnPlay: ImageButton? = null
-    var txtCurrentTime: TextView? = null
-    var txtEndTime: TextView? = null
     var isPlaying = false
 
     var song = ""
 
 
     fun initSeekBar() {
-        seekPlayerProgress = findViewById<SeekBar>(R.id.mediacontroller_progress)
+        seekPlayerProgress = findViewById<SeekBar>(R.id.song_seekbar)
         seekPlayerProgress!!.requestFocus()
 
         seekPlayerProgress!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -104,8 +105,8 @@ class MainActivity : AppCompatActivity() {
     fun setProgress() {
         seekPlayerProgress!!.progress = 0
         seekPlayerProgress!!.max = player!!.duration.toInt() / 1000
-        txtCurrentTime!!.text = stringForTime(player!!.currentPosition.toInt())
-        txtEndTime!!.text = stringForTime(player!!.duration.toInt())
+        curr_time!!.text = stringForTime(player!!.currentPosition.toInt())
+        song_lenth!!.text = stringForTime(player!!.duration.toInt())
 
         if (handler == null) handler = Handler()
         //Make sure you update Seekbar on UI thread
@@ -115,8 +116,8 @@ class MainActivity : AppCompatActivity() {
                     seekPlayerProgress!!.max = player!!.duration.toInt() / 1000
                     val mCurrentPosition = player!!.currentPosition.toInt() / 1000
                     seekPlayerProgress!!.progress = mCurrentPosition
-                    txtCurrentTime!!.text = stringForTime(player!!.currentPosition.toInt())
-                    txtEndTime!!.text = stringForTime(player!!.duration.toInt())
+                    curr_time.text = stringForTime(player!!.currentPosition.toInt())
+                    song_lenth.text = stringForTime(player!!.duration.toInt())
 
                     handler!!.postDelayed(this, 1000)
                     /*        when(player?.playbackState){
@@ -140,34 +141,27 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun initTxtTime() {
-        txtCurrentTime = findViewById<TextView>(R.id.time_current)
-        txtEndTime = findViewById<TextView>(R.id.player_end_time)
-    }
-
     fun csetPlayPause(play: Boolean) {
         isPlaying = play
         player!!.playWhenReady = play
         if (!isPlaying) {
-            btnPlay!!.setImageResource(android.R.drawable.ic_media_play)
+            play_puase.setImageResource(R.drawable.ic_play)
         } else {
             setProgress()
-            btnPlay!!.setImageResource(android.R.drawable.ic_media_pause)
+            play_puase.setImageResource(R.drawable.ic_pause)
         }
     }
 
 
     fun initPlayButton() {
-        btnPlay = findViewById<ImageButton>(R.id.btnPlay)
-        btnPlay!!.requestFocus()
-        btnPlay!!.setOnClickListener { csetPlayPause(!isPlaying)}
+        play_puase.requestFocus()
+        play_puase.setOnClickListener { csetPlayPause(!isPlaying)}
     }
 
 
     fun initMediaControls() {
         initPlayButton()
         initSeekBar()
-        initTxtTime()
     }
 
 
@@ -288,22 +282,26 @@ class MainActivity : AppCompatActivity() {
 
     fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList()){
 
+        initPlayer()
         if (musicType == MusicType.Single){ // Songle Song
             album.visibility = View.INVISIBLE
             single.visibility = View.VISIBLE
-            DownloadIMG().execute(songData!!.Img_URL)
-            play(songData.mp3.get(3))
+            play(songData!!.mp3.get(3), true)
+            artist_text_small.text = songData.singer
+            song_text_small.text = songData.title
+            DownloadIMG().execute(songData.Img_URL)
         }
         else{ // Album
             single.visibility = View.INVISIBLE
             album.visibility = View.VISIBLE
-           // DownloadIMG().execute(songData!!.Img_URL)
             println(songData!!.title)
             println(arr_album!!.size)
-            val adaptor = AlbumRecyAdp(songData!!, arr_album!!)
+            val adaptor = AlbumRecyAdp(applicationContext, songData, arr_album)
             album_recyclerview.adapter = adaptor
+            artist_text_small.text = songData.singer
 
         }
+
 
     }
 
@@ -331,7 +329,13 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: Bitmap?) {
             super.onPostExecute(result)
-            background_image.setImageBitmap(result)
+            //background_image.setImageBitmap(result)
+            var imageView = findViewById<ImageView>(R.id.background_image)
+            var small_imageView = findViewById<ImageView>(R.id.small_img)
+            var circle = findViewById<CircleImageView>(R.id.single_circle)
+            circle.setImageBitmap(result)
+            small_imageView.setImageBitmap(result)
+            Blurry.with(applicationContext).sampling(1).from(result).into(imageView)
         }
     }
 

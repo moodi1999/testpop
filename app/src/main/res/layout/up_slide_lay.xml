@@ -8,67 +8,75 @@
 
     <ImageView
         android:id="@+id/background_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/single_album"
-        app:srcCompat="@color/btn_more" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/omidnb"
+        tools:layout_editor_absoluteY="158dp" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/below_shadow"
-        app:layout_constraintBottom_toTopOf="@+id/small_img"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/above_shadow" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/slide_toobar">
 
-    <ImageView
-        android:id="@+id/small_img"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/single_album"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView5"
-        app:srcCompat="@drawable/omidnb" />
 
-    <TextView
-        android:id="@+id/song_text_small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:text="Delbar"
-        android:textColor="@color/defaultTabTextColor"
-        android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/small_img"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/below_shadow"
+            app:layout_constraintBottom_toTopOf="@+id/small_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/above_shadow" />
 
-    <TextView
-        android:id="@+id/artist_text_small"
-        android:layout_width="129dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:text="Omid Biglary"
-        android:textColor="@color/defaultTabTextColor"
-        app:layout_constraintStart_toEndOf="@+id/song_text_small"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/small_img"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            app:srcCompat="@drawable/omidnb" />
 
-    <ProgressBar
-        android:id="@+id/progresbar_small"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toEndOf="@+id/small_img"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/song_text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="Delbar"
+            android:textColor="@color/defaultTabTextColor"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@+id/small_img"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/artist_text_small"
+            android:layout_width="129dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:text="Omid Biglary"
+            android:textColor="@color/defaultTabTextColor"
+            app:layout_constraintStart_toEndOf="@+id/song_text_small"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progresbar_small"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.505"
+            app:layout_constraintStart_toEndOf="@+id/small_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
 
 
     <android.support.constraint.ConstraintLayout
@@ -76,17 +84,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="56dp"
-        app:layout_constraintBottom_toTopOf="@+id/media_controller"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
         <include
             android:id="@+id/single"
             layout="@layout/single_music"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <include
             android:id="@+id/album"
@@ -96,122 +103,18 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/media_controller"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#CC000000"
-        android:orientation="vertical"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
+
+        <include
+            layout="@layout/media_contorol"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="4dip">
-
-            <ImageButton
-                android:id="@+id/btnPlay"
-                style="@android:style/MediaButton.Play" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/time_current"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="4dip"
-                android:paddingRight="4dip"
-                android:paddingTop="4dip"
-                android:text="00:00"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <SeekBar
-                android:id="@+id/mediacontroller_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dip"
-                android:layout_height="32dip"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/player_end_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingLeft="4dip"
-                android:paddingRight="4dip"
-                android:paddingTop="4dip"
-                android:text="99:99"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <ImageButton
-                android:id="@+id/fullscreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:layout_marginTop="-7dp"
-                android:background="@android:color/transparent"
-                android:paddingBottom="4dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="4dip"
-                android:paddingTop="4dip" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/next_button_small"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginTop="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/single_album"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_next"
-        android:layout_marginRight="14dp" />
-
-    <ImageButton
-        android:id="@+id/pervi_button_small"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/play_button_small"
-        app:layout_constraintEnd_toStartOf="@+id/play_button_small"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/artist_text_small"
-        app:srcCompat="@android:drawable/ic_media_previous" />
-
-    <ImageButton
-        android:id="@+id/play_button_small"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackground"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="@+id/next_button_small"
-        app:layout_constraintEnd_toStartOf="@+id/next_button_small"
-        app:srcCompat="@android:drawable/ic_media_play" />
-
-
+            android:layout_height="match_parent" />
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

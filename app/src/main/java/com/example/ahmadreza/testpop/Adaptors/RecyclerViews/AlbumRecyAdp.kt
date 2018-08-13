@@ -1,31 +1,34 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
+
 import android.content.Context
-import android.media.Image
-import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.up_slide_lay.*
 
 /**
  * Created by ahmadreza on 8/13/18.
  */
-class AlbumRecyAdp(/*val context: Context,*/ songData: SongData, val album: ArrayList<AlbumData>) : RecyclerView.Adapter<AlbumRecyAdp.ViewHolder>() {
+class AlbumRecyAdp(val context: Context, songData: SongData, val album: ArrayList<AlbumData>) : RecyclerView.Adapter<AlbumRecyAdp.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val data = album.get(position)
         holder.name?.setText(data.song_name)
 
-       /* holder.playimg?.setOnClickListener {
-            (context as MainActivity).play(data.mp3, true)
-        }*/
+        holder.playimg?.setOnClickListener {
+            val ac = context as MainActivity
+            ac.play(data.mp3, true)
+            ac.song_text_small.text = data.song_name
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,7 +36,7 @@ class AlbumRecyAdp(/*val context: Context,*/ songData: SongData, val album: Arra
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recent_recy_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.album_songs_recy_item, parent, false)
 
         return ViewHolder(view)
     }
