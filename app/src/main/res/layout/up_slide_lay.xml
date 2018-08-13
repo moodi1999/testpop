@@ -86,6 +86,11 @@
         <include
             android:id="@+id/single"
             layout="@layout/single_music"
+            android:visibility="visible" />
+
+        <include
+            android:id="@+id/album"
+            layout="@layout/album_lay"
             android:visibility="invisible" />
 
 

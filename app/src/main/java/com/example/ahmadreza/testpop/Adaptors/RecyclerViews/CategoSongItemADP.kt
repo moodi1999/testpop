@@ -78,6 +78,7 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
             } else {
                 var musicT = MusicType.Single
                 if (song.category_tag.equals("آلبوم", true)){
+
                     musicT = MusicType.Album
                 }
                 GetSongPageCon(activity, song, musicT).execute(position)

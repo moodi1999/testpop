@@ -8,15 +8,20 @@ import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.SeekBar
 import android.widget.TextView
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.AlbumRecyAdp
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.CallType
+import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -36,7 +41,9 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
+import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
+import kotlinx.android.synthetic.main.fragment_recent.view.*
 import kotlinx.android.synthetic.main.up_slide_lay.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -231,6 +238,8 @@ class MainActivity : AppCompatActivity() {
         DownloadWebContent(CallType.RECENT).execute(DataStorage.instance.Main_URL)
     }
 
+
+
     fun uiInit(){
         toolbar
         setSupportActionBar(toolbar)
@@ -251,6 +260,9 @@ class MainActivity : AppCompatActivity() {
         toolbar.bringToFront()
         //sliding_layout.isClipPanel = true
 
+        val layoutm = LinearLayoutManager(applicationContext)
+        album_recyclerview.layoutManager = layoutm
+        album_recyclerview.setHasFixedSize(true)
     }
 
     // Menu Config
@@ -274,14 +286,22 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun SetPlayer(songData: SongData? = null,arr_album:ArrayList<AlbumData>? = null){
-        if (arr_album == null){ // Songle Song
-            DownloadIMG().execute(songData!!.Img_URL)
+    fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList()){
 
+        if (musicType == MusicType.Single){ // Songle Song
+            album.visibility = View.INVISIBLE
+            single.visibility = View.VISIBLE
+            DownloadIMG().execute(songData!!.Img_URL)
+            play(songData.mp3.get(3))
         }
         else{ // Album
-            DownloadIMG().execute(songData!!.Img_URL)
-
+            single.visibility = View.INVISIBLE
+            album.visibility = View.VISIBLE
+           // DownloadIMG().execute(songData!!.Img_URL)
+            println(songData!!.title)
+            println(arr_album!!.size)
+            val adaptor = AlbumRecyAdp(songData!!, arr_album!!)
+            album_recyclerview.adapter = adaptor
 
         }
 

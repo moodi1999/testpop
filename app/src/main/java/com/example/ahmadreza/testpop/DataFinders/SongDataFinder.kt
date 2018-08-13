@@ -71,7 +71,6 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 content = Ds.item_categoWebContent
                 n = ((content.split(Ds.bn_songs_catego))[1].split(Ds.an_songs_catego))[0]
             }
-
             val m_link = Pattern.compile(Ds.pt_link_songs).matcher(n)
             val m_titleAndSinger_songs = Pattern.compile(Ds.pt_titleAndSinger_songs).matcher(n)
             val m_fa_titleAndsinger = Pattern.compile(Ds.pt_title_fa).matcher(n)

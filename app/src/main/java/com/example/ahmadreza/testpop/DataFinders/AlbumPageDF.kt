@@ -30,56 +30,78 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : AsyncTask<String, Unit, Unit>() {
+class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : AsyncTask<String, Unit, ArrayList<AlbumData>>() {
 
     val Ds = DataStorage.instance
 
-    override fun doInBackground(vararg str: String) {
+    override fun doInBackground(vararg str: String): ArrayList<AlbumData> {
 
+        val arr: ArrayList<AlbumData> = ArrayList()
 
         try {
+            val con = songData.pageCon
+            val test = con.split("<span style=\"color: #0000ff;\"><a style=\"color: #0000ff;\" href=\"http://pop-music.ir/tag/")[1]
+            //println(test)
 
-            val n = songData.pageCon.split(Ds.bn_album)[1].split(Ds.an_album)[0]
+            val test2 = test.split("</div>\n" +
+                    "\t\t\t\t<div class=\"pull-left\"></div>\n" +
+                    "\t\t\t\t<div class=\"clear\"></div>\n" +
+                    "\t\t\t\t<div class=\"post-tags\">")[0]
 
-            val m_url = Pattern.compile(Ds.pt_album_url).matcher(n)
-            val m_song_name = Pattern.compile(Ds.pt_album_song_name).matcher(n)
+            println(test2)
+            //val n = songData.pageCon.split(Ds.bn_album)[1].split(Ds.an_album)[0]
+            val m_url = Pattern.compile(Ds.pt_album_url).matcher(test2)
+            val m_song_name = Pattern.compile(Ds.pt_album_song_name).matcher(test2)
 
             while (m_url.find()){
 
-                var url = ""
+                var mp3 = ""
                 var song_name = ""
 
                 try {
-                    url = m_url.group(1)
+                    mp3 = m_url.group(1)
                 }catch (e: Exception){
                     e.printStackTrace()
-                    url = "NotFound!"
+                    mp3 = "NotFound!"
                 }
-
+                var song_name_or = ""
                 try {
-                    song_name = m_song_name.group(1)
-                    val m_song_name2 = Pattern.compile(Ds.pt_album_song_name2).matcher(song_name)
+                    m_song_name.find()
+                    song_name_or = m_song_name.group(1)
+                    println(song_name_or)
+                    val m_song_name2 = Pattern.compile(Ds.pt_album_song_name2).matcher(song_name_or)
                     m_song_name2.find()
                     song_name = m_song_name2.group(1)
                 }catch (e: Exception){
-                    song_name = song_name.split(Ds.sp_album_song_name3)[1] + song_name.split(Ds.sp_album_song_name3)[2]
+                    try {
+                        val num = song_name_or.split("&#8211;")[1]
+                        val name = song_name_or.split("&#8211;")[2]
+                        song_name = num + name
+                    }catch (e: Exception){
+                    }
                     e.printStackTrace()
-                    url = "NotFound!"
+                    mp3 = "NotFound!"
                 }
-
-                val album = AlbumData(url, song_name)
-                Ds.arr_album!!.add(album)
+                
+                val album = AlbumData(mp3, song_name)
+                arr.add(album)
             }
+
+            return arr
+
         }
         catch (e : Exception){
             e.printStackTrace()
-            println("something")
+            println("something wrong")
+            return arr
         }
     }
 
-    override fun onPostExecute(result: Unit) {
+    override fun onPostExecute(result: ArrayList<AlbumData>) {
         super.onPostExecute(result)
-        (activity as MainActivity).SetPlayer(songData, Ds.arr_album)
+        print("size of res == ")
+        println(result.size)
+        (activity as MainActivity).SetPlayer(songData, MusicType.Album ,result)
         println("SongDataFinder.onPostExecute")
     }
 

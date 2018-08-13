@@ -2,12 +2,14 @@ package com.example.ahmadreza.testpop.DataGeters
 
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
+import android.view.View
 import com.example.ahmadreza.testpop.DataFinders.AlbumPageDF
 import com.example.ahmadreza.testpop.DataFinders.SongPageDF
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.Storege.DataStorage
+import kotlinx.android.synthetic.main.up_slide_lay.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
@@ -61,10 +63,13 @@ class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, va
 
     override fun onPostExecute(result: ArrayList<Int>?) {
         super.onPostExecute(result)
+
         if (musicType == MusicType.Album){
             AlbumPageDF(activity,songData).execute()
+
         }else{
             SongPageDF(activity,songData).execute(result)
+
         }
 
         println("GetSongPageCon.onPostExecute: done")

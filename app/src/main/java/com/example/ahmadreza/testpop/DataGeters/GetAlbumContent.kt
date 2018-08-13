@@ -2,6 +2,7 @@ package com.example.ahmadreza.testpop.DataGeters
 
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
+import com.example.ahmadreza.testpop.DataFinders.AlbumPageDF
 import com.example.ahmadreza.testpop.DataFinders.SongPageDF
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.SongData
@@ -60,7 +61,6 @@ class GetAlbumContent(val activity: FragmentActivity?, val songData: SongData, v
 
     override fun onPostExecute(result: ArrayList<Int>?) {
         super.onPostExecute(result)
-
         println("GetSongPageCon.onPostExecute: done")
     }
 }

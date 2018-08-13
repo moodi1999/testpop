@@ -70,10 +70,13 @@ class DataStorage {
 
     // Album pt and sp
 
-    val arr_album: ArrayList<AlbumData>? = null
+    val arr_album: ArrayList<AlbumData> = ArrayList()
 
-    var bn_album = "Download"
-    var an_album = "<div class=\"post-tags\">"
+    var bn_album = "\"<span style=\\\"color: #0000ff;\\\"><a style=\\\"color: #0000ff;\\\" href=\\\"http://pop-music.ir/tag/\""
+    var an_album = "</div>\n" +
+            "\t\t\t\t<div class=\"pull-left\"></div>\n" +
+            "\t\t\t\t<div class=\"clear\"></div>\n" +
+            "\t\t\t\t<div class=\"post-tags\">"
 
     var pt_album_url = "href=\"(.*?)\" target=\"_blank\""
     var pt_album_song_name = "noopener(.*?)</p>"

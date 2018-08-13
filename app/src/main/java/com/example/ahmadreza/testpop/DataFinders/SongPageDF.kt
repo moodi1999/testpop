@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.CallType
+import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.util.regex.Pattern
@@ -55,6 +56,6 @@ class SongPageDF(val activity: FragmentActivity?, val songData: SongData, val ca
     override fun onPostExecute(result: SongData?) {
         super.onPostExecute(result)
         var a = (activity as MainActivity)
-        a.play(songData.mp3.get(3), true)
+        a.SetPlayer(songData, MusicType.Single)
     }
 }
