@@ -1,12 +1,13 @@
 package com.example.ahmadreza.testpop.Activities
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
+import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageButton
@@ -14,7 +15,9 @@ import android.widget.SeekBar
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.CallType
+import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
@@ -33,10 +36,12 @@ import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
-import kotlinx.android.synthetic.main.main_slide_lay.*
+import kotlinx.android.synthetic.main.up_slide_lay.*
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -184,13 +189,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_slide_lay)
         uiInit()
         getData()
-        play("")
+        initPlayer()
 
 
     }
 
-    fun play(s: String, b: Boolean = false){
-        println("going to play ${s}")
+    fun initPlayer(){
         bandwidthMeter = DefaultBandwidthMeter()
         extractorsFactory = DefaultExtractorsFactory()
 
@@ -203,6 +207,9 @@ class MainActivity : AppCompatActivity() {
                 (TransferListener<? super DataSource>) bandwidthMeter);*/
 
         defaultBandwidthMeter = DefaultBandwidthMeter()
+    }
+    fun play(s: String, b: Boolean = false){
+
         dataSourceFactory = DefaultDataSourceFactory(this,
                 Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter)
 
@@ -266,6 +273,47 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+
+    fun SetPlayer(songData: SongData? = null,arr_album:ArrayList<AlbumData>? = null){
+        if (arr_album == null){ // Songle Song
+            DownloadIMG().execute(songData!!.Img_URL)
+
+        }
+        else{ // Album
+            DownloadIMG().execute(songData!!.Img_URL)
+
+
+        }
+
+    }
+
+    inner class DownloadIMG : AsyncTask<String, Void, Bitmap>() {
+
+        override fun doInBackground(vararg imgurl: String): Bitmap? {
+
+            try {
+
+                val url = URL(imgurl[0])
+
+                val connection = url.openConnection() as HttpURLConnection
+
+                connection.connect()
+
+                val inputStream = connection.inputStream
+
+                return BitmapFactory.decodeStream(inputStream)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            }
+
+        }
+
+        override fun onPostExecute(result: Bitmap?) {
+            super.onPostExecute(result)
+            background_image.setImageBitmap(result)
+        }
+    }
 
 }
 

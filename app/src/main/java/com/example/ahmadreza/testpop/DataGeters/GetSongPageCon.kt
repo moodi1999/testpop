@@ -16,7 +16,7 @@ import java.net.URL
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, val musicType: MusicType = MusicType.Single) : AsyncTask<Int, Unit, ArrayList<Int>>(){
+class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, val musicType: MusicType) : AsyncTask<Int, Unit, ArrayList<Int>>(){
 
     override fun onPreExecute() {
         super.onPreExecute()

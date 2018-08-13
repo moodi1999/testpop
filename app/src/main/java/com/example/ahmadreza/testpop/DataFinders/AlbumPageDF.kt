@@ -79,8 +79,7 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
 
     override fun onPostExecute(result: Unit) {
         super.onPostExecute(result)
-
-
+        (activity as MainActivity).SetPlayer(songData, Ds.arr_album)
         println("SongDataFinder.onPostExecute")
     }
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.CallType
+import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
@@ -73,8 +74,11 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 alertdialog = builder.create()
                 alertdialog.show()
 
-            } else {
-                GetSongPageCon(activity,song).execute(position)
+            } else if (song.category_tag.equals("آلبوم", true)){
+                GetSongPageCon(activity,song,MusicType.Album).execute(position)
+            }
+            else{
+                GetSongPageCon(activity,song,MusicType.Single).execute(position)
             }
         }
         holder.detBtn?.setOnClickListener {
