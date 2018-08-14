@@ -2,6 +2,7 @@ package com.example.ahmadreza.testpop.Storege
 
 import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.CatgoData
+import com.example.ahmadreza.testpop.Datas.PopularData
 import com.example.ahmadreza.testpop.Datas.SongData
 
 /**
@@ -93,6 +94,29 @@ class DataStorage {
 
     var whatisplaying = ""
 
+
+    // popular data
+
+    var popularwebcontenet: String = ""
+    var popularWebContent_Done: Boolean? = null
+
+    var sp_popu_week = "<div class=\"topmusiclist\" id=\"week\">"
+    var sp_popu_month = "<div class=\"topmusiclist\" id=\"month\">"
+    var sp_popu_year = "<div class=\"topmusiclist\" id=\"all\">"
+    var sp_popu_last = "<div class=\"lastposts\">"
+
+    var pt_popu_url = "<a href=\"(.*?)\" rel=\"bookmark\""
+    var pt_popu_title = "title=(.*?)\">"
+    var pt_popu_title2 = "\"(.*?)پيوند پايدار به دانلود"
+
+    var week_con = ""
+    var month_con = ""
+    var year_con = ""
+    var arr_popu_week: ArrayList<PopularData> = ArrayList()
+    var arr_popu_month: ArrayList<PopularData> = ArrayList()
+    var arr_popu_year: ArrayList<PopularData> = ArrayList()
+
+
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")
@@ -103,6 +127,7 @@ class DataStorage {
         before_loading.add(song)
         before_loading.add(song)
         before_loading.add(song)
+
       /*  var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
         arr_recentData.add(song)
         arr_recentData.add(song)

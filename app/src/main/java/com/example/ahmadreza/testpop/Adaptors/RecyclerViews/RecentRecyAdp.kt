@@ -29,21 +29,17 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var song: SongData = arrayList.get(position)
 
-        for (i in DataStorage.instance.set_favo){
-            if (song.title == i.title){
+        if (song.fave){
                 holder.faveBtn?.setImageResource(R.drawable.ic_fave_checked)
-            }
         }
+
         holder.updateUi(song)
 
         holder.faveBtn?.setOnClickListener {
 
             var isin = false
-            for (i in DataStorage.instance.set_favo){
-                if (song.title == i.title){
-                    isin = true
-                    break
-                }
+            if (song.fave){
+                isin = true
             }
             println("faveeeee")
             if (!isin) {

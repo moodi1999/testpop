@@ -3,11 +3,19 @@ package com.example.ahmadreza.testpop.Fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewCompat
+import android.support.v4.widget.NestedScrollView
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ahmadreza.testpop.DataFinders.PopularDF
 
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.cor_activity_main.*
+import kotlinx.android.synthetic.main.fragment_popular.*
+import kotlinx.android.synthetic.main.fragment_popular.view.*
+import kotlinx.android.synthetic.main.fragment_recent.view.*
 
 
 /**
@@ -32,8 +40,75 @@ class Popular : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popular, container, false)
+        val view = inflater.inflate(R.layout.fragment_popular, container, false)
+        println("Popular.onCreateView")
+        PopularDF(view,context!!,activity).execute()
+
+        Ui(view)
+
+        return view
     }
+
+    fun Ui(view: View?){
+        ViewCompat.setNestedScrollingEnabled(view!!.popular_lay, false)
+
+        val layoutmw = LinearLayoutManager(context)
+        view?.week_recyclerview?.layoutManager = layoutmw
+        view?.week_recyclerview?.setHasFixedSize(true)
+
+        val layoutmm = LinearLayoutManager(context)
+        view?.month_recyclerview?.layoutManager = layoutmm
+        view?.month_recyclerview?.setHasFixedSize(true)
+
+        val layoutmy = LinearLayoutManager(context)
+        view?.year_recyclerview?.layoutManager = layoutmy
+        view?.year_recyclerview?.setHasFixedSize(true)
+
+        scrolling(view!!)
+
+    }
+
+    fun scrolling(view: View){
+        var scrollup = true
+        if (view.scrollView_recent != null) {
+
+            view.popular_scroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (scrollY > oldScrollY) { // Up
+                    if (scrollup){
+                        activity!!.toolbar.x = 0f
+                        activity!!.toolbar.y = 0f
+                        activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
+
+
+                    }
+
+                }
+                else if (scrollY < oldScrollY) { // Down
+                    if (!scrollup){
+
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true
+                            activity!!.toolbar.x = 0f
+                            activity!!.toolbar.y = 0f
+                        }).setDuration(200)
+                        view.more.animate().translationY(150f).setDuration(100)
+                    }
+
+                }
+
+                else if (scrollY == 0) {
+                    activity!!.toolbar.x = 0f
+                    activity!!.toolbar.y = 0f
+
+                }
+
+                if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                    view.more.bringToFront()
+                    view.more.animate().translationY(-150f).setDuration(100)
+                }
+            })
+        }
+    }
+
 
     companion object {
         // TODO: Rename parameter arguments, choose names that match

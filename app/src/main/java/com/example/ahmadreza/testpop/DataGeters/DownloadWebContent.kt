@@ -74,6 +74,16 @@ class DownloadWebContent(val context: Context,val type: CallType) : AsyncTask<St
                     Ds.item_categoWebContent_Done = false
                 }
             }
+
+            CallType.POPULAR ->{
+                if (!result.equals(":|")){
+                    Ds.popularwebcontenet = result!!
+                    Ds.popularWebContent_Done = true
+                }
+                else{
+                    Ds.popularWebContent_Done = false
+                }
+            }
         }
 
         println("DownloadWebContent.onPostExecute")
