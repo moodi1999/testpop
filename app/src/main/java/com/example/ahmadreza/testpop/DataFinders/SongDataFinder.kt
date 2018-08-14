@@ -230,7 +230,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
     override fun onPostExecute(result: ArrayList<SongData>) {
         super.onPostExecute(result)
         println("SongDataFinder.onPostExecute")
-
+        (activity as MainActivity).dialog?.dismiss()
         if (type == CallType.RECENT)  {
             Ds.arr_recentData.addAll(result)
             println(Ds.arr_recentData.size)
@@ -264,7 +264,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
 
         }
 
-        (activity as MainActivity).dialog?.dismiss()
+
     }
 
 }

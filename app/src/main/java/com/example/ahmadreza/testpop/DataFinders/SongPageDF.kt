@@ -55,14 +55,13 @@ class SongPageDF(val activity: FragmentActivity?, val songData: SongData, val ca
 
     override fun onPostExecute(result: SongData?) {
         super.onPostExecute(result)
+        val ac = (activity as MainActivity)
+        ac.dialog?.dismiss()
         if (callType == CallType.GetMp3){
-            val ac = (activity as MainActivity)
             ac.download(songData.mp3.get(1))
-            ac.dialog?.dismiss()
         }
         else{
-            var a = (activity as MainActivity)
-            a.SetPlayer(songData, MusicType.Single)
+            ac.SetPlayer(songData, MusicType.Single)
         }
 
     }

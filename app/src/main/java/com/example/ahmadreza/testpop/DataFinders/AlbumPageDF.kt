@@ -99,8 +99,10 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
         super.onPostExecute(result)
         print("size of res == ")
         println(result.size)
-        (activity as MainActivity).SetPlayer(songData, MusicType.Album ,result)
+        val ac = activity as MainActivity
+        ac.SetPlayer(songData, MusicType.Album ,result)
         println("SongDataFinder.onPostExecute")
+        ac.dialog?.dismiss()
     }
 
 

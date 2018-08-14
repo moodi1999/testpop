@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
     var isPlaying = false
     var dialog: AlertDialog? = null
     val listener = object : Player.DefaultEventListener(){
+
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
             when (playbackState) {
                 ExoPlayer.STATE_ENDED -> {
@@ -214,10 +215,14 @@ class MainActivity : AppCompatActivity() {
         if (!isPlaying) {
             play_puase.setImageResource(R.drawable.ic_play)
             small_button.setImageResource(R.drawable.ic_play)
+            loading_prog.visibility = View.INVISIBLE
+            small_loading_prog.visibility = View.INVISIBLE
         } else {
             setProgress()
             play_puase.setImageResource(R.drawable.ic_pause)
             small_button.setImageResource(R.drawable.ic_pause)
+            loading_prog.visibility = View.VISIBLE
+            small_loading_prog.visibility = View.VISIBLE
         }
     }
 

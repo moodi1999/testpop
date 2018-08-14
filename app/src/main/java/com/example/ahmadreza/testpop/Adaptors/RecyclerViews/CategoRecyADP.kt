@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Datas.CallType
@@ -24,6 +25,7 @@ class CategoRecyADP(val view: View, val context: Context, val arrayList: ArrayLi
         holder.updateUi(categoData)
 
         holder.cardview?.setOnClickListener {
+            (activity as MainActivity).dialog?.show()
             view.second.animate().translationXBy(2000f).setDuration(600).withEndAction {
                 view.second.x = 0f
                 view.second.y = 0f
