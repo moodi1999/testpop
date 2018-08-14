@@ -32,7 +32,7 @@ class CategoRecyADP(val view: View, val context: Context, val arrayList: ArrayLi
             println("1")
             println(categoData.name)
             println(categoData.url)
-            DownloadWebContent(CallType.CATGORY).execute(categoData.url)
+            DownloadWebContent(context, CallType.CATGORY).execute(categoData.url)
             println("2")
             SongDataFinder(view,context,activity,CallType.CATGORY).execute()
         }

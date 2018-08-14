@@ -231,6 +231,7 @@ class MainActivity : AppCompatActivity() {
 
         defaultBandwidthMeter = DefaultBandwidthMeter()
     }
+    
     fun play(s: String, b: Boolean = false){
 
         dataSourceFactory = DefaultDataSourceFactory(this,

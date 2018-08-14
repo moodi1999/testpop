@@ -12,5 +12,6 @@
     <color name="tap_text">#2b9c9c9c</color>
     <color name="slide_toobar">#83000000</color>
     <color name="media_contorol">#45000000</color>
+    <color name="album_item">#92292929</color>
 
 </resources>
