@@ -358,16 +358,20 @@ class MainActivity : AppCompatActivity() {
         override fun doInBackground(vararg imgurl: String): Bitmap? {
 
             try {
+                if (!imgurl.equals("Not Found")){
+                    val url = URL(imgurl[0])
 
-                val url = URL(imgurl[0])
+                    val connection = url.openConnection() as HttpURLConnection
 
-                val connection = url.openConnection() as HttpURLConnection
+                    connection.connect()
 
-                connection.connect()
+                    val inputStream = connection.inputStream
 
-                val inputStream = connection.inputStream
-
-                return BitmapFactory.decodeStream(inputStream)
+                    return BitmapFactory.decodeStream(inputStream)
+                }
+               else{
+                    return null
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 return null
@@ -381,9 +385,11 @@ class MainActivity : AppCompatActivity() {
             var imageView = findViewById<ImageView>(R.id.background_image)
             var small_imageView = findViewById<ImageView>(R.id.artist_small_img)
             var circle = findViewById<CircleImageView>(R.id.single_circle)
-            circle.setImageBitmap(result)
-            small_imageView.setImageBitmap(result)
-            Blurry.with(applicationContext).sampling(1).from(result).into(imageView)
+            if (result != null){
+                circle.setImageBitmap(result)
+                small_imageView.setImageBitmap(result)
+                Blurry.with(applicationContext).sampling(1).from(result).into(imageView)
+            }
             dialog?.dismiss()
         }
     }

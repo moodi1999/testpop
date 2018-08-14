@@ -36,7 +36,7 @@ class PopularDF(val view: View, val context: Context, val activity: FragmentActi
                 Ds.year_con = con.split(Ds.sp_popu_year)[1].split(Ds.sp_popu_last)[0]
 
                 var arrs = arrayListOf(Ds.week_con, Ds.month_con, Ds.year_con)
-                for (i in (0..3)){
+                for (i in (0..2)){
 
                     val content = arrs.get(i)
                     var url = ""
@@ -56,14 +56,16 @@ class PopularDF(val view: View, val context: Context, val activity: FragmentActi
                         try {
                             m_title.find()
                             var title_or = m_title.group(1)
-                            title = title_or
-                            println(title_or)
+                            try {
+                                title = title_or.split("پيوند پايدار به")[1]
+                            }catch (e: Exception){
+                                title = title_or
+                            }
                         }catch (e: Exception){
                             title = "NotFound!"
                             e.printStackTrace()
                         }
                         println(title)
-                        println(url)
                         val data = PopularData(url, title)
 
                         if (i == 0){

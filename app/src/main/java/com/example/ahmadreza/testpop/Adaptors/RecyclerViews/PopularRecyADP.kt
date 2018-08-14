@@ -8,15 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.ahmadreza.testpop.Activities.MainActivity
+import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
+import com.example.ahmadreza.testpop.DataFinders.SongPageDF
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.DataGeters.GetPopularSongPage
+import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.CallType
+import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.PopularData
+import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 
 /**
  * Created by ahmadreza on 8/14/18.
  */
-class PopularRecyADP(val view: View, val context: Context, val arrayList: ArrayList<PopularData>, activity: FragmentActivity) : RecyclerView.Adapter<PopularRecyADP.ViewHolder>() {
+class PopularRecyADP(val view: View, val context: Context, val arrayList: ArrayList<PopularData>, val activity: FragmentActivity) : RecyclerView.Adapter<PopularRecyADP.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -26,7 +33,9 @@ class PopularRecyADP(val view: View, val context: Context, val arrayList: ArrayL
         holder.title?.text = data.title
 
         holder.click?.setOnClickListener{
-            DownloadWebContent(context, CallType.POPULAR).execute(data.url)
+            val ac = (activity as MainActivity)
+            ac.dialog?.show()
+            GetPopularSongPage(activity, SongData(data.url, data.title, "","","","",""),MusicType.Single, CallType.POPULAR).execute()
         }
 
     }

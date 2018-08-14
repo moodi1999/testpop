@@ -13,7 +13,9 @@ class DataStorage {
     var before_loading: ArrayList<SongData> = ArrayList()
 
     val Main_URL = "http://pop-music.ir/"
-    var page = 0
+    val page_txt = "page/"
+    var page_num = 1
+
     var recentWebContent: String = ""
     var recentWebContent_Done: Boolean? = null
 
@@ -106,8 +108,8 @@ class DataStorage {
     var sp_popu_last = "<div class=\"lastposts\">"
 
     var pt_popu_url = "<a href=\"(.*?)\" rel=\"bookmark\""
-    var pt_popu_title = "title=(.*?)\">"
-    var pt_popu_title2 = "\"(.*?)پيوند پايدار به دانلود"
+    var pt_popu_title = "title=\"(.*?)\">"
+    var pt_popu_title2 = "\"(.*?)پيوند پايدار به"
 
     var week_con = ""
     var month_con = ""
