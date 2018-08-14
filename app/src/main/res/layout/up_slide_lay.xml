@@ -43,7 +43,7 @@
             android:id="@+id/song_text_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="16dp"
             android:text="Delbar"
             android:textColor="@color/defaultTabTextColor"
@@ -72,8 +72,16 @@
             app:layout_constraintStart_toEndOf="@+id/small_img"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
+        <ImageButton
+            android:id="@+id/small_play_pause"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progresbar_small"
+            app:srcCompat="@drawable/ic_play" />
 
 
     </android.support.constraint.ConstraintLayout>
@@ -93,7 +101,9 @@
         <include
             android:id="@+id/single"
             layout="@layout/single_music"
-            android:visibility="invisible" />
+            android:layout_width="413dp"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="-2dp" />
 
         <include
             android:id="@+id/album"

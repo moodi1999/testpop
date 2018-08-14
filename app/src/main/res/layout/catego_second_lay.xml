@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffff"
     tools:context="com.example.ahmadreza.testpop.Fragments.Categories">
 
     <android.support.design.widget.FloatingActionButton
@@ -28,7 +27,7 @@
         android:id="@+id/catego_song_scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/btn_more"
+        android:background="@color/Background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

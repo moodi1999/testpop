@@ -1,6 +1,8 @@
 package com.example.ahmadreza.testpop.DataGeters
 
+import android.content.Context
 import android.os.AsyncTask
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.io.BufferedReader
@@ -11,11 +13,12 @@ import java.net.URL
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>() {
+class DownloadWebContent(val context: Context,val type: CallType) : AsyncTask<String, Unit, String>() {
 
     val Ds = DataStorage.instance
     override fun onPreExecute() {
         super.onPreExecute()
+        (context as MainActivity).dialog?.show()
         println("DownloadWebContent.onPreExecute")
     }
 
@@ -76,4 +79,5 @@ class DownloadWebContent(val type: CallType) : AsyncTask<String, Unit, String>()
 
         println("DownloadWebContent.onPostExecute")
     }
+
 }

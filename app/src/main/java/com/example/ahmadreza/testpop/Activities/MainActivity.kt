@@ -1,5 +1,7 @@
 package com.example.ahmadreza.testpop.Activities
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -8,8 +10,10 @@ import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -27,7 +31,9 @@ import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
+import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ExoPlayerFactory
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory
 import com.google.android.exoplayer2.extractor.ExtractorsFactory
@@ -43,6 +49,7 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.google.android.exoplayer2.util.Util
 import de.hdodenhof.circleimageview.CircleImageView
+import dmax.dialog.SpotsDialog
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
@@ -69,10 +76,29 @@ class MainActivity : AppCompatActivity() {
     var seekPlayerProgress: SeekBar? = null
     var handler: Handler? = null
     var isPlaying = false
+    val listener = object : Player.DefaultEventListener(){
+        override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+            when (playbackState) {
+                ExoPlayer.STATE_ENDED -> {
+                    //Stop playback and return to start position
+                    csetPlayPause(false)
+                    player?.seekTo(0)
+                }
+                ExoPlayer.STATE_READY -> {
+                    dialog?.dismiss()
+                    setProgress()
+                }
+                ExoPlayer.STATE_BUFFERING -> dialog?.show()
 
+                ExoPlayer.STATE_IDLE ->{
+                    println("IDLE")
+                }
+            }
+        }
+    }
     var song = ""
 
-
+    var dialog: AlertDialog? = null
     fun initSeekBar() {
         seekPlayerProgress = findViewById<SeekBar>(R.id.song_seekbar)
         seekPlayerProgress!!.requestFocus()
@@ -91,6 +117,7 @@ class MainActivity : AppCompatActivity() {
             override fun onStartTrackingTouch(seekBar: SeekBar) {
 
             }
+
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
 
@@ -120,20 +147,7 @@ class MainActivity : AppCompatActivity() {
                     song_lenth.text = stringForTime(player!!.duration.toInt())
 
                     handler!!.postDelayed(this, 1000)
-                    /*        when(player?.playbackState){
 
-                                Player.STATE_BUFFERING -> {
-                                   println("Bufringggggggggggggggggggggggggg")
-                                }
-
-                                Player.STATE_READY -> {
-                                   println("readyyyyyyyyyyyyyyyyyyy")
-                                }
-
-                                Player.STATE_ENDED -> {
-                                    println("readyyyyyyyyyyyyyyyyyyy")
-                                }
-                           }*/
                 }
             }
         })
@@ -146,9 +160,12 @@ class MainActivity : AppCompatActivity() {
         player!!.playWhenReady = play
         if (!isPlaying) {
             play_puase.setImageResource(R.drawable.ic_play)
+            small_play_pause.setImageResource(R.drawable.ic_play)
+            //player!!.release()
         } else {
             setProgress()
             play_puase.setImageResource(R.drawable.ic_pause)
+            small_play_pause.setImageResource(R.drawable.ic_pause)
         }
     }
 
@@ -156,8 +173,13 @@ class MainActivity : AppCompatActivity() {
     fun initPlayButton() {
         play_puase.requestFocus()
         play_puase.setOnClickListener { csetPlayPause(!isPlaying)}
+        small_play_pause.setOnClickListener { csetPlayPause(!isPlaying) }
     }
 
+    fun download(url: String){
+        val lun = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(lun)
+    }
 
     fun initMediaControls() {
         initPlayButton()
@@ -191,7 +213,7 @@ class MainActivity : AppCompatActivity() {
         uiInit()
         getData()
         initPlayer()
-
+        play("")
 
     }
 
@@ -219,6 +241,7 @@ class MainActivity : AppCompatActivity() {
 
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
         player!!.prepare(mediaSource)
+        player?.addListener(listener)
         initMediaControls()
         if (b){
             csetPlayPause(true)
@@ -229,7 +252,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getData(){
-        DownloadWebContent(CallType.RECENT).execute(DataStorage.instance.Main_URL)
+        DownloadWebContent(applicationContext,CallType.RECENT).execute(DataStorage.instance.Main_URL)
     }
 
 
@@ -239,7 +262,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
 
-
+        dialog = SpotsDialog.Builder().setCancelable(false).setContext(this).build()
         val viewPad = ViewPageAdaptor(supportFragmentManager)
 
         viewPad.addFragment(Recent(), "Recent")
@@ -301,8 +324,6 @@ class MainActivity : AppCompatActivity() {
             artist_text_small.text = songData.singer
 
         }
-
-
     }
 
     inner class DownloadIMG : AsyncTask<String, Void, Bitmap>() {

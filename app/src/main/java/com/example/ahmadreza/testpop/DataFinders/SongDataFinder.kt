@@ -264,7 +264,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
 
         }
 
-
+        (activity as MainActivity).dialog?.dismiss()
     }
 
 }

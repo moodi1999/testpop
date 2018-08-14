@@ -1,6 +1,5 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
-import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import android.support.constraint.ConstraintLayout
@@ -8,9 +7,11 @@ import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.MusicType
@@ -66,6 +67,8 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
 
         }
         holder.card?.setOnClickListener {
+            (activity as MainActivity).dialog?.show()
+            (activity as MainActivity).csetPlayPause(false)
             if (song.category_tag.equals("بزودی", true)) {
 
                 var builder = AlertDialog.Builder(context!!)
@@ -81,24 +84,43 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 GetSongPageCon(activity,song,MusicType.Single).execute(position)
             }
         }
+
         holder.detBtn?.setOnClickListener {
-            var builder = AlertDialog.Builder(context!!)
-            var alertdialog: AlertDialog? = null
-            builder.setIcon(R.drawable.ic_det_dialog)
-            builder.setTitle("\nDetails :")
-            builder.setMessage("\nTitle:  ${song.title}\n\nArtist: ${song.singer}\n\nCategory:  ${song.category_tag}\n\nViews:  ${song.views}\n\nDate:  ${song.Date}")
-            builder.setPositiveButton("Ok",object : DialogInterface.OnClickListener{
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    alertdialog?.cancel()
+
+            val popup = PopupMenu(context,holder.detBtn)
+
+            popup.menuInflater.inflate(R.menu.card_popup,popup.menu)
+
+            popup.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener{
+                override fun onMenuItemClick(item: MenuItem?): Boolean {
+                    if (item?.itemId == R.id.download_item){
+
+                        (activity as MainActivity).dialog?.show()
+                        GetSongPageCon(activity, song, MusicType.Single, CallType.GetMp3).execute(position)
+
+                    }
+                    else{
+                        var builder = AlertDialog.Builder(context!!)
+                        var alertdialog: AlertDialog? = null
+                        builder.setIcon(R.drawable.ic_det_dialog)
+                        builder.setTitle("\nDetails :")
+                        builder.setMessage("\nTitle:  ${song.title}\n\nArtist: ${song.singer}\n\nCategory:  ${song.category_tag}\n\nViews:  ${song.views}\n\nDate:  ${song.Date}")
+                        builder.setPositiveButton("Ok",object : DialogInterface.OnClickListener{
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                alertdialog?.cancel()
+                            }
+                        })
+                        alertdialog = builder.create()
+                        alertdialog!!.show()
+
+                    }
+                    return true
                 }
+
             })
-            alertdialog = builder.create()
-            alertdialog!!.show()
+
+            popup.show()
         }
-
-
-
-
     }
 
     override fun getItemCount(): Int {

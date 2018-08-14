@@ -26,6 +26,7 @@ class AlbumRecyAdp(val context: Context, songData: SongData, val album: ArrayLis
 
         holder.playimg?.setOnClickListener {
             val ac = context as MainActivity
+            ac.csetPlayPause(false)
             ac.play(data.mp3, true)
             ac.song_text_small.text = data.song_name
         }
