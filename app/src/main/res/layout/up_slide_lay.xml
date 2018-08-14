@@ -14,78 +14,14 @@
         app:srcCompat="@drawable/omidnb"
         tools:layout_editor_absoluteY="158dp" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/slide_toobar">
 
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@drawable/below_shadow"
-            app:layout_constraintBottom_toTopOf="@+id/small_img"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/above_shadow" />
-
-        <ImageView
-            android:id="@+id/small_img"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView5"
-            app:srcCompat="@drawable/omidnb" />
-
-        <TextView
-            android:id="@+id/song_text_small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="16dp"
-            android:text="Delbar"
-            android:textColor="@color/defaultTabTextColor"
-            android:textSize="17sp"
-            app:layout_constraintStart_toEndOf="@+id/small_img"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/artist_text_small"
-            android:layout_width="129dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
-            android:text="Omid Biglary"
-            android:textColor="@color/defaultTabTextColor"
-            app:layout_constraintStart_toEndOf="@+id/song_text_small"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ProgressBar
-            android:id="@+id/progresbar_small"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.505"
-            app:layout_constraintStart_toEndOf="@+id/small_img"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/small_play_pause"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/progresbar_small"
-            app:srcCompat="@drawable/ic_play" />
-
-
-    </android.support.constraint.ConstraintLayout>
-
+    <include
+        layout="@layout/slide_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/single_album"

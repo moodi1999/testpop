@@ -13,6 +13,7 @@ import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.slide_toolbar.*
 import kotlinx.android.synthetic.main.up_slide_lay.*
 
 /**

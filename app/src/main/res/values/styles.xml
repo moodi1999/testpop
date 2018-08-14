@@ -14,4 +14,11 @@
         <item name="android:textColor">#ffff</item>
     </style>
 
+    <style name="CustomPopup" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Loading…</item>
+        <item name="DialogSpotColor">@color/colorPrimaryDark</item>
+        <item name="DialogSpotCount">7</item>
+    </style>
+
 </resources>

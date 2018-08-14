@@ -55,6 +55,7 @@ import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 import kotlinx.android.synthetic.main.media_contorol.*
+import kotlinx.android.synthetic.main.slide_toolbar.*
 import kotlinx.android.synthetic.main.up_slide_lay.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -72,10 +73,9 @@ class MainActivity : AppCompatActivity() {
     var defaultBandwidthMeter: DefaultBandwidthMeter? = null
     var dataSourceFactory: DataSource.Factory? = null
     var mediaSource: MediaSource? = null
-
-    var seekPlayerProgress: SeekBar? = null
     var handler: Handler? = null
     var isPlaying = false
+    var dialog: AlertDialog? = null
     val listener = object : Player.DefaultEventListener(){
         override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
             when (playbackState) {
@@ -85,10 +85,14 @@ class MainActivity : AppCompatActivity() {
                     player?.seekTo(0)
                 }
                 ExoPlayer.STATE_READY -> {
-                    dialog?.dismiss()
                     setProgress()
+                    loading_prog.visibility = View.INVISIBLE
+                    small_loading_prog.visibility = View.INVISIBLE
                 }
-                ExoPlayer.STATE_BUFFERING -> dialog?.show()
+                ExoPlayer.STATE_BUFFERING ->{
+                    loading_prog.visibility = View.VISIBLE
+                    small_loading_prog.visibility = View.VISIBLE
+                }
 
                 ExoPlayer.STATE_IDLE ->{
                     println("IDLE")
@@ -96,14 +100,56 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    var song = ""
 
-    var dialog: AlertDialog? = null
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_slide_lay)
+
+        uiInit()
+        getData()
+        initPlayer()
+        play("")
+
+    }
+
+    fun uiInit(){
+        toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setTitle("Pop Music")
+        loading_prog.visibility = View.INVISIBLE
+        small_loading_prog.visibility = View.INVISIBLE
+        dialog = SpotsDialog.Builder().setCancelable(false).setContext(this).setTheme(R.style.CustomPopup).build()
+        val viewPad = ViewPageAdaptor(supportFragmentManager)
+
+        viewPad.addFragment(Recent(), "Recent")
+        viewPad.addFragment(Categories(), "Ctegories")
+        viewPad.addFragment(Artists(), "Artists")
+        viewPad.addFragment(Popular(), "Popular")
+
+        viewpager.adapter = viewPad
+        tab_View_pager.setViewPager(viewpager)
+
+        tab_View_pager.bringToFront()
+        toolbar.bringToFront()
+        //sliding_layout.isClipPanel = true
+
+        val layoutm = LinearLayoutManager(applicationContext)
+        album_recyclerview.layoutManager = layoutm
+        album_recyclerview.setHasFixedSize(true)
+    }
+
+
+    fun getData(){
+        dialog?.show()
+        DownloadWebContent(applicationContext,CallType.RECENT).execute(DataStorage.instance.Main_URL)
+    }
+
     fun initSeekBar() {
-        seekPlayerProgress = findViewById<SeekBar>(R.id.song_seekbar)
-        seekPlayerProgress!!.requestFocus()
-
-        seekPlayerProgress!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        song_seekbar!!.requestFocus()
+        progresbar_small.requestFocus()
+        song_seekbar!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (!fromUser) {
                     // We're not interested in programmatically generated changes to
@@ -124,14 +170,19 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        seekPlayerProgress!!.max = 0
-        seekPlayerProgress!!.max = player!!.duration.toInt() / 1000
+        song_seekbar!!.max = 0
+        progresbar_small.max = 0
+        song_seekbar!!.max = player!!.duration.toInt() / 1000
+        progresbar_small.max = player!!.duration.toInt() / 1000
 
     }
 
     fun setProgress() {
-        seekPlayerProgress!!.progress = 0
-        seekPlayerProgress!!.max = player!!.duration.toInt() / 1000
+        song_seekbar!!.max = 0
+        progresbar_small.max = 0
+        song_seekbar!!.max = player!!.duration.toInt() / 1000
+        progresbar_small.max = player!!.duration.toInt() / 1000
+
         curr_time!!.text = stringForTime(player!!.currentPosition.toInt())
         song_lenth!!.text = stringForTime(player!!.duration.toInt())
 
@@ -140,9 +191,11 @@ class MainActivity : AppCompatActivity() {
         handler!!.post(object : Runnable {
             override fun run() {
                 if (player != null && isPlaying) {
-                    seekPlayerProgress!!.max = player!!.duration.toInt() / 1000
+                    song_seekbar!!.max = player!!.duration.toInt() / 1000
+                    progresbar_small.max = player!!.duration.toInt() / 1000
                     val mCurrentPosition = player!!.currentPosition.toInt() / 1000
-                    seekPlayerProgress!!.progress = mCurrentPosition
+                    song_seekbar!!.progress = mCurrentPosition
+                    progresbar_small.progress = mCurrentPosition
                     curr_time.text = stringForTime(player!!.currentPosition.toInt())
                     song_lenth.text = stringForTime(player!!.duration.toInt())
 
@@ -160,20 +213,19 @@ class MainActivity : AppCompatActivity() {
         player!!.playWhenReady = play
         if (!isPlaying) {
             play_puase.setImageResource(R.drawable.ic_play)
-            small_play_pause.setImageResource(R.drawable.ic_play)
-            //player!!.release()
+            small_button.setImageResource(R.drawable.ic_play)
         } else {
             setProgress()
             play_puase.setImageResource(R.drawable.ic_pause)
-            small_play_pause.setImageResource(R.drawable.ic_pause)
+            small_button.setImageResource(R.drawable.ic_pause)
         }
     }
 
 
     fun initPlayButton() {
         play_puase.requestFocus()
-        play_puase.setOnClickListener { csetPlayPause(!isPlaying)}
-        small_play_pause.setOnClickListener { csetPlayPause(!isPlaying) }
+        play_puase.setOnClickListener { csetPlayPause(!isPlaying) }
+        small_button.setOnClickListener { csetPlayPause(!isPlaying) }
     }
 
     fun download(url: String){
@@ -207,37 +259,19 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_slide_lay)
-        uiInit()
-        getData()
-        initPlayer()
-        play("")
-
-    }
-
     fun initPlayer(){
         bandwidthMeter = DefaultBandwidthMeter()
         extractorsFactory = DefaultExtractorsFactory()
-
         trackSelectionFactory = AdaptiveTrackSelection.Factory(bandwidthMeter)
-
         trackSelector = DefaultTrackSelector(trackSelectionFactory)
-
-        /*        dataSourceFactory = new DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, "mediaPlayerSample"),
-                (TransferListener<? super DataSource>) bandwidthMeter);*/
-
         defaultBandwidthMeter = DefaultBandwidthMeter()
+
     }
-    
+
     fun play(s: String, b: Boolean = false){
 
         dataSourceFactory = DefaultDataSourceFactory(this,
                 Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter)
-
-
         mediaSource = ExtractorMediaSource(Uri.parse(s), dataSourceFactory, extractorsFactory, null, null)
 
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
@@ -250,37 +284,6 @@ class MainActivity : AppCompatActivity() {
         else{
             csetPlayPause(false)
         }
-    }
-
-    fun getData(){
-        DownloadWebContent(applicationContext,CallType.RECENT).execute(DataStorage.instance.Main_URL)
-    }
-
-
-
-    fun uiInit(){
-        toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar!!.setTitle("Pop Music")
-
-        dialog = SpotsDialog.Builder().setCancelable(false).setContext(this).build()
-        val viewPad = ViewPageAdaptor(supportFragmentManager)
-
-        viewPad.addFragment(Recent(), "Recent")
-        viewPad.addFragment(Categories(), "Ctegories")
-        viewPad.addFragment(Artists(), "Artists")
-        viewPad.addFragment(Popular(), "Popular")
-
-        viewpager.adapter = viewPad
-        tab_View_pager.setViewPager(viewpager)
-
-        tab_View_pager.bringToFront()
-        toolbar.bringToFront()
-        //sliding_layout.isClipPanel = true
-
-        val layoutm = LinearLayoutManager(applicationContext)
-        album_recyclerview.layoutManager = layoutm
-        album_recyclerview.setHasFixedSize(true)
     }
 
     // Menu Config
@@ -296,7 +299,10 @@ class MainActivity : AppCompatActivity() {
 
         when(id){
             R.id.setting -> {
-                println("hi")
+                println("Setting")
+            }
+            R.id.app_bar_search -> {
+                println("Searching")
             }
         }
 
@@ -306,6 +312,7 @@ class MainActivity : AppCompatActivity() {
 
     fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList()){
 
+        player!!.release()
         initPlayer()
         if (musicType == MusicType.Single){ // Songle Song
             album.visibility = View.INVISIBLE
@@ -325,6 +332,8 @@ class MainActivity : AppCompatActivity() {
             artist_text_small.text = songData.singer
 
         }
+
+
     }
 
     inner class DownloadIMG : AsyncTask<String, Void, Bitmap>() {
@@ -353,11 +362,12 @@ class MainActivity : AppCompatActivity() {
             super.onPostExecute(result)
             //background_image.setImageBitmap(result)
             var imageView = findViewById<ImageView>(R.id.background_image)
-            var small_imageView = findViewById<ImageView>(R.id.small_img)
+            var small_imageView = findViewById<ImageView>(R.id.artist_small_img)
             var circle = findViewById<CircleImageView>(R.id.single_circle)
             circle.setImageBitmap(result)
             small_imageView.setImageBitmap(result)
             Blurry.with(applicationContext).sampling(1).from(result).into(imageView)
+            dialog?.dismiss()
         }
     }
 

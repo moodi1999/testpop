@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/media_contorol">
+    android:background="@drawable/round_media_contorol">
+
+    <ProgressBar
+        android:id="@+id/loading_prog"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/play_puase"
+        app:layout_constraintEnd_toEndOf="@+id/play_puase"
+        app:layout_constraintStart_toStartOf="@+id/play_puase"
+        app:layout_constraintTop_toTopOf="@+id/play_puase" />
 
     <ImageButton
         android:id="@+id/play_puase"
@@ -17,7 +27,8 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_play" />
+        app:srcCompat="@drawable/ic_play2"
+        tools:ignore="VectorDrawableCompat" />
 
     <SeekBar
         android:id="@+id/song_seekbar"
@@ -37,9 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="12dp"
+        android:textSize="16sp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/song_seekbar" />
+        app:layout_constraintTop_toBottomOf="@+id/song_seekbar"
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/curr_time"
@@ -47,8 +60,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
+        android:textSize="16sp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/song_seekbar" />
+        app:layout_constraintTop_toBottomOf="@+id/song_seekbar"
+        android:layout_marginLeft="16dp" />
 
 </android.support.constraint.ConstraintLayout>

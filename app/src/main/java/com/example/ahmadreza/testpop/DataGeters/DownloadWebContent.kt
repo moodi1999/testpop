@@ -18,7 +18,6 @@ class DownloadWebContent(val context: Context,val type: CallType) : AsyncTask<St
     val Ds = DataStorage.instance
     override fun onPreExecute() {
         super.onPreExecute()
-        (context as MainActivity).dialog?.show()
         println("DownloadWebContent.onPreExecute")
     }
 

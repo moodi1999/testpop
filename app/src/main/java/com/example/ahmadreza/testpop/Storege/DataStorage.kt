@@ -12,7 +12,7 @@ class DataStorage {
     var before_loading: ArrayList<SongData> = ArrayList()
 
     val Main_URL = "http://pop-music.ir/"
-
+    var page = 0
     var recentWebContent: String = ""
     var recentWebContent_Done: Boolean? = null
 
