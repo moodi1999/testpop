@@ -9,10 +9,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
+import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Datas.CallType
 
 import com.example.ahmadreza.testpop.R
+import com.example.ahmadreza.testpop.Storege.DataStorage
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 
@@ -48,8 +51,11 @@ class Recent : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
+       if (!DataStorage.instance.isCreated){
+           SongDataFinder(view!!, context, activity, CallType.RECENT).execute("")
+       }
         Ui(view)
-        SongDataFinder(view!!, context, activity, CallType.RECENT).execute("")
+
         scrolling(view)
 
 
@@ -62,6 +68,14 @@ class Recent : Fragment() {
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)
         ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
+
+        view.more_recent.setOnClickListener{
+            DataStorage.instance.page_num ++
+            (activity as MainActivity).dialog?.show()
+            DataStorage.instance.recentWebContent_Done = null
+            DownloadWebContent(context!!,CallType.RECENT).execute(DataStorage.instance.Main_URL + DataStorage.instance.page_txt + DataStorage.instance.page_num.toString())
+            SongDataFinder(view!!, context, activity, CallType.RECENT).execute("")
+        }
     }
 
     fun scrolling(view: View){
@@ -86,7 +100,7 @@ class Recent : Fragment() {
              activity!!.toolbar.x = 0f
              activity!!.toolbar.y = 0f
              }).setDuration(200)
-                        view.more.animate().translationY(150f).setDuration(100)
+                        view.more_recent.animate().translationY(150f).setDuration(100)
                     }
 
                 }
@@ -98,8 +112,8 @@ class Recent : Fragment() {
                 }
 
                 if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                    view.more.bringToFront()
-                    view.more.animate().translationY(-150f).setDuration(100)
+                    view.more_recent.bringToFront()
+                    view.more_recent.animate().translationY(-150f).setDuration(100)
                 }
             })
         }

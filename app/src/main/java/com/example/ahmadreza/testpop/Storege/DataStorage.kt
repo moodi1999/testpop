@@ -10,6 +10,8 @@ import com.example.ahmadreza.testpop.Datas.SongData
  */
 class DataStorage {
 
+    var isCreated = false
+
     var before_loading: ArrayList<SongData> = ArrayList()
 
     val Main_URL = "http://pop-music.ir/"

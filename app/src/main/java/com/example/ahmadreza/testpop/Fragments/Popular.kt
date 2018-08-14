@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.example.ahmadreza.testpop.DataFinders.PopularDF
 
 import com.example.ahmadreza.testpop.R
+import com.example.ahmadreza.testpop.Storege.DataStorage
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_popular.*
 import kotlinx.android.synthetic.main.fragment_popular.view.*
@@ -42,7 +43,8 @@ class Popular : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_popular, container, false)
         println("Popular.onCreateView")
-        PopularDF(view,context!!,activity).execute()
+        if (!DataStorage.instance.isCreated)
+            PopularDF(view,context!!,activity).execute()
 
         Ui(view)
 
@@ -90,7 +92,6 @@ class Popular : Fragment() {
                             activity!!.toolbar.x = 0f
                             activity!!.toolbar.y = 0f
                         }).setDuration(200)
-                        view.more.animate().translationY(150f).setDuration(100)
                     }
 
                 }
@@ -102,8 +103,6 @@ class Popular : Fragment() {
                 }
 
                 if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                    view.more.bringToFront()
-                    view.more.animate().translationY(-150f).setDuration(100)
                 }
             })
         }

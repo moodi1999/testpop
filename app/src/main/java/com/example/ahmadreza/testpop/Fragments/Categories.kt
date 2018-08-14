@@ -48,6 +48,7 @@ class Categories : Fragment() {
         val view = inflater.inflate(R.layout.fragment_categories, container, false)
         println("Categories.onCreateView")
         Ui(view)
+
         CategoryDF(view, context!!, activity).execute()
 
 
