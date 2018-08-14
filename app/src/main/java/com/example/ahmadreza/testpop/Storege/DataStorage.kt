@@ -91,6 +91,8 @@ class DataStorage {
 
     var arr_catego_url = arrayListOf<String>("http://pop-music.ir/category/album", "http://pop-music.ir/category/coming-soon", "http://pop-music.ir/category/%d8%a8%db%8c-%da%a9%d9%84%d8%a7%d9%85", "http://pop-music.ir/category/single-music", "http://pop-music.ir/category/single-music/anthem", "http://pop-music.ir/category/single-music/rock", "http://pop-music.ir/category/single-music/traditional-songs", "http://pop-music.ir/category/single-music/happy-song", "http://pop-music.ir/category/single-music/sad-song", "http://pop-music.ir/category/titles", "http://pop-music.ir/category/%d8%b1%d9%85%db%8c%da%a9%d8%b3", "http://pop-music.ir/category/%d8%af%d8%b3%d8%aa%d9%87%e2%80%8c%d8%a8%d9%86%d8%af%db%8c-%d9%86%d8%b4%d8%af%d9%87",  "http://pop-music.ir/category/music-video", "http://pop-music.ir/category/soundtrack", "http://pop-music.ir/category/special")
 
+    var whatisplaying = ""
+
     private constructor(){
         //connect to the server and get the data and set them all
         println("DataStorage created")

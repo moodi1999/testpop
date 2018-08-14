@@ -14,6 +14,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Activities.MainActivity
+import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.AlbumRecyAdp
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoSongItemADP
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Datas.AlbumData
@@ -22,6 +23,7 @@ import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
+import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
@@ -48,39 +50,50 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
                     "\t\t\t\t<div class=\"clear\"></div>\n" +
                     "\t\t\t\t<div class=\"post-tags\">")[0]
 
-            println(test2)
             //val n = songData.pageCon.split(Ds.bn_album)[1].split(Ds.an_album)[0]
             val m_url = Pattern.compile(Ds.pt_album_url).matcher(test2)
             val m_song_name = Pattern.compile(Ds.pt_album_song_name).matcher(test2)
 
-            while (m_url.find()){
+           loop@while (m_url.find()){
 
                 var mp3 = ""
                 var song_name = ""
+               var song_name_or = ""
 
                 try {
                     mp3 = m_url.group(1)
                 }catch (e: Exception){
-                    e.printStackTrace()
+                    //e.printStackTrace()
+                    println("mp3 not")
                     mp3 = "NotFound!"
                 }
-                var song_name_or = ""
+
                 try {
                     m_song_name.find()
                     song_name_or = m_song_name.group(1)
-                    println(song_name_or)
                     val m_song_name2 = Pattern.compile(Ds.pt_album_song_name2).matcher(song_name_or)
                     m_song_name2.find()
                     song_name = m_song_name2.group(1)
                 }catch (e: Exception){
                     try {
-                        song_name = song_name_or.split("&#8211;")[2]
+                        song_name = song_name_or.split("&#8211;")[2].split("</a>")[0]
+
                     }catch (e: Exception){
+                        song_name = "NotFound!"
+                        println("name not")
                     }
-                    e.printStackTrace()
-                    mp3 = "NotFound!"
+                    //e.printStackTrace()
                 }
-                
+               if (song_name.equals("DirectLink",true)){
+                   songData.mp3.add(mp3)
+                   continue@loop
+               }
+                for(i in arr){
+                    if (song_name.equals(i.song_name,true)){
+                        break@loop
+                    }
+                }
+
                 val album = AlbumData(mp3, song_name)
                 arr.add(album)
             }
@@ -89,7 +102,7 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
 
         }
         catch (e : Exception){
-            e.printStackTrace()
+
             println("something wrong")
             return arr
         }
@@ -100,6 +113,8 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
         print("size of res == ")
         println(result.size)
         val ac = activity as MainActivity
+        val adaptor = AlbumRecyAdp(activity, songData, result)
+        activity.album_recyclerview.adapter = adaptor
         ac.SetPlayer(songData, MusicType.Album ,result)
         println("SongDataFinder.onPostExecute")
         ac.dialog?.dismiss()

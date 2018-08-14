@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.content.ContextCompat
+import android.support.v4.view.ViewCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -139,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         val layoutm = LinearLayoutManager(applicationContext)
         album_recyclerview.layoutManager = layoutm
         album_recyclerview.setHasFixedSize(true)
+        ViewCompat.setNestedScrollingEnabled(album_recyclerview, false)
     }
 
 
@@ -323,8 +325,14 @@ class MainActivity : AppCompatActivity() {
             album.visibility = View.INVISIBLE
             single.visibility = View.VISIBLE
             play(songData!!.mp3.get(3), true)
-            artist_text_small.text = songData.singer
-            song_text_small.text = songData.title
+            if (songData.singer.equals("")){
+                artist_text_small.text = ""
+                song_text_small.text = songData.title
+            }
+            else{
+                artist_text_small.text = songData.singer
+                song_text_small.text = songData.title
+            }
             DownloadIMG().execute(songData.Img_URL)
         }
         else{ // Album
@@ -332,10 +340,14 @@ class MainActivity : AppCompatActivity() {
             album.visibility = View.VISIBLE
             println(songData!!.title)
             println(arr_album!!.size)
-            val adaptor = AlbumRecyAdp(applicationContext, songData, arr_album)
-            album_recyclerview.adapter = adaptor
-            artist_text_small.text = songData.singer
-
+            if (songData.singer.equals("")){
+                artist_text_small.text = ""
+                song_text_small.text = songData.title
+            }
+            else{
+                song_text_small.text = songData.title
+                artist_text_small.text = songData.singer
+            }
         }
 
 

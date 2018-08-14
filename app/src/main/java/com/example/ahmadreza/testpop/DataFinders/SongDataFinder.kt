@@ -79,7 +79,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             val m_date = Pattern.compile(Ds.pt_date_songs).matcher(n)
             val m_views = Pattern.compile(Ds.pt_views_songs).matcher(n)
 
-            while (m_titleAndSinger_songs.find()){
+            while (m_allcat.find()){
                 println("something")
                 var cats = ""
                 var title: String = ""
@@ -90,7 +90,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                 var views: String
 
 
-                m_allcat.find()
+
                 try{
                     var catstr = m_allcat.group(1)
                     var m_each_cat = Pattern.compile(Ds.pt_each_cat_songs).matcher(catstr)
@@ -175,6 +175,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
 
                 var TandS = ""
                 try {
+                    m_titleAndSinger_songs.find()
                     m_fa_titleAndsinger.find()
                     TandS = m_titleAndSinger_songs.group(1) + "p>"
                     val m_titleAndSinger_songs2 = Pattern.compile(Ds.pt_titleAndSinger_songs2).matcher(TandS)
