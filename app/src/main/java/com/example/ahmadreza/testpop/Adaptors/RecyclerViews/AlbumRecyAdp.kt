@@ -1,7 +1,6 @@
 package com.example.ahmadreza.testpop.Adaptors.RecyclerViews
 
 
-import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
 import android.support.v7.widget.RecyclerView
@@ -9,14 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import android.widget.ImageView
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.slide_toolbar.*
-import kotlinx.android.synthetic.main.up_slide_lay.*
 
 /**
  * Created by ahmadreza on 8/13/18.
@@ -29,7 +26,7 @@ class AlbumRecyAdp(val activity: FragmentActivity, songData: SongData, val album
 
         holder.play?.setOnClickListener {
             val ac = activity as MainActivity
-            ac.csetPlayPause(false)
+            ac.setPlayPause(false)
             ac.play(data.mp3, true)
             ac.song_text_small.text = data.song_name
         }

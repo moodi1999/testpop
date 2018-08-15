@@ -12,6 +12,7 @@ import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoSongItemADP
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
+import com.example.ahmadreza.testpop.Datas.CallMethod
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
@@ -19,28 +20,13 @@ import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
+import java.lang.invoke.MethodType
 import java.util.regex.Pattern
 
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
-
-    @SuppressLint("StaticFieldLeak")
-    val view: View
-    @SuppressLint("StaticFieldLeak")
-    val context: Context?
-    @SuppressLint("StaticFieldLeak")
-    val activity: FragmentActivity?
-    val type: CallType
-
-    constructor(view: View, context: Context?, activity: FragmentActivity?, type: CallType) : super() {
-        println("got here toooo")
-        this.view = view
-        this.context = context
-        this.activity = activity
-        this.type = type
-    }
+class SongDataFinder(val view: View, val context: Context?, val activity: FragmentActivity?, val type: CallType, val methodType: CallMethod) : AsyncTask<String, Unit, ArrayList<SongData>>() {
 
     val Ds = DataStorage.instance
 
@@ -59,6 +45,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
                     //wait
                 }
             }
+
             var content = ""
             var n = ""
             if (type == CallType.RECENT){
@@ -80,7 +67,7 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
             val m_views = Pattern.compile(Ds.pt_views_songs).matcher(n)
 
             while (m_allcat.find()){
-                println("something")
+
                 var cats = ""
                 var title: String = ""
                 var singer: String = ""
@@ -233,7 +220,14 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
         println("SongDataFinder.onPostExecute")
         (activity as MainActivity).dialog?.dismiss()
         if (type == CallType.RECENT)  {
-            Ds.arr_recentData.addAll(result)
+            if (methodType == CallMethod.OnCreat){
+                Ds.arr_recentData = result
+            }
+            else if (methodType == CallMethod.Click){
+                Ds.arr_recentData.addAll(result)
+            }
+
+
             println(Ds.arr_recentData.size)
             print("\nsizeeee")
 
@@ -250,7 +244,14 @@ class SongDataFinder : AsyncTask<String, Unit, ArrayList<SongData>> {
         else if (type == CallType.CATGORY){
 
             println("got here too size of the ")
-            Ds.arr_catego_item_Data = result
+            if (methodType == CallMethod.OnCreat){
+                Ds.arr_catego_item_Data = result
+            }
+            else if (methodType == CallMethod.Click){
+                Ds.arr_catego_item_Data.addAll(result)
+            }
+
+
             println("size is === ${Ds.arr_catego_item_Data.size}")
 
             val adaptor = CategoSongItemADP(DataStorage.instance.arr_catego_item_Data, context, activity)

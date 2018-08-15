@@ -6,6 +6,7 @@ import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.io.BufferedReader
+import java.io.FileNotFoundException
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -18,6 +19,13 @@ class DownloadWebContent(val context: Context,val type: CallType) : AsyncTask<St
     val Ds = DataStorage.instance
     override fun onPreExecute() {
         super.onPreExecute()
+        if (type == CallType.RECENT){
+            Ds.recentWebContent_Done = null
+        }else{
+            Ds.item_categoWebContent_Done = null
+        }
+
+
         println("DownloadWebContent.onPreExecute")
     }
 
@@ -45,7 +53,11 @@ class DownloadWebContent(val context: Context,val type: CallType) : AsyncTask<St
            return xml.toString()
 
        }
-       catch (e: Exception){
+       catch (e: FileNotFoundException){
+           println("some thing wrong check your connection")
+           e.printStackTrace()
+           return ":|"
+       }catch (e :Exception){
            e.printStackTrace()
            return ":|"
        }
@@ -76,7 +88,6 @@ class DownloadWebContent(val context: Context,val type: CallType) : AsyncTask<St
             }
 
         }
-
         println("DownloadWebContent.onPostExecute")
     }
 

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.Datas.CallMethod
 import com.example.ahmadreza.testpop.Datas.CallType
 
 import com.example.ahmadreza.testpop.R
@@ -51,9 +52,11 @@ class Recent : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
-       if (!DataStorage.instance.isCreated){
-           SongDataFinder(view!!, context, activity, CallType.RECENT).execute("")
-       }
+
+        SongDataFinder(view!!, context, activity, CallType.RECENT, CallMethod.OnCreat).execute("")
+
+
+
         Ui(view)
 
         scrolling(view)
@@ -70,11 +73,11 @@ class Recent : Fragment() {
         ViewCompat.setNestedScrollingEnabled(view.recent_recyclerView, false)
 
         view.more_recent.setOnClickListener{
-            DataStorage.instance.page_num ++
+            DataStorage.instance.rec_page_num++
             (activity as MainActivity).dialog?.show()
             DataStorage.instance.recentWebContent_Done = null
-            DownloadWebContent(context!!,CallType.RECENT).execute(DataStorage.instance.Main_URL + DataStorage.instance.page_txt + DataStorage.instance.page_num.toString())
-            SongDataFinder(view!!, context, activity, CallType.RECENT).execute("")
+            DownloadWebContent(context!!,CallType.RECENT).execute(DataStorage.instance.Main_URL + DataStorage.instance.page_txt + DataStorage.instance.rec_page_num.toString())
+            SongDataFinder(view!!, context, activity, CallType.RECENT, CallMethod.Click).execute("")
         }
     }
 

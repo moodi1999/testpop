@@ -16,7 +16,6 @@ import android.widget.PopupMenu
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
-import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
@@ -71,7 +70,7 @@ class CategoSongItemADP (val arrayList: ArrayList<SongData>, val context: Contex
         }
         holder.card?.setOnClickListener {
             (activity as MainActivity).dialog?.show()
-            (activity as MainActivity).csetPlayPause(false)
+            (activity as MainActivity).setPlayPause(false)
             if (song.category_tag.equals("بزودی", true)) {
 
                 var builder = AlertDialog.Builder(context!!)

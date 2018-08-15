@@ -22,18 +22,19 @@ class CategoryDF(val view: View, val context: Context, val activity: FragmentAct
     override fun doInBackground(vararg params: Unit?) {
         val Ds = DataStorage.instance
         try {
-            var i = 0
-            while (i < 15){
+            if (!Ds.Cat_isCreated) {
+                var i = 0
+                while (i < 15) {
 
-                val name = Ds.arr_catego_name.get(i)
-                val link = Ds.arr_catego_url.get(i)
+                    val name = Ds.arr_catego_name.get(i)
+                    val link = Ds.arr_catego_url.get(i)
 
-                var categodata = CatgoData(name, link)
-                Ds.arr_categories.add(categodata)
+                    var categodata = CatgoData(name, link)
+                    Ds.arr_categories.add(categodata)
 
-                i++
+                    i++
+                }
             }
-
             }catch (e: Exception){
             e.printStackTrace()
         }
@@ -41,7 +42,7 @@ class CategoryDF(val view: View, val context: Context, val activity: FragmentAct
 
     override fun onPostExecute(result: Unit?) {
         println("Category :Data set")
-
+        DataStorage.instance.Cat_isCreated = true
         var adaptor = CategoRecyADP(view, context, DataStorage.instance.arr_categories, activity)
         view.category_recyclerView_fst.adapter = adaptor
 

@@ -43,8 +43,7 @@ class Popular : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_popular, container, false)
         println("Popular.onCreateView")
-        if (!DataStorage.instance.isCreated)
-            PopularDF(view,context!!,activity).execute()
+        PopularDF(view, context!!, activity).execute()
 
         Ui(view)
 
@@ -53,6 +52,9 @@ class Popular : Fragment() {
 
     fun Ui(view: View?){
         ViewCompat.setNestedScrollingEnabled(view!!.popular_lay, false)
+        ViewCompat.setNestedScrollingEnabled(view.week_recyclerview, false)
+        ViewCompat.setNestedScrollingEnabled(view.month_recyclerview, false)
+        ViewCompat.setNestedScrollingEnabled(view.year_recyclerview, false)
 
         val layoutmw = LinearLayoutManager(context)
         view?.week_recyclerview?.layoutManager = layoutmw

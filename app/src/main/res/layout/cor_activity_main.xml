@@ -63,5 +63,12 @@
 
     </android.support.v4.view.ViewPager>
 
+    <include
+        android:id="@+id/searchlay"
+        layout="@layout/search_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
 
 </android.support.design.widget.CoordinatorLayout>

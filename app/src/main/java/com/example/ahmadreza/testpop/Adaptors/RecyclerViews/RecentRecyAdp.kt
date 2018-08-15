@@ -66,7 +66,7 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
             var ac = activity as MainActivity
             ac.dialog?.show()
             if (ac.isPlaying){
-                ac.csetPlayPause(false)
+                ac.setPlayPause(false)
             }
             if (song.category_tag.equals("بزودی", true)) {
 

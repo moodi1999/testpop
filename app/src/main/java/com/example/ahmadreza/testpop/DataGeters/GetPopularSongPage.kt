@@ -66,7 +66,6 @@ class GetPopularSongPage(val activity: FragmentActivity?, val songData: SongData
             val con = result.pageCon
 
             val other = ((con.split("class=\"cat\">دسته بندی : <a href=\""))[1].split("<div class=\"post-tags\">"))[0]
-            println(other)
             val m_titleAndSinger_songs = Pattern.compile(Ds.pt_titleAndSinger_songs).matcher(other)
             val m_fa_titleAndsinger = Pattern.compile(Ds.pt_title_fa).matcher(other)
             val m_ImgUrl = Pattern.compile(Ds.pt_Img_Url_songs).matcher(other)
@@ -99,11 +98,13 @@ class GetPopularSongPage(val activity: FragmentActivity?, val songData: SongData
 
             try {
                 m_ImgUrl.find()
-                songData.Img_URL = m_ImgUrl.group(1)
+                ImgUrl = m_ImgUrl.group(1)
             } catch (e: Exception) {
-                songData.Img_URL = "Not Found"
+                ImgUrl = "Not Found"
                 e.printStackTrace()
             }
+
+
 
             var TandS = ""
             try {
@@ -153,6 +154,7 @@ class GetPopularSongPage(val activity: FragmentActivity?, val songData: SongData
 
         val ac = (activity as MainActivity)
         ac.dialog?.dismiss()
+        println(ImgUrl)
         ac.SetPlayer(SongData(link, title, singer, ImgUrl, "", "", "",false,"",mp3), MusicType.Single)
 
         println("GetSongPageCon.onPostExecute: done")

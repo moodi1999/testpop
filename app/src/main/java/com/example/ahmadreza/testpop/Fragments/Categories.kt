@@ -51,7 +51,6 @@ class Categories : Fragment() {
 
         CategoryDF(view, context!!, activity).execute()
 
-
         return view
     }
 
@@ -68,6 +67,7 @@ class Categories : Fragment() {
         view.category_recyclerView_fst.setHasFixedSize(true)
         ViewCompat.setNestedScrollingEnabled(view.category_recyclerView_fst, false)
 
+
         val layoutm_song = GridLayoutManager(context, 2)
         view.category_recyclerView_sec.layoutManager = layoutm_song
         view.category_recyclerView_sec.setHasFixedSize(true)
@@ -78,6 +78,7 @@ class Categories : Fragment() {
             view.second.y = 0f
             view.second.animate().translationXBy(-2000f).setDuration(600)
         }
+
         scrolling_item(view)
         scrolling_song(view)
 

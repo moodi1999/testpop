@@ -5,31 +5,22 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.net.Uri
 import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewCompat
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.SeekBar
-import android.widget.TextView
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.AlbumRecyAdp
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
-import com.example.ahmadreza.testpop.Datas.AlbumData
-import com.example.ahmadreza.testpop.Datas.CallType
-import com.example.ahmadreza.testpop.Datas.MusicType
-import com.example.ahmadreza.testpop.Datas.SongData
+import com.example.ahmadreza.testpop.Datas.*
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
@@ -55,7 +46,6 @@ import dmax.dialog.SpotsDialog
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
-import kotlinx.android.synthetic.main.fragment_recent.view.*
 import kotlinx.android.synthetic.main.media_contorol.*
 import kotlinx.android.synthetic.main.slide_toolbar.*
 import kotlinx.android.synthetic.main.up_slide_lay.*
@@ -66,6 +56,8 @@ import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
+
+    var Ds: DataStorage? = null
 
     var player: SimpleExoPlayer? = null
     var bandwidthMeter: BandwidthMeter? = null
@@ -84,8 +76,11 @@ class MainActivity : AppCompatActivity() {
             when (playbackState) {
                 ExoPlayer.STATE_ENDED -> {
                     //Stop playback and return to start position
-                    csetPlayPause(false)
+                    setPlayPause(false)
                     player?.seekTo(0)
+                    if (Ds!!.repeat){
+                        setPlayPause(true)
+                    }
                 }
                 ExoPlayer.STATE_READY -> {
                     setProgress()
@@ -98,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 ExoPlayer.STATE_IDLE ->{
-                    println("IDLE")
+                    println("IDLEEEEEEE")
                 }
             }
         }
@@ -110,6 +105,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_slide_lay)
 
+        Ds = DataStorage.instance
         uiInit()
         getData()
         initPlayer() // init ExoPlayer and make it ready for play
@@ -121,69 +117,51 @@ class MainActivity : AppCompatActivity() {
         toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
+        toolbar.bringToFront()
 
         // loading progres
         loading_prog.visibility = View.INVISIBLE
         small_loading_prog.visibility = View.INVISIBLE
 
+        // loading Dialog
         dialog = SpotsDialog.Builder().setCancelable(false).setContext(this).setTheme(R.style.CustomPopup).build()
-        val viewPad = ViewPageAdaptor(supportFragmentManager)
 
-        viewPad.addFragment(Recent(), "Recent")
-        viewPad.addFragment(Categories(), "Ctegories")
-        viewPad.addFragment(Artists(), "Artists")
-        viewPad.addFragment(Popular(), "Popular")
 
-        viewpager.adapter = viewPad
-        tab_View_pager.setViewPager(viewpager)
-
-        tab_View_pager.bringToFront()
-        toolbar.bringToFront()
-
+        // album recycler view in the slideup panel
         val layoutm = LinearLayoutManager(applicationContext)
         album_recyclerview.layoutManager = layoutm
         album_recyclerview.setHasFixedSize(true)
         ViewCompat.setNestedScrollingEnabled(album_recyclerview, false)
+
+        //view pager Init func
+        viewPagerInit()
+
+        //search layout traslation
+        searchlay.animate().translationYBy(2000f).setDuration(300)
     }
 
+    fun viewPagerInit(){  // View pager and Tab Layout
 
-    fun getData(){
+        val viewPad = ViewPageAdaptor(supportFragmentManager)
+        viewPad.addFragment(Recent(), "Recent")
+        viewPad.addFragment(Categories(), "Ctegories")
+        viewPad.addFragment(Artists(), "Artists")
+        viewPad.addFragment(Popular(), "Popular")
+        viewpager.adapter = viewPad
+        tab_View_pager.setViewPager(viewpager)
+        tab_View_pager.bringToFront()
+    }
+
+    fun getData(){ // TODO: Get the Main web page content
         dialog?.show()
-        DownloadWebContent(applicationContext,CallType.RECENT).execute(DataStorage.instance.Main_URL)
-    }
-
-    fun initSeekBar() {
-        song_seekbar!!.requestFocus()
-        progresbar_small.requestFocus()
-        song_seekbar!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if (!fromUser) {
-                    // We're not interested in programmatically generated changes to
-                    // the progress bar's position.
-                    return
-                }
-
-                player!!.seekTo((progress * 1000).toLong())
-            }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-
-            }
-
-
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-
-            }
-        })
-
-        song_seekbar!!.max = 0
-        progresbar_small.max = 0
-        song_seekbar!!.max = player!!.duration.toInt() / 1000
-        progresbar_small.max = player!!.duration.toInt() / 1000
+        DownloadWebContent(applicationContext,CallType.RECENT).execute(Ds!!.Main_URL)
 
     }
+
 
     fun setProgress() {
+        song_seekbar!!.requestFocus()
+        progresbar_small.requestFocus()
         song_seekbar!!.max = 0
         progresbar_small.max = 0
         song_seekbar!!.max = player!!.duration.toInt() / 1000
@@ -211,49 +189,55 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        song_seekbar!!.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (!fromUser) {
+                    // We're not interested in programmatically generated changes to
+                    // the progress bar's position.
+                    return
+                }
+
+                player!!.seekTo((progress * 1000).toLong())
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+
+            }
+
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+
+            }
+        })
+
 
     }
 
-    fun csetPlayPause(play: Boolean) {
+    fun setPlayPause(play: Boolean) {
         isPlaying = play
-        player!!.playWhenReady = play
-        if (!isPlaying) {
+        if (!isPlaying) { // not playing
             play_puase.setImageResource(R.drawable.ic_play)
             small_button.setImageResource(R.drawable.ic_play)
             loading_prog.visibility = View.INVISIBLE
             small_loading_prog.visibility = View.INVISIBLE
-        } else {
+        } else { // is playing
             setProgress()
             play_puase.setImageResource(R.drawable.ic_pause)
             small_button.setImageResource(R.drawable.ic_pause)
-            loading_prog.visibility = View.VISIBLE
-            small_loading_prog.visibility = View.VISIBLE
         }
+        player!!.playWhenReady = play
     }
 
-
-    fun initPlayButton() {
-        play_puase.requestFocus()
-        play_puase.setOnClickListener { csetPlayPause(!isPlaying) }
-        small_button.setOnClickListener { csetPlayPause(!isPlaying) }
-    }
 
     fun download(url: String){
         val lun = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(lun)
     }
 
-    fun initMediaControls() {
-        initPlayButton()
-        initSeekBar()
-    }
-
 
     fun stringForTime(timeMs: Int): String {
-        val mFormatBuilder: StringBuilder
-        val mFormatter: Formatter
-        mFormatBuilder = StringBuilder()
-        mFormatter = Formatter(mFormatBuilder, Locale.getDefault())
+        val mFormatBuilder = StringBuilder()
+        val mFormatter = Formatter(mFormatBuilder, Locale.getDefault())
         val totalSeconds = timeMs / 1000
 
         val seconds = totalSeconds % 60
@@ -270,6 +254,12 @@ class MainActivity : AppCompatActivity() {
 
 
     fun initPlayer(){
+        // Views
+        play_puase.requestFocus()
+        play_puase.setOnClickListener { setPlayPause(!isPlaying) }
+        small_button.setOnClickListener { setPlayPause(!isPlaying) }
+
+        // Code
         bandwidthMeter = DefaultBandwidthMeter()
         extractorsFactory = DefaultExtractorsFactory()
         trackSelectionFactory = AdaptiveTrackSelection.Factory(bandwidthMeter)
@@ -279,21 +269,15 @@ class MainActivity : AppCompatActivity() {
                 Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter)
     }
 
-    fun play(s: String, b: Boolean = false){
+    fun play(uri: String, play: Boolean = false){ //TODO: play the (uri) with (play) permisson
 
 
-        mediaSource = ExtractorMediaSource(Uri.parse(s), dataSourceFactory, extractorsFactory, null, null)
+        mediaSource = ExtractorMediaSource(Uri.parse(uri), dataSourceFactory, extractorsFactory, null, null)
 
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
         player!!.prepare(mediaSource)
         player?.addListener(listener)
-        initMediaControls()
-        if (b){
-            csetPlayPause(true)
-        }
-        else{
-            csetPlayPause(false)
-        }
+        setPlayPause(play)
     }
 
     // Menu Config
@@ -305,15 +289,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        var id = item?.itemId
+        val id = item?.itemId
 
         when(id){
             R.id.setting -> {
-                println("Setting")
+
             }
             R.id.app_bar_search -> {
-                toolbar.x = 0f
-                toolbar.y = 0f
+                println("searchhhhhhh")
+                searchlay.animate().translationYBy(-2000f).setDuration(300).withEndAction {
+                    searchlay.x = 0f
+                    searchlay.y = 0f
+                }
+
+                val search = findViewById<SearchView>(R.id.app_bar_search)
+                search.setOnCloseListener { println("search closeeeeeeeeee")
+                true
+                }
+
+            }
+            R.id.refresh -> {
+                refresh()
             }
         }
 
@@ -324,11 +320,21 @@ class MainActivity : AppCompatActivity() {
     fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList()){
 
         try {
-            if (isPlaying){
+            if (isPlaying){ // when the user choose new song player release to decrease the memory usage
                 player!!.release()
             }
             initPlayer()
-            if (musicType == MusicType.Single){ // Songle Song
+
+            if (songData!!.singer.equals("")){ // page finders couldent find the singer name
+                artist_text_small.text = ""
+                song_text_small.text = songData.title
+            }
+            else{
+                artist_text_small.text = songData.singer
+                song_text_small.text = songData.title
+            }
+
+            if (musicType == MusicType.Single){ // Single Song
                 album.visibility = View.INVISIBLE
                 single.visibility = View.VISIBLE
                 try { // first try to play 128 qu
@@ -336,41 +342,32 @@ class MainActivity : AppCompatActivity() {
                 }catch (e: Exception){ // if that qu wasnt there play 320q
                     play(songData!!.mp3.get(1), true)
                 }
-                if (songData!!.singer.equals("")){
-                    artist_text_small.text = ""
-                    song_text_small.text = songData.title
-                }
-                else{
-                    artist_text_small.text = songData.singer
-                    song_text_small.text = songData.title
-                }
-                DownloadIMG().execute(songData.Img_URL)
+                DownloadIMG().execute(songData!!.Img_URL)
             }
             else{ // Album
                 single.visibility = View.INVISIBLE
                 album.visibility = View.VISIBLE
                 println(songData!!.title)
                 println(arr_album!!.size)
-                if (songData.singer.equals("")){
-                    artist_text_small.text = ""
-                    song_text_small.text = songData.title
-                }
-                else{
-                    song_text_small.text = songData.title
-                    artist_text_small.text = songData.singer
-                }
+
             }
-        }catch (e: Exception){
+        }catch (e: Exception){ // if anything happend among the playing a dialog showed
 
             var builder = android.support.v7.app.AlertDialog.Builder(applicationContext!!)
             var alertdialog: android.support.v7.app.AlertDialog? = null
             builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setTitle("\nDetails :")
-            builder.setMessage("")
-            builder.setPositiveButton("Ok",object : DialogInterface.OnClickListener{
+            builder.setTitle("\nSorry!! :(")
+            builder.setMessage("We can not play tis song for some resean  \nwant to check the song page on your browser?")
+            builder.setPositiveButton("yes",object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    download(songData!!.url)
+                }
+            })
+            builder.setNegativeButton("No", object : DialogInterface.OnClickListener{
                 override fun onClick(dialog: DialogInterface?, which: Int) {
                     alertdialog?.cancel()
                 }
+
             })
             alertdialog = builder.create()
             alertdialog!!.show()
@@ -383,7 +380,8 @@ class MainActivity : AppCompatActivity() {
         override fun doInBackground(vararg imgurl: String): Bitmap? {
 
             try {
-                if (!imgurl.equals("Not Found")){
+                if (!imgurl.equals("Not Found")) {
+                    println(imgurl[0])
                     val url = URL(imgurl[0])
 
                     val connection = url.openConnection() as HttpURLConnection
@@ -393,8 +391,7 @@ class MainActivity : AppCompatActivity() {
                     val inputStream = connection.inputStream
 
                     return BitmapFactory.decodeStream(inputStream)
-                }
-               else{
+                } else {
                     return null
                 }
             } catch (e: Exception) {
@@ -403,10 +400,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
         override fun onPostExecute(result: Bitmap?) {
             super.onPostExecute(result)
-            //background_image.setImageBitmap(result)
             var imageView = findViewById<ImageView>(R.id.background_image)
             var small_imageView = findViewById<ImageView>(R.id.artist_small_img)
             var circle = findViewById<CircleImageView>(R.id.single_circle)
@@ -417,6 +412,25 @@ class MainActivity : AppCompatActivity() {
             }
             dialog?.dismiss()
         }
+    }
+
+    fun refresh(){
+        Ds!!.arr_recentData.clear()
+        Ds!!.rec_page_num = 1
+        Ds!!.item_categoWebContent_Done = null
+        Ds!!.Cat_isCreated = false
+        Ds!!.week_con = ""
+        Ds!!.month_con = ""
+        Ds!!.year_con = ""
+        Ds!!.arr_popu_week.clear()
+        Ds!!.arr_popu_month.clear()
+        Ds!!.arr_popu_year.clear()
+        Ds!!.item_categoWebContent = ""
+        Ds!!.item_categoWebContent_Done = null
+        Ds!!.arr_categories.clear()
+        Ds!!.arr_catego_item_Data.clear()
+        getData()
+        viewPagerInit()
     }
 
 }

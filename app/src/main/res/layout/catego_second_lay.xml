@@ -10,18 +10,12 @@
         android:id="@+id/animate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="452dp"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_set_as"
         app:backgroundTint="@android:color/holo_blue_light"
         app:layout_constraintBottom_toBottomOf="@+id/more_catego"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/catego_song_scroll"
@@ -52,7 +46,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:text="More"
         android:textColor="@color/cardview_light_background"
-        android:translationY="100dp"
+        android:translationY="1000dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

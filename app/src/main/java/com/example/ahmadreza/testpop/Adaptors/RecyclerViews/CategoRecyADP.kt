@@ -11,9 +11,12 @@ import android.widget.TextView
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
+import com.example.ahmadreza.testpop.Datas.CallMethod
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.R
+import com.example.ahmadreza.testpop.Storege.DataStorage
+import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 
 /**
@@ -25,21 +28,28 @@ class CategoRecyADP(val view: View, val context: Context, val arrayList: ArrayLi
         holder.updateUi(categoData)
 
         holder.cardview?.setOnClickListener {
-            (activity as MainActivity).dialog?.show()
+            getdata(categoData.url)
+            DataStorage.instance.cat_currnet_url = categoData.url
             view.second.animate().translationXBy(2000f).setDuration(600).withEndAction {
                 view.second.x = 0f
                 view.second.y = 0f
             }
 
-            println("1")
-            println(categoData.name)
-            println(categoData.url)
-            DownloadWebContent(context, CallType.CATGORY).execute(categoData.url)
-            println("2")
-            SongDataFinder(view,context,activity,CallType.CATGORY).execute()
+        }
+
+        view.more_catego.setOnClickListener {
+
+            DataStorage.instance.cat_page_num ++
+            getdata(DataStorage.instance.cat_currnet_url + DataStorage.instance.page_txt + DataStorage.instance.cat_page_num.toString())
         }
     }
 
+    fun getdata(url: String){
+        (activity as MainActivity).dialog?.show()
+        println("url is = $url")
+        DownloadWebContent(context, CallType.CATGORY).execute(url)
+        SongDataFinder(view,context,activity,CallType.CATGORY, CallMethod.Click).execute()
+    }
     override fun getItemCount(): Int {
         return arrayList.count()
     }

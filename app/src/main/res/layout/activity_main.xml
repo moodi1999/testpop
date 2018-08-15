@@ -8,6 +8,7 @@
     tools:context="com.example.ahmadreza.testpop.Activities.MainActivity">
 
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarcon"
         android:layout_width="0dp"

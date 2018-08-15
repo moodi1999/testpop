@@ -10,13 +10,18 @@ import com.example.ahmadreza.testpop.Datas.SongData
  */
 class DataStorage {
 
-    var isCreated = false
+    var Rec_isCreated = false
+    var Cat_isCreated = false
 
     var before_loading: ArrayList<SongData> = ArrayList()
 
-    val Main_URL = "http://pop-music.ir/"
-    val page_txt = "page/"
-    var page_num = 1
+    val Main_URL = "http://pop-music.ir"
+    val page_txt = "/page/"
+    var rec_page_num = 1
+    var cat_page_num = 1
+    var cat_currnet_url = ""
+
+    var repeat = false
 
     var recentWebContent: String = ""
     var recentWebContent_Done: Boolean? = null

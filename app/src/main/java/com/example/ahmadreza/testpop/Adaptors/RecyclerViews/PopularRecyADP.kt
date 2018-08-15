@@ -9,11 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.ahmadreza.testpop.Activities.MainActivity
-import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
-import com.example.ahmadreza.testpop.DataFinders.SongPageDF
-import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.DataGeters.GetPopularSongPage
-import com.example.ahmadreza.testpop.DataGeters.GetSongPageCon
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Datas.PopularData
