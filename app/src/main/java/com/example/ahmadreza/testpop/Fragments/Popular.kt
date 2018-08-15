@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Fragments
 
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
@@ -9,10 +10,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.ahmadreza.testpop.DataFinders.PopularDF
 
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_popular.*
 import kotlinx.android.synthetic.main.fragment_popular.view.*
@@ -51,6 +54,10 @@ class Popular : Fragment() {
     }
 
     fun Ui(view: View?){
+        /*val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.background)
+        val imageView = view?.findViewById<ImageView>(R.id.background_main)
+        Blurry.with(context).sampling(1).from(largeIcon).into(imageView)*/
+
         ViewCompat.setNestedScrollingEnabled(view!!.popular_lay, false)
         ViewCompat.setNestedScrollingEnabled(view.week_recyclerview, false)
         ViewCompat.setNestedScrollingEnabled(view.month_recyclerview, false)

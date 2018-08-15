@@ -34,6 +34,10 @@ class CategoRecyADP(val view: View, val context: Context, val arrayList: ArrayLi
                 view.second.x = 0f
                 view.second.y = 0f
             }
+            view.first.animate().translationXBy(-2000f).setDuration(600).withEndAction {
+                view.first.x = -2000f
+                view.first.y = -2000f
+            }
 
         }
 

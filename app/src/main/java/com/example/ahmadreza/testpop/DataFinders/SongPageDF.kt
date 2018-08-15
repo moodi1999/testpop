@@ -1,5 +1,6 @@
 package com.example.ahmadreza.testpop.DataFinders
 
+import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
 import com.example.ahmadreza.testpop.Activities.MainActivity
@@ -10,7 +11,7 @@ import com.example.ahmadreza.testpop.Storege.DataStorage
 import java.util.regex.Pattern
 
 
-class SongPageDF(val activity: FragmentActivity?, val songData: SongData, val callType: CallType = CallType.RECENT) : AsyncTask<ArrayList<Int>?, Unit, SongData>() {
+class SongPageDF(val activity: FragmentActivity?, val songData: SongData, val callType: CallType = CallType.RECENT, val context: Context = activity!!.applicationContext) : AsyncTask<ArrayList<Int>?, Unit, SongData>() {
 
     override fun doInBackground(vararg pos: ArrayList<Int>?): SongData? {
         if (pos[0]!!.get(1) != -1) {
@@ -61,7 +62,7 @@ class SongPageDF(val activity: FragmentActivity?, val songData: SongData, val ca
             ac.download(songData.mp3.get(1))
         }
         else{
-            ac.SetPlayer(songData, MusicType.Single)
+            ac.SetPlayer(songData, MusicType.Single, ArrayList(), context)
         }
 
     }

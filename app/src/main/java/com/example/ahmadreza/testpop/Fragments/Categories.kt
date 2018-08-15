@@ -2,6 +2,7 @@ package com.example.ahmadreza.testpop.Fragments
 
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
@@ -13,11 +14,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
+import android.widget.ImageView
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
 import com.example.ahmadreza.testpop.DataFinders.CategoryDF
 import com.example.ahmadreza.testpop.Storege.DataStorage
 
 import com.example.ahmadreza.testpop.R
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
@@ -55,11 +58,15 @@ class Categories : Fragment() {
     }
 
     fun Ui(view: View) {
+        /*val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.background)
+        val imageView = view.findViewById<ImageView>(R.id.background_main)
+        Blurry.with(context).sampling(1).from(largeIcon).into(imageView)*/
+
         view.first.x = 0f
         view.first.y = 0f
         view.second.animate().translationXBy(-2000f).setDuration(600).withEndAction {
-            view.second.x = 2000f
-            view.second.y = 2000f
+            view.second.x = -2000f
+            view.second.y = -2000f
         }
 
         val layoutm = GridLayoutManager(context, 3)
@@ -74,9 +81,18 @@ class Categories : Fragment() {
         ViewCompat.setNestedScrollingEnabled(view.category_recyclerView_sec, false)
 
         view.animate.setOnClickListener {
+            DataStorage.instance.arr_catego_item_Data.clear()
+
             view.second.x = 0f
             view.second.y = 0f
-            view.second.animate().translationXBy(-2000f).setDuration(600)
+            view.second.animate().translationXBy(-2000f).setDuration(600).withEndAction {
+                view.second.x = -2000f
+                view.second.y = -2000f
+            }
+            view.first.animate().translationXBy(2000f).setDuration(600).withEndAction {
+                view.first.x = 0f
+                view.first.y = 0f
+            }
         }
 
         scrolling_item(view)

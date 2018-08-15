@@ -1,5 +1,6 @@
 package com.example.ahmadreza.testpop.DataGeters
 
+import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
 import com.example.ahmadreza.testpop.DataFinders.AlbumPageDF
@@ -15,7 +16,7 @@ import java.net.URL
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, val musicType: MusicType, val callType: CallType = CallType.RECENT) : AsyncTask<Int, Unit, ArrayList<Int>>(){
+class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, val musicType: MusicType, val callType: CallType = CallType.RECENT, val context: Context = activity!!.applicationContext) : AsyncTask<Int, Unit, ArrayList<Int>>(){
 
     override fun onPreExecute() {
         super.onPreExecute()
@@ -68,7 +69,7 @@ class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, va
             if (callType == CallType.GetMp3)
                 SongPageDF(activity,songData, CallType.GetMp3).execute(result)
             else
-                SongPageDF(activity,songData).execute(result)
+                SongPageDF(activity,songData, CallType.RECENT, context).execute(result)
         }
 
         println("GetSongPageCon.onPostExecute: done")

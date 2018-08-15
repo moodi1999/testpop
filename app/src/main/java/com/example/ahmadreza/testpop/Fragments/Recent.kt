@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Fragments
 
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
@@ -9,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.DataFinders.SongDataFinder
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
@@ -17,6 +19,7 @@ import com.example.ahmadreza.testpop.Datas.CallType
 
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
+import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 
@@ -52,21 +55,21 @@ class Recent : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_recent, container, false)
 
+       Ui(view)
+
+       scrolling(view)
 
         SongDataFinder(view!!, context, activity, CallType.RECENT, CallMethod.OnCreat).execute("")
-
-
-
-        Ui(view)
-
-        scrolling(view)
-
 
         return view
     }
 
 
     fun Ui(view: View): Unit {
+        /*val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.background)
+        val imageView = view.findViewById<ImageView>(R.id.background_main)
+        Blurry.with(context).sampling(1).from(largeIcon).into(imageView)*/
+
         val layoutm = GridLayoutManager(context, 2)
         view.recent_recyclerView.layoutManager = layoutm
         view.recent_recyclerView.setHasFixedSize(true)

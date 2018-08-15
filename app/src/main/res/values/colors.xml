@@ -7,6 +7,7 @@
     <color name="dividerColor">#52616b</color>
     <color name="indicatorColor">#644d606e</color>
     <color name="Tabbackground">#d82d4059</color>
+    <color name="Tabbackground_new">#65393939</color>
     <color name="Background">#572d4059</color>
     <color name="btn_more">#2c526b</color>
     <color name="tap_text">#2b9c9c9c</color>

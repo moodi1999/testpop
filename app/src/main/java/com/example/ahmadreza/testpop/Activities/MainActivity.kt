@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Activities
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
@@ -47,6 +48,7 @@ import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.album_lay.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.media_contorol.*
+import kotlinx.android.synthetic.main.single_music.*
 import kotlinx.android.synthetic.main.slide_toolbar.*
 import kotlinx.android.synthetic.main.up_slide_lay.*
 import java.net.HttpURLConnection
@@ -112,6 +114,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun uiInit(){
+        val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.background)
+        val imageView = findViewById<ImageView>(R.id.background_main)
+        Blurry.with(applicationContext).sampling(1).from(largeIcon).into(imageView)
 
         // toolbar
         toolbar
@@ -145,7 +150,7 @@ class MainActivity : AppCompatActivity() {
         val viewPad = ViewPageAdaptor(supportFragmentManager)
         viewPad.addFragment(Recent(), "Recent")
         viewPad.addFragment(Categories(), "Ctegories")
-        viewPad.addFragment(Artists(), "Artists")
+        //viewPad.addFragment(Artists(), "Artists")
         viewPad.addFragment(Popular(), "Popular")
         viewpager.adapter = viewPad
         tab_View_pager.setViewPager(viewpager)
@@ -162,10 +167,12 @@ class MainActivity : AppCompatActivity() {
     fun setProgress() {
         song_seekbar!!.requestFocus()
         progresbar_small.requestFocus()
+        ring_progress.requestFocus()
         song_seekbar!!.max = 0
         progresbar_small.max = 0
         song_seekbar!!.max = player!!.duration.toInt() / 1000
         progresbar_small.max = player!!.duration.toInt() / 1000
+
 
         curr_time!!.text = stringForTime(player!!.currentPosition.toInt())
         song_lenth!!.text = stringForTime(player!!.duration.toInt())
@@ -180,6 +187,7 @@ class MainActivity : AppCompatActivity() {
                     val mCurrentPosition = player!!.currentPosition.toInt() / 1000
                     song_seekbar!!.progress = mCurrentPosition
                     progresbar_small.progress = mCurrentPosition
+                    ring_progress.progress = mCurrentPosition
                     curr_time.text = stringForTime(player!!.currentPosition.toInt())
                     song_lenth.text = stringForTime(player!!.duration.toInt())
 
@@ -220,12 +228,16 @@ class MainActivity : AppCompatActivity() {
             small_button.setImageResource(R.drawable.ic_play)
             loading_prog.visibility = View.INVISIBLE
             small_loading_prog.visibility = View.INVISIBLE
+
         } else { // is playing
             setProgress()
             play_puase.setImageResource(R.drawable.ic_pause)
             small_button.setImageResource(R.drawable.ic_pause)
         }
-        player!!.playWhenReady = play
+        if (player != null){
+            player!!.playWhenReady = play
+        }
+
     }
 
 
@@ -317,7 +329,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList()){
+    fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList(), context: Context = applicationContext){
 
         try {
             if (isPlaying){ // when the user choose new song player release to decrease the memory usage
@@ -352,9 +364,10 @@ class MainActivity : AppCompatActivity() {
 
             }
         }catch (e: Exception){ // if anything happend among the playing a dialog showed
+            dialog?.dismiss()
 
-            var builder = android.support.v7.app.AlertDialog.Builder(applicationContext!!)
-            var alertdialog: android.support.v7.app.AlertDialog? = null
+            var builder = AlertDialog.Builder(context!!)
+            var alertdialog: AlertDialog? = null
             builder.setIcon(android.R.drawable.ic_dialog_alert)
             builder.setTitle("\nSorry!! :(")
             builder.setMessage("We can not play tis song for some resean  \nwant to check the song page on your browser?")

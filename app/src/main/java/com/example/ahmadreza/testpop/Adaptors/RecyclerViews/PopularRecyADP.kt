@@ -25,7 +25,7 @@ class PopularRecyADP(val view: View, val context: Context, val arrayList: ArrayL
 
         val data = arrayList.get(position)
 
-        holder.rate?.text = position.toString()
+        holder.rate?.text = (position + 1).toString()
         holder.title?.text = data.title
 
         holder.click?.setOnClickListener{

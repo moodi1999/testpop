@@ -76,11 +76,19 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 alertdialog = builder.create()
                 alertdialog.show()
 
+                ac.dialog?.dismiss()
             } else if (song.category_tag.equals("آلبوم", true)){
                 GetSongPageCon(activity,song,MusicType.Album).execute(position)
             }
+            /*else if (song.category_tag.equals("موزیک ویدیو", true)){
+                var builder = AlertDialog.Builder(context!!)
+                var alertdialog: AlertDialog? = null
+                builder.setTitle("\nthis a music video!\n can not play it yet")
+                alertdialog = builder.create()
+                alertdialog.show()
+            }*/
             else{
-                GetSongPageCon(activity,song,MusicType.Single).execute(position)
+                GetSongPageCon(activity,song,MusicType.Single, CallType.RECENT, context!!).execute(position)
             }
         }
 
