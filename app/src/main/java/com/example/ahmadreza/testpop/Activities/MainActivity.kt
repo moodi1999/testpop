@@ -1,6 +1,7 @@
 package com.example.ahmadreza.testpop.Activities
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -111,17 +112,20 @@ class MainActivity : AppCompatActivity() {
 
         uiInit()
         getData()
-        initPlayer()
-        play("")
-
+        initPlayer() // init ExoPlayer and make it ready for play
     }
 
     fun uiInit(){
+
+        // toolbar
         toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
+
+        // loading progres
         loading_prog.visibility = View.INVISIBLE
         small_loading_prog.visibility = View.INVISIBLE
+
         dialog = SpotsDialog.Builder().setCancelable(false).setContext(this).setTheme(R.style.CustomPopup).build()
         val viewPad = ViewPageAdaptor(supportFragmentManager)
 
@@ -135,7 +139,6 @@ class MainActivity : AppCompatActivity() {
 
         tab_View_pager.bringToFront()
         toolbar.bringToFront()
-        //sliding_layout.isClipPanel = true
 
         val layoutm = LinearLayoutManager(applicationContext)
         album_recyclerview.layoutManager = layoutm
@@ -272,13 +275,13 @@ class MainActivity : AppCompatActivity() {
         trackSelectionFactory = AdaptiveTrackSelection.Factory(bandwidthMeter)
         trackSelector = DefaultTrackSelector(trackSelectionFactory)
         defaultBandwidthMeter = DefaultBandwidthMeter()
-
+        dataSourceFactory = DefaultDataSourceFactory(this,
+                Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter)
     }
 
     fun play(s: String, b: Boolean = false){
 
-        dataSourceFactory = DefaultDataSourceFactory(this,
-                Util.getUserAgent(this, "mediaPlayerSample"), defaultBandwidthMeter)
+
         mediaSource = ExtractorMediaSource(Uri.parse(s), dataSourceFactory, extractorsFactory, null, null)
 
         player = ExoPlayerFactory.newSimpleInstance(this, trackSelector)
@@ -309,7 +312,8 @@ class MainActivity : AppCompatActivity() {
                 println("Setting")
             }
             R.id.app_bar_search -> {
-                println("Searching")
+                toolbar.x = 0f
+                toolbar.y = 0f
             }
         }
 
@@ -319,37 +323,58 @@ class MainActivity : AppCompatActivity() {
 
     fun SetPlayer(songData: SongData? = null, musicType: MusicType, arr_album:ArrayList<AlbumData>? = ArrayList()){
 
-        player!!.release()
-        initPlayer()
-        if (musicType == MusicType.Single){ // Songle Song
-            album.visibility = View.INVISIBLE
-            single.visibility = View.VISIBLE
-            play(songData!!.mp3.get(3), true)
-            if (songData.singer.equals("")){
-                artist_text_small.text = ""
-                song_text_small.text = songData.title
+        try {
+            if (isPlaying){
+                player!!.release()
             }
-            else{
-                artist_text_small.text = songData.singer
-                song_text_small.text = songData.title
+            initPlayer()
+            if (musicType == MusicType.Single){ // Songle Song
+                album.visibility = View.INVISIBLE
+                single.visibility = View.VISIBLE
+                try { // first try to play 128 qu
+                    play(songData!!.mp3.get(3), true)
+                }catch (e: Exception){ // if that qu wasnt there play 320q
+                    play(songData!!.mp3.get(1), true)
+                }
+                if (songData!!.singer.equals("")){
+                    artist_text_small.text = ""
+                    song_text_small.text = songData.title
+                }
+                else{
+                    artist_text_small.text = songData.singer
+                    song_text_small.text = songData.title
+                }
+                DownloadIMG().execute(songData.Img_URL)
             }
-            DownloadIMG().execute(songData.Img_URL)
-        }
-        else{ // Album
-            single.visibility = View.INVISIBLE
-            album.visibility = View.VISIBLE
-            println(songData!!.title)
-            println(arr_album!!.size)
-            if (songData.singer.equals("")){
-                artist_text_small.text = ""
-                song_text_small.text = songData.title
+            else{ // Album
+                single.visibility = View.INVISIBLE
+                album.visibility = View.VISIBLE
+                println(songData!!.title)
+                println(arr_album!!.size)
+                if (songData.singer.equals("")){
+                    artist_text_small.text = ""
+                    song_text_small.text = songData.title
+                }
+                else{
+                    song_text_small.text = songData.title
+                    artist_text_small.text = songData.singer
+                }
             }
-            else{
-                song_text_small.text = songData.title
-                artist_text_small.text = songData.singer
-            }
-        }
+        }catch (e: Exception){
 
+            var builder = android.support.v7.app.AlertDialog.Builder(applicationContext!!)
+            var alertdialog: android.support.v7.app.AlertDialog? = null
+            builder.setIcon(android.R.drawable.ic_dialog_alert)
+            builder.setTitle("\nDetails :")
+            builder.setMessage("")
+            builder.setPositiveButton("Ok",object : DialogInterface.OnClickListener{
+                override fun onClick(dialog: DialogInterface?, which: Int) {
+                    alertdialog?.cancel()
+                }
+            })
+            alertdialog = builder.create()
+            alertdialog!!.show()
+        }
 
     }
 

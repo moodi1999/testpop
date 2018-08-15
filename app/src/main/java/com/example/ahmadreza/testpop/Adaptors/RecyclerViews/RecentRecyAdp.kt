@@ -63,8 +63,11 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
 
         }
         holder.card?.setOnClickListener {
-            (activity as MainActivity).dialog?.show()
-            (activity as MainActivity).csetPlayPause(false)
+            var ac = activity as MainActivity
+            ac.dialog?.show()
+            if (ac.isPlaying){
+                ac.csetPlayPause(false)
+            }
             if (song.category_tag.equals("بزودی", true)) {
 
                 var builder = AlertDialog.Builder(context!!)
