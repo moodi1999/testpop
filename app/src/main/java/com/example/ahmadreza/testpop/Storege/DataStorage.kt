@@ -33,7 +33,7 @@ class DataStorage {
     var pt_link_songs = "<h2><a href=\"(.*?)\" rel=\"bookmark\" title=\""
     var pt_titleAndSinger_songs = "Download(.*?)p>"
     var pt_titleAndSinger_songs2 = "href=\"http://pop-music.ir/tag/download-new(.*?)p>"
-    var pt_title_songs = "&#8211;(.*?)</"
+    var pt_title_songs = "&#8211;(.*?)<"
     var pt_singer_songs = ">(.*?)</a>"
     var pt_title_fa = "title=\"(.*?)\" src=\""
     var pt_Img_Url_songs = "\" src=\"" + "(.*?)" + "\" alt=\""

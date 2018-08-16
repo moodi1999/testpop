@@ -48,7 +48,7 @@
         android:id="@+id/album_circle_imgview"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/omidnb"
+        android:src="@drawable/ic_music"
         app:civ_border_color="@android:color/background_light"
         app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"

@@ -19,6 +19,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.SeekBar
+import android.widget.Toast
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Datas.*
@@ -450,8 +451,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun downloadMp3(arrayList: ArrayList<String>, context: Context){
-        val lun = Intent(Intent.ACTION_VIEW, Uri.parse(arrayList.get(1)))
-        startActivity(lun)
+        if (arrayList.size < 2){
+            Toast.makeText(context, "There is no Direct link for downlod the zip file", Toast.LENGTH_LONG)
+        }else{
+            val lun = Intent(Intent.ACTION_VIEW, Uri.parse(arrayList.get(1)))
+            startActivity(lun)
+        }
+
     }
 
 

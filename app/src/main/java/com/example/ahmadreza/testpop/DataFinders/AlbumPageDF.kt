@@ -4,29 +4,17 @@ package com.example.ahmadreza.testpop.DataFinders
  * Created by ahmadreza on 8/12/18.
  */
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
-import android.util.Log
-import android.view.View
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.AlbumRecyAdp
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoSongItemADP
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Datas.AlbumData
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Datas.MusicType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
-import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.album_lay.*
-import kotlinx.android.synthetic.main.catego_first_lay.view.*
-import kotlinx.android.synthetic.main.catego_second_lay.view.*
-import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
 
 /**
@@ -50,11 +38,14 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData, val t
                     "\t\t\t\t<div class=\"clear\"></div>\n" +
                     "\t\t\t\t<div class=\"post-tags\">")[0]
 
+            println(test2)
             //val n = songData.pageCon.split(Ds.bn_album)[1].split(Ds.an_album)[0]
             val m_url = Pattern.compile(Ds.pt_album_url).matcher(test2)
             val m_song_name = Pattern.compile(Ds.pt_album_song_name).matcher(test2)
 
            loop@while (m_url.find()){
+
+               println("in the while")
 
                 var mp3 = ""
                 var song_name = ""
@@ -62,6 +53,7 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData, val t
 
                 try {
                     mp3 = m_url.group(1)
+                    println(mp3)
                 }catch (e: Exception){
                     //e.printStackTrace()
                     println("mp3 not")
@@ -79,17 +71,25 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData, val t
                         song_name = song_name_or.split("&#8211;")[2].split("</a>")[0]
 
                     }catch (e: Exception){
-                        song_name = "NotFound!"
-                        println("name not")
+                        try {
+                            val m_song_name3 = Pattern.compile("\">(.*?)</a>").matcher(song_name_or)
+                            m_song_name3.find()
+                            song_name = m_song_name3.group(1)
+
+                        }catch (e: Exception){
+                            song_name = "NotFound!"
+                            println("name not")
+                        }
                     }
                     //e.printStackTrace()
                 }
                if (song_name.equals("DirectLink",true)){
+                   println("find Direct Link")
                    songData.mp3.add(mp3)
                    continue@loop
                }
                 for(i in arr){
-                    if (song_name.equals(i.song_name,true)){
+                    if (song_name.equals(i.song_name,true) && !song_name.equals("NotFound!",true)){
                         break@loop
                     }
                 }

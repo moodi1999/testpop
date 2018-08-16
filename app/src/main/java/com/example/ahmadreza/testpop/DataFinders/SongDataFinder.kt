@@ -1,26 +1,20 @@
 package com.example.ahmadreza.testpop.DataFinders
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
 import com.example.ahmadreza.testpop.Activities.MainActivity
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoSongItemADP
 import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.RecentRecyAdp
 import com.example.ahmadreza.testpop.Datas.CallMethod
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
-import kotlinx.android.synthetic.main.catego_first_lay.view.*
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
-import java.lang.invoke.MethodType
 import java.util.regex.Pattern
 
 /**
@@ -254,7 +248,7 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
 
             println("size is === ${Ds.arr_catego_item_Data.size}")
 
-            val adaptor = CategoSongItemADP(DataStorage.instance.arr_catego_item_Data, context, activity)
+            val adaptor = RecentRecyAdp(DataStorage.instance.arr_catego_item_Data, context, activity)
             view.category_recyclerView_sec.adapter = adaptor
 
             var contextr: Context = view.category_recyclerView_sec.context
