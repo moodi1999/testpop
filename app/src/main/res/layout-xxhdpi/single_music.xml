@@ -7,11 +7,11 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/single_circle"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/ic_music"
         app:civ_border_color="#c405302e"
         app:civ_border_width="1dp"

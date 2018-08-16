@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/background_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="0dp"
+        android:theme="?attr/actionBarTheme" />
+
+
+    <com.ogaclejapan.smarttablayout.SmartTabLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tab_View_pager"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/round_item"
+        android:clipToPadding="true"
+        android:paddingLeft="20dp"
+        android:paddingRight="6dp"
+        app:layout_anchor="@+id/toolbar"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:stl_defaultTabTextAllCaps="false"
+        app:stl_defaultTabTextColor="@color/defaultTabTextColor"
+        app:stl_defaultTabTextHorizontalPadding="15dp"
+        app:stl_defaultTabTextMinWidth="0dp"
+        app:stl_defaultTabTextSize="17sp"
+        app:stl_dividerColor="@color/dividerColor"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorColor="@color/indicatorColor"
+        app:stl_indicatorCornerRadius="7dp"
+        app:stl_indicatorGravity="center"
+        app:stl_indicatorInterpolation="smart"
+        app:stl_indicatorThickness="45dp"
+        app:stl_indicatorWidth="auto"
+        app:stl_indicatorWithoutPadding="false"
+        app:stl_underlineColor="@android:color/transparent" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_View_pager"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="54dp"
+        app:layout_anchor="@+id/tab_View_pager"
+        app:layout_anchorGravity="bottom|center"
+        tools:layout_editor_absoluteY="119dp">
+
+
+    </android.support.v4.view.ViewPager>
+
+    <include
+        android:id="@+id/searchlay"
+        layout="@layout/search_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
+
+
+</android.support.design.widget.CoordinatorLayout>

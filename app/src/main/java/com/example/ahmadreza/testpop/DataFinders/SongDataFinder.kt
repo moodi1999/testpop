@@ -221,7 +221,14 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
                 Ds.arr_recentData.addAll(result)
             }
 
-
+            var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
+            Ds.arr_recentData.add(song)
+            Ds.arr_recentData.add(song)
+            Ds.arr_recentData.add(song)
+            Ds.arr_recentData.add(song)
+            Ds.arr_recentData.add(song)
+            Ds.arr_recentData.add(song)
+            Ds.arr_recentData.add(song)
             println(Ds.arr_recentData.size)
             print("\nsizeeee")
 
