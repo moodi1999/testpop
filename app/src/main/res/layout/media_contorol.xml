@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="170dp"
     android:background="@drawable/round_media_contorol">
 
     <ProgressBar
@@ -47,23 +47,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="12dp"
-        android:textSize="16sp"
         android:text="TextView"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/song_seekbar"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/song_seekbar" />
 
     <TextView
         android:id="@+id/curr_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:textSize="16sp"
         android:text="TextView"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/song_seekbar"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/song_seekbar" />
 
 </android.support.constraint.ConstraintLayout>

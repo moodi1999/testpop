@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     var Ds: DataStorage? = null
 
+    var mCurrentPosition: Int? = null
     var player: SimpleExoPlayer? = null
     var bandwidthMeter: BandwidthMeter? = null
     var extractorsFactory: ExtractorsFactory? = null
@@ -185,10 +186,11 @@ class MainActivity : AppCompatActivity() {
                 if (player != null && isPlaying) {
                     song_seekbar!!.max = player!!.duration.toInt() / 1000
                     progresbar_small.max = player!!.duration.toInt() / 1000
-                    val mCurrentPosition = player!!.currentPosition.toInt() / 1000
-                    song_seekbar!!.progress = mCurrentPosition
-                    progresbar_small.progress = mCurrentPosition
-                    ring_progress.progress = mCurrentPosition
+                    mCurrentPosition = player!!.currentPosition.toInt() / 1000
+                    println(mCurrentPosition!!)
+                    song_seekbar!!.progress = mCurrentPosition!!
+                    progresbar_small.progress = mCurrentPosition!!
+                    ring_progress.progress = mCurrentPosition!!
                     curr_time.text = stringForTime(player!!.currentPosition.toInt())
                     song_lenth.text = stringForTime(player!!.duration.toInt())
 
@@ -223,6 +225,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun setPlayPause(play: Boolean) {
+
+
         isPlaying = play
         if (!isPlaying) { // not playing
             play_puase.setImageResource(R.drawable.ic_play)
@@ -237,8 +241,10 @@ class MainActivity : AppCompatActivity() {
         }
         if (player != null){
             player!!.playWhenReady = play
+            song_seekbar!!.progress = mCurrentPosition!!
+            progresbar_small.progress = mCurrentPosition!!
+            ring_progress.progress = mCurrentPosition!!
         }
-
     }
 
 
@@ -340,21 +346,20 @@ class MainActivity : AppCompatActivity() {
                 artist_text_small.text = songData.singer
                 song_text_small.text = songData.title
             }
-
+            DownloadIMG().execute(songData.Img_URL)
             if (musicType == MusicType.Single){ // Single Song
                 album.visibility = View.INVISIBLE
                 single.visibility = View.VISIBLE
                 try { // first try to play 128 qu
-                    play(songData!!.mp3.get(3), true)
-                }catch (e: Exception){ // if that qu wasnt there play 320q
-                    play(songData!!.mp3.get(1), true)
+                    play(songData.mp3.get(3), true)
+                }catch (e: Exception){ // if 128 qu wasnt there play 320q
+                    play(songData.mp3.get(1), true)
                 }
-                DownloadIMG().execute(songData!!.Img_URL)
             }
             else{ // Album
                 single.visibility = View.INVISIBLE
                 album.visibility = View.VISIBLE
-                println(songData!!.title)
+                println(songData.title)
                 println(arr_album!!.size)
 
             }

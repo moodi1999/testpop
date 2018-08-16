@@ -37,9 +37,13 @@
         <include
             android:id="@+id/single"
             layout="@layout/single_music"
-            android:layout_width="413dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:visibility="visible"
-            tools:layout_editor_absoluteX="-2dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <include
             android:id="@+id/album"
