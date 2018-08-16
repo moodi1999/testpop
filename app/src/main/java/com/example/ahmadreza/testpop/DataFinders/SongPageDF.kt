@@ -59,7 +59,7 @@ class SongPageDF(val activity: FragmentActivity?, val songData: SongData, val ca
         val ac = (activity as MainActivity)
         ac.dialog?.dismiss()
         if (callType == CallType.GetMp3){
-            ac.download(songData.mp3.get(1))
+            ac.downloadMp3(songData.mp3,context)
         }
         else{
             ac.SetPlayer(songData, MusicType.Single, ArrayList(), context)

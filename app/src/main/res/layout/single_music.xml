@@ -12,7 +12,7 @@
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/omidnb"
+        android:src="@drawable/ic_music"
         app:civ_border_color="#c405302e"
         app:civ_border_width="1dp"
         app:layout_constraintEnd_toEndOf="parent"

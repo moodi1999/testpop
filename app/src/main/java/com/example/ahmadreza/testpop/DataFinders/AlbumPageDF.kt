@@ -32,7 +32,7 @@ import java.util.regex.Pattern
 /**
  * Created by ahmadreza on 8/5/18.
  */
-class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : AsyncTask<String, Unit, ArrayList<AlbumData>>() {
+class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData, val type: CallType, val context: Context = activity!!.applicationContext) : AsyncTask<String, Unit, ArrayList<AlbumData>>() {
 
     val Ds = DataStorage.instance
 
@@ -116,8 +116,12 @@ class AlbumPageDF(val activity: FragmentActivity?, val songData: SongData) : Asy
         val adaptor = AlbumRecyAdp(activity, songData, result)
         activity.album_recyclerview.adapter = adaptor
         ac.SetPlayer(songData, MusicType.Album ,result)
-        println("SongDataFinder.onPostExecute")
         ac.dialog?.dismiss()
+        if (type == CallType.GetMp3){
+            ac.downloadMp3(songData.mp3, context)
+        }
+        println("SongDataFinder.onPostExecute")
+
     }
 
 

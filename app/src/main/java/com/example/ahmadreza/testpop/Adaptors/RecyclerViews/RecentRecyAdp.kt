@@ -103,7 +103,12 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                     if (item?.itemId == R.id.download_item){
 
                         (activity as MainActivity).dialog?.show()
-                        GetSongPageCon(activity, song, MusicType.Single, CallType.GetMp3).execute(position)
+                        if (song.category_tag.equals("آلبوم", true)){
+                            GetSongPageCon(activity,song,MusicType.Album, CallType.GetMp3, context!!).execute(position)
+                        }else{
+                            GetSongPageCon(activity, song, MusicType.Single, CallType.GetMp3).execute(position)
+                        }
+
 
                     }
                     else{
@@ -158,13 +163,14 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
                 album?.visibility = View.VISIBLE
             }
 
+
             tap?.setOnClickListener {
                 try {
-                    Picasso.with(context!!).load(song.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
+                    Picasso.with(context!!).load(song.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).memoryPolicy(MemoryPolicy.NO_CACHE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
                 }catch (e: Exception){
                     e.printStackTrace()
                 }
-                tap.visibility = View.GONE
+                tap?.visibility = View.GONE
                 card?.bringToFront()
             }
 

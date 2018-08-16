@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/omidnb"
+        app:srcCompat="@color/exo_error_message_background_color"
         tools:layout_editor_absoluteY="158dp" />
 
 
@@ -38,7 +38,7 @@
             android:id="@+id/single"
             layout="@layout/single_music"
             android:layout_width="413dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             tools:layout_editor_absoluteX="-2dp" />
 
         <include

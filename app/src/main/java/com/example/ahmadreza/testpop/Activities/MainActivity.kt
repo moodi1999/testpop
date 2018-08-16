@@ -241,12 +241,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun download(url: String){
-        val lun = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(lun)
-    }
-
-
     fun stringForTime(timeMs: Int): String {
         val mFormatBuilder = StringBuilder()
         val mFormatter = Formatter(mFormatBuilder, Locale.getDefault())
@@ -366,24 +360,7 @@ class MainActivity : AppCompatActivity() {
         }catch (e: Exception){ // if anything happend among the playing a dialog showed
             dialog?.dismiss()
 
-            var builder = AlertDialog.Builder(context!!)
-            var alertdialog: AlertDialog? = null
-            builder.setIcon(android.R.drawable.ic_dialog_alert)
-            builder.setTitle("\nSorry!! :(")
-            builder.setMessage("We can not play tis song for some resean  \nwant to check the song page on your browser?")
-            builder.setPositiveButton("yes",object : DialogInterface.OnClickListener{
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    download(songData!!.url)
-                }
-            })
-            builder.setNegativeButton("No", object : DialogInterface.OnClickListener{
-                override fun onClick(dialog: DialogInterface?, which: Int) {
-                    alertdialog?.cancel()
-                }
-
-            })
-            alertdialog = builder.create()
-            alertdialog!!.show()
+            errorDialog(context, songData!!.url)
         }
 
     }
@@ -445,6 +422,38 @@ class MainActivity : AppCompatActivity() {
         getData()
         viewPagerInit()
     }
+
+    fun errorDialog(context: Context, url: String) {
+        var builder = AlertDialog.Builder(context)
+        var alertdialog: AlertDialog? = null
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setTitle("\nSorry!! :(")
+        builder.setMessage("We can not play tis song for some resean  \nwant to check the song page on your browser?")
+        builder.setPositiveButton("yes",object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                openBrowser(url)
+            }
+        })
+        builder.setNegativeButton("No", object : DialogInterface.OnClickListener{
+            override fun onClick(dialog: DialogInterface?, which: Int) {
+                alertdialog?.cancel()
+            }
+
+        })
+        alertdialog = builder.create()
+        alertdialog!!.show()
+    }
+
+    fun openBrowser(url: String) {
+        val lun = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(lun)
+    }
+
+    fun downloadMp3(arrayList: ArrayList<String>, context: Context){
+        val lun = Intent(Intent.ACTION_VIEW, Uri.parse(arrayList.get(1)))
+        startActivity(lun)
+    }
+
 
 }
 

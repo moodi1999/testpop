@@ -63,8 +63,11 @@ class GetSongPageCon(val activity: FragmentActivity?, val songData: SongData, va
         super.onPostExecute(result)
 
         if (musicType == MusicType.Album){
-            AlbumPageDF(activity,songData).execute()
-
+            if (callType == CallType.GetMp3){
+                AlbumPageDF(activity,songData, CallType.GetMp3, context).execute()
+            }else {
+                AlbumPageDF(activity, songData, CallType.Stream).execute()
+            }
         }else{
             if (callType == CallType.GetMp3)
                 SongPageDF(activity,songData, CallType.GetMp3).execute(result)
