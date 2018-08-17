@@ -14,5 +14,8 @@
     <color name="slide_toobar">#83000000</color>
     <color name="media_contorol">#45000000</color>
     <color name="album_item">#92292929</color>
+    <color name="snackbar_back_color">#ec383838</color>
+    <color name="snackbar_text_color">#dadada</color>
+    <color name="snackbar_action_color">#007a7c</color>
 
 </resources>

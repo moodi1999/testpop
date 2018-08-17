@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import com.example.ahmadreza.testpop.Activities.MainActivity
 import com.example.ahmadreza.testpop.Datas.CallType
 import com.example.ahmadreza.testpop.Storege.DataStorage
+import kotlinx.android.synthetic.main.cor_activity_main.*
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.InputStreamReader

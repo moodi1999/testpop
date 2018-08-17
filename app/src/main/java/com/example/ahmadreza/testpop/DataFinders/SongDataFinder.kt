@@ -14,6 +14,7 @@ import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.Datas.SongData
 import com.example.ahmadreza.testpop.R
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
+import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_recent.view.*
 import java.util.regex.Pattern
 
@@ -266,7 +267,6 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
             view.category_recyclerView_sec.scheduleLayoutAnimation()
 
         }
-
 
     }
 

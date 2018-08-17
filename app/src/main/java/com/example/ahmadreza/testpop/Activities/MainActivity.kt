@@ -11,15 +11,13 @@ import android.os.AsyncTask
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.SearchView
-import android.widget.SeekBar
-import android.widget.Toast
+import android.widget.*
 import com.example.ahmadreza.testpop.Adaptors.ViewPageAdaptor
 import com.example.ahmadreza.testpop.DataGeters.DownloadWebContent
 import com.example.ahmadreza.testpop.Datas.*
@@ -145,6 +143,30 @@ class MainActivity : AppCompatActivity() {
 
         //search layout traslation
         searchlay.animate().translationYBy(2000f).setDuration(300)
+
+        // snake bar
+        val snackebar = Snackbar.make(activity_main_cor, "Want to refresh?", Snackbar.LENGTH_INDEFINITE)
+        snackebar.setDuration(3000)
+        snackebar.setAction("Yes", object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                refresh()
+                snackebar.dismiss()
+                swip.isRefreshing = false
+            }
+
+        })
+        val sview = snackebar.view
+        sview.setBackgroundColor(resources.getColor(R.color.snackbar_back_color))
+
+        val actext = sview.findViewById<TextView>(android.support.design.R.id.snackbar_action)
+        actext.setTextColor(resources.getColor(R.color.snackbar_action_color))
+
+
+
+        //refresh ui
+        swip.setOnRefreshListener {
+            snackebar.show()
+        }
     }
 
     fun viewPagerInit(){  // View pager and Tab Layout
@@ -321,9 +343,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-            R.id.refresh -> {
-                refresh()
-            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -434,7 +453,7 @@ class MainActivity : AppCompatActivity() {
         var alertdialog: AlertDialog? = null
         builder.setIcon(android.R.drawable.ic_dialog_alert)
         builder.setTitle("\nSorry!! :(")
-        builder.setMessage("We can not play tis song for some resean  \nwant to check the song page on your browser?")
+        builder.setMessage("We can not play tis song for some resean!! \nwant to check the song page on your browser?")
         builder.setPositiveButton("yes",object : DialogInterface.OnClickListener{
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 openBrowser(url)
