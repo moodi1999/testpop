@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,6 +47,8 @@ class Popular : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_popular, container, false)
         println("Popular.onCreateView")
+        activity!!.toolbar.x = 0f
+        activity!!.toolbar.y = 0f
         PopularDF(view, context!!, activity).execute()
 
         Ui(view)
@@ -81,7 +84,7 @@ class Popular : Fragment() {
 
     fun scrolling(view: View){
         var scrollup = true
-        if (view.scrollView_recent != null) {
+        if (view.popular_scroll != null) {
 
             view.popular_scroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY > oldScrollY) { // Up
@@ -90,6 +93,9 @@ class Popular : Fragment() {
                         activity!!.toolbar.y = 0f
                         activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
 
+                        activity!!.swip.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+                            activity!!.swip.y = activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(400)
 
                     }
 
@@ -100,6 +106,12 @@ class Popular : Fragment() {
                         activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true
                             activity!!.toolbar.x = 0f
                             activity!!.toolbar.y = 0f
+                        }).setDuration(200)
+
+
+                        activity!!.swip.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+
+                            activity!!.swip.y = activity!!.toolbar.height.toFloat() + activity!!.tab_View_pager.height.toFloat()
                         }).setDuration(200)
                     }
 

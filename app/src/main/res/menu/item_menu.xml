@@ -16,5 +16,8 @@
         android:orderInCategory="1"/>
 
 
+    <item android:id="@+id/about"
+        android:title="About"
+        android:orderInCategory="2"/>
 
 </menu>

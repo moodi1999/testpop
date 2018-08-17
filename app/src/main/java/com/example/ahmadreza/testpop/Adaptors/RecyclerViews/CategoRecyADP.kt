@@ -17,6 +17,7 @@ import com.example.ahmadreza.testpop.Datas.CatgoData
 import com.example.ahmadreza.testpop.R
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
+import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
 
 /**
@@ -28,6 +29,8 @@ class CategoRecyADP(val view: View, val context: Context, val arrayList: ArrayLi
         holder.updateUi(categoData)
 
         holder.cardview?.setOnClickListener {
+            activity!!.toolbar.x = 0f
+            activity!!.toolbar.y = 0f
             getdata(categoData.url)
             DataStorage.instance.cat_currnet_url = categoData.url
             view.second.animate().translationXBy(2000f).setDuration(600).withEndAction {

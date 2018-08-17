@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
         // snake bar
         val snackebar = Snackbar.make(activity_main_cor, "Want to refresh?", Snackbar.LENGTH_INDEFINITE)
-        snackebar.setDuration(3000)
+        snackebar.setDuration(2000)
         snackebar.setAction("Yes", object : View.OnClickListener {
             override fun onClick(v: View?) {
                 refresh()
@@ -155,6 +155,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
+
+
         val sview = snackebar.view
         sview.setBackgroundColor(resources.getColor(R.color.snackbar_back_color))
 
@@ -162,10 +165,10 @@ class MainActivity : AppCompatActivity() {
         actext.setTextColor(resources.getColor(R.color.snackbar_action_color))
 
 
-
         //refresh ui
         swip.setOnRefreshListener {
             snackebar.show()
+            swip.postDelayed(Runnable { swip.isRefreshing = false }, 2500)
         }
     }
 
@@ -194,10 +197,9 @@ class MainActivity : AppCompatActivity() {
         ring_progress.requestFocus()
         song_seekbar!!.max = 0
         progresbar_small.max = 0
-        song_seekbar!!.max = player!!.duration.toInt() / 1000
-        progresbar_small.max = player!!.duration.toInt() / 1000
-
-
+        song_seekbar!!.max = player!!.duration.toInt() / 100
+        progresbar_small.max = player!!.duration.toInt() / 100
+        var max = player!!.duration.toInt() / 100
         curr_time!!.text = stringForTime(player!!.currentPosition.toInt())
         song_lenth!!.text = stringForTime(player!!.duration.toInt())
 
@@ -206,17 +208,20 @@ class MainActivity : AppCompatActivity() {
         handler!!.post(object : Runnable {
             override fun run() {
                 if (player != null && isPlaying) {
-                    song_seekbar!!.max = player!!.duration.toInt() / 1000
-                    progresbar_small.max = player!!.duration.toInt() / 1000
-                    mCurrentPosition = player!!.currentPosition.toInt() / 1000
-                    println(mCurrentPosition!!)
+                    song_seekbar!!.max = player!!.duration.toInt() / 100
+                    progresbar_small.max = player!!.duration.toInt() / 100
+                    mCurrentPosition = player!!.currentPosition.toInt() / 100
                     song_seekbar!!.progress = mCurrentPosition!!
                     progresbar_small.progress = mCurrentPosition!!
-                    ring_progress.progress = mCurrentPosition!!
+                    try {
+                        ring_progress.progress = (mCurrentPosition!! * 100) / max
+                    }catch (e: Exception){
+
+                    }
                     curr_time.text = stringForTime(player!!.currentPosition.toInt())
                     song_lenth.text = stringForTime(player!!.duration.toInt())
 
-                    handler!!.postDelayed(this, 1000)
+                    handler!!.postDelayed(this, 100)
 
                 }
             }
@@ -263,9 +268,11 @@ class MainActivity : AppCompatActivity() {
         }
         if (player != null){
             player!!.playWhenReady = play
+        }
+        if (mCurrentPosition != null){
             song_seekbar!!.progress = mCurrentPosition!!
             progresbar_small.progress = mCurrentPosition!!
-            ring_progress.progress = mCurrentPosition!!
+            ring_progress.progress = (mCurrentPosition!! * 100) / player!!.duration.toInt()
         }
     }
 
@@ -331,7 +338,6 @@ class MainActivity : AppCompatActivity() {
 
             }
             R.id.app_bar_search -> {
-                println("searchhhhhhh")
                 searchlay.animate().translationYBy(-2000f).setDuration(300).withEndAction {
                     searchlay.x = 0f
                     searchlay.y = 0f
@@ -341,6 +347,10 @@ class MainActivity : AppCompatActivity() {
                 search.setOnCloseListener { println("search closeeeeeeeeee")
                 true
                 }
+
+            }
+
+            R.id.about -> {
 
             }
         }
@@ -370,9 +380,12 @@ class MainActivity : AppCompatActivity() {
                 album.visibility = View.INVISIBLE
                 single.visibility = View.VISIBLE
                 try { // first try to play 128 qu
+                    println(songData.mp3.get(3))
                     play(songData.mp3.get(3), true)
+
                 }catch (e: Exception){ // if 128 qu wasnt there play 320q
                     play(songData.mp3.get(1), true)
+                    songData.mp3.get(1)
                 }
             }
             else{ // Album
@@ -384,7 +397,7 @@ class MainActivity : AppCompatActivity() {
             }
         }catch (e: Exception){ // if anything happend among the playing a dialog showed
             dialog?.dismiss()
-
+            e.printStackTrace()
             errorDialog(context, songData!!.url)
         }
 
@@ -484,6 +497,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    override fun onStop() {
+        super.onStop()
+        player!!.release()
+    }
 
 }
 

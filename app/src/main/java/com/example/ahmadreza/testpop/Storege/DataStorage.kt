@@ -136,12 +136,14 @@ class DataStorage {
         before_loading.add(song)
         before_loading.add(song)
         before_loading.add(song)*/
+/*
 
         var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
         arr_recentData.add(song)
         arr_recentData.add(song)
         arr_recentData.add(song)
         arr_recentData.add(song)
+*/
 
       /*  var cat = CatgoData("آرشیو ماه", "www.google.com")
         arr_categories.add(cat)

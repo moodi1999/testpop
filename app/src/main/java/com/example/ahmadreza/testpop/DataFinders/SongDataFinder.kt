@@ -213,7 +213,10 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
     override fun onPostExecute(result: ArrayList<SongData>) {
         super.onPostExecute(result)
         println("SongDataFinder.onPostExecute")
+
         (activity as MainActivity).dialog?.dismiss()
+        activity.swip.y = activity.toolbar.height.toFloat() + activity.tab_View_pager.height.toFloat()
+
         if (type == CallType.RECENT)  {
             if (methodType == CallMethod.OnCreat){
                 Ds.arr_recentData = result

@@ -1,27 +1,20 @@
 package com.example.ahmadreza.testpop.Fragments
 
 
-import android.content.Context
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewCompat
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.view.animation.LayoutAnimationController
-import android.widget.ImageView
-import com.example.ahmadreza.testpop.Adaptors.RecyclerViews.CategoRecyADP
 import com.example.ahmadreza.testpop.DataFinders.CategoryDF
 import com.example.ahmadreza.testpop.Storege.DataStorage
 
 import com.example.ahmadreza.testpop.R
-import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.catego_first_lay.view.*
+import kotlinx.android.synthetic.main.catego_second_lay.*
 import kotlinx.android.synthetic.main.catego_second_lay.view.*
 import kotlinx.android.synthetic.main.cor_activity_main.*
 import kotlinx.android.synthetic.main.fragment_categories.view.*
@@ -80,9 +73,11 @@ class Categories : Fragment() {
         view.category_recyclerView_sec.setHasFixedSize(true)
         ViewCompat.setNestedScrollingEnabled(view.category_recyclerView_sec, false)
 
-        view.animate.setOnClickListener {
+        view.catego_chane_page.setOnClickListener {
             DataStorage.instance.arr_catego_item_Data.clear()
 
+            activity!!.toolbar.x = 0f
+            activity!!.toolbar.y = 0f
             view.second.x = 0f
             view.second.y = 0f
             view.second.animate().translationXBy(-2000f).setDuration(600).withEndAction {
@@ -112,6 +107,10 @@ class Categories : Fragment() {
                         activity!!.toolbar.y = 0f
                         activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
 
+                        activity!!.swip.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+                            activity!!.swip.y = activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(400)
+
 
                     }
 
@@ -122,20 +121,23 @@ class Categories : Fragment() {
                         activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true
                             activity!!.toolbar.x = 0f
                             activity!!.toolbar.y = 0f}).setDuration(200)
-                        view.more_catego.animate().translationY(150f).setDuration(100)
+
+                        activity!!.swip.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+
+                            activity!!.swip.y = activity!!.toolbar.height.toFloat() + activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(200)
+
                     }
 
                 }
 
-                else if (scrollY == 0) {
+                if (scrollY == 0) {
                     activity!!.toolbar.x = 0f
                     activity!!.toolbar.y = 0f
 
                 }
 
                 if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
-                    view.more_catego.bringToFront()
-                    view.more_catego.animate().translationY(-150f).setDuration(100)
                 }
             })
         }
@@ -153,6 +155,10 @@ class Categories : Fragment() {
                         activity!!.toolbar.y = 0f
                         activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
 
+                        activity!!.swip.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+                            activity!!.swip.y = activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(400)
+
 
                     }
 
@@ -164,6 +170,13 @@ class Categories : Fragment() {
                             activity!!.toolbar.x = 0f
                             activity!!.toolbar.y = 0f
                         }).setDuration(200)
+
+
+                        activity!!.swip.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+
+                            activity!!.swip.y = activity!!.toolbar.height.toFloat() + activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(200)
+
                         view.more_catego.animate().translationY(150f).setDuration(100)
                     }
 

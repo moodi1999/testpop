@@ -91,30 +91,41 @@ class Recent : Fragment() {
             view.scrollView_recent.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (scrollY > oldScrollY) { // Up
                     if (scrollup){
-                        activity!!.toolbar.x = 0f
                         activity!!.toolbar.y = 0f
-                        activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = false }).setDuration(400)
 
+                        activity!!.toolbar.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+                            scrollup = false
+                            }).setDuration(400)
 
+                        activity!!.swip.animate().translationYBy(-activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+                            activity!!.swip.y = activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(400)
                     }
 
                 }
                 else if (scrollY < oldScrollY) { // Down
                     if (!scrollup){
 
-                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable { scrollup = true
-             activity!!.toolbar.x = 0f
-             activity!!.toolbar.y = 0f
-             }).setDuration(200)
+
+
+                        activity!!.toolbar.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+                            scrollup = true
+                            activity!!.toolbar.y = 0f
+                            }).setDuration(200)
+
+                        activity!!.swip.animate().translationYBy(activity!!.toolbar.height.toFloat()).withEndAction(Runnable {
+
+                            activity!!.swip.y = activity!!.toolbar.height.toFloat() + activity!!.tab_View_pager.height.toFloat()
+                        }).setDuration(200)
+
                         view.more_recent.animate().translationY(150f).setDuration(100)
                     }
 
                 }
 
-                else if (scrollY == 0) {
-                    activity!!.toolbar.x = 0f
+                if (scrollY == 0) {
                     activity!!.toolbar.y = 0f
-
+                    println("is uppp")
                 }
 
                 if(scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {

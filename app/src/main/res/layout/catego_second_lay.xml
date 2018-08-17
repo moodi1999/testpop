@@ -6,22 +6,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.ahmadreza.testpop.Fragments.Categories">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/animate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_menu_set_as"
-        app:backgroundTint="@android:color/holo_blue_light"
-        app:layout_constraintBottom_toBottomOf="@+id/more_catego"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/catego_song_scroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/Background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +37,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/catego_chane_page"
+        android:layout_width="39dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="276dp"
+        android:background="@drawable/round_album_recy_item"
+        android:src="@android:drawable/ic_media_play"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
