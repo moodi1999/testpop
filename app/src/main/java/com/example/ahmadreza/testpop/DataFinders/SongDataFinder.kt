@@ -3,6 +3,7 @@ package com.example.ahmadreza.testpop.DataFinders
 import android.content.Context
 import android.os.AsyncTask
 import android.support.v4.app.FragmentActivity
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
@@ -47,9 +48,8 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
 
                 content = Ds.recentWebContent
                 n = ((content.split(Ds.bn_songs))[1].split(Ds.an_songs))[0]
-            }
+                   }
             else if (type == CallType.CATGORY){
-                println("typeee ${type}")
                 content = Ds.item_categoWebContent
                 n = ((content.split(Ds.bn_songs_catego))[1].split(Ds.an_songs_catego))[0]
             }
@@ -90,28 +90,22 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
                     try {
                         m_each_cat.find()
                         var cat1 = m_each_cat.group(1)
-                        println("catsss = ${cat1}")
                         cats += cat1
                     }catch (e: Exception){
-                        println("cat1 not found")
                     }
 
                     try {
                         m_each_cat.find()
                         var cat2 = m_each_cat.group(1)
-                        println("catsss = ${cat2}")
                         cats += " , " + cat2
                     }catch (e: Exception){
-                        println("cat2 not found")
                     }
 
                     try {
                         m_each_cat.find()
                         var cat3 = m_each_cat.group(1)
-                        println("catsss = ${cat3}")
                         cats += " , " + cat3
                     }catch (e: Exception){
-                        println("cat3 not found")
                     }
 
                 }
@@ -129,8 +123,10 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
                 }
 
                 try {
+                    val TAG = "SongDataFinder"
                     m_ImgUrl.find()
                     ImgUrl = m_ImgUrl.group(1)
+                    Log.i(TAG, "doInBackground: $ImgUrl")
                 }
                 catch (e: Exception){
                     ImgUrl = "Not Found"
@@ -205,7 +201,6 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
         }
         catch (e : Exception){
             e.printStackTrace()
-            println("something")
             return arr
         }
     }
@@ -224,15 +219,6 @@ class SongDataFinder(val view: View, val context: Context?, val activity: Fragme
             else if (methodType == CallMethod.Click){
                 Ds.arr_recentData.addAll(result)
             }
-
-            var song: SongData = SongData("www.google.com","anfroid","mmamd", "www.picaso.com","good , ok","today","a lot")
-            Ds.arr_recentData.add(song)
-            Ds.arr_recentData.add(song)
-            Ds.arr_recentData.add(song)
-            Ds.arr_recentData.add(song)
-            Ds.arr_recentData.add(song)
-            Ds.arr_recentData.add(song)
-            Ds.arr_recentData.add(song)
             println(Ds.arr_recentData.size)
             print("\nsizeeee")
 

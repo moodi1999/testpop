@@ -15,7 +15,7 @@ class DataStorage {
 
     var before_loading: ArrayList<SongData> = ArrayList()
 
-    val Main_URL = "http://pop-music.ir"
+    val Main_URL = "http://pop-music.ir/"
     val page_txt = "/page/"
     var rec_page_num = 1
     var cat_page_num = 1

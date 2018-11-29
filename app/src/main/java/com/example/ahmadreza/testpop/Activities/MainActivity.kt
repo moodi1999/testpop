@@ -24,6 +24,7 @@ import com.example.ahmadreza.testpop.Datas.*
 import com.example.ahmadreza.testpop.Fragments.*
 import com.example.ahmadreza.testpop.Storege.DataStorage
 import com.example.ahmadreza.testpop.R
+import com.example.ahmadreza.testpop.R.id.loading_prog
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.ExoPlayerFactory
 import com.google.android.exoplayer2.Player
@@ -119,7 +120,6 @@ class MainActivity : AppCompatActivity() {
         Blurry.with(applicationContext).sampling(1).from(largeIcon).into(imageView)
 
         // toolbar
-        toolbar
         setSupportActionBar(toolbar)
         supportActionBar!!.setTitle("Pop Music")
         toolbar.bringToFront()
@@ -443,20 +443,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun refresh(){
-        Ds!!.arr_recentData.clear()
-        Ds!!.rec_page_num = 1
-        Ds!!.item_categoWebContent_Done = null
-        Ds!!.Cat_isCreated = false
-        Ds!!.week_con = ""
-        Ds!!.month_con = ""
-        Ds!!.year_con = ""
-        Ds!!.arr_popu_week.clear()
-        Ds!!.arr_popu_month.clear()
-        Ds!!.arr_popu_year.clear()
-        Ds!!.item_categoWebContent = ""
-        Ds!!.item_categoWebContent_Done = null
-        Ds!!.arr_categories.clear()
-        Ds!!.arr_catego_item_Data.clear()
+        Ds!!.run {
+            arr_recentData.clear()
+            rec_page_num = 1
+            item_categoWebContent_Done = null
+            Cat_isCreated = false
+            week_con = ""
+            month_con = ""
+            year_con = ""
+            arr_popu_week.clear()
+            arr_popu_month.clear()
+            arr_popu_year.clear()
+            item_categoWebContent = ""
+            item_categoWebContent_Done = null
+            arr_categories.clear()
+            arr_catego_item_Data.clear()
+        }
         getData()
         viewPagerInit()
     }
@@ -483,9 +485,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openBrowser(url: String) {
-        val lun = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(lun)
-    }
+        try {
+            val lun = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(lun)
+
+        }catch (e: java.lang.Exception){}
+
+        }
 
     fun downloadMp3(arrayList: ArrayList<String>, context: Context){
         if (arrayList.size < 2){

@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout
 import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -26,6 +27,7 @@ import com.squareup.picasso.Picasso
  */
 class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, val activity: FragmentActivity?): RecyclerView.Adapter<RecentRecyAdp.ViewHolder>() {
 
+    private val TAG = "RecentRecyAdp"
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var song: SongData = arrayList.get(position)
 
@@ -166,7 +168,8 @@ class RecentRecyAdp(val arrayList: ArrayList<SongData>, val context: Context?, v
 
             tap?.setOnClickListener {
                 try {
-                    Picasso.with(context!!).load(song.Img_URL).resize(190, 200).memoryPolicy(MemoryPolicy.NO_STORE).memoryPolicy(MemoryPolicy.NO_CACHE).priority(Picasso.Priority.HIGH).placeholder(R.drawable.ic_loading_img).error(R.drawable.ic_carsh_img).into(artistImg)
+                    Log.i(TAG, "updateUi: ${song.Img_URL}")
+                    Picasso.with(context!!).load(song.Img_URL).into(artistImg)
                 }catch (e: Exception){
                     e.printStackTrace()
                 }
